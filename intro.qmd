@@ -7,11 +7,11 @@ author:
 
 ## ¿Cómo instalar R y RStudio?
 
-Recomendamos que utilices tu propio ordenador portátil para este curso. Si aún no lo has hecho, descarga e instala R y RStudio en tu ordenador portátil. Haz clic [aquí](https://www.youtube.com/watch?v=eD07NznguA4) para obtener instrucciones sobre cómo hacerlo en Windows o [aquí](https://www.youtube.com/watch?v=E8IFmqSXjDc) para obtener instrucciones sobre cómo hacerlo en Mac. Si utiliza un Mac, sería conveniente que utilizaras la versión más actualizada del sistema operativo o, al menos, una compatible con la versión más reciente de R. Lee [esto](https://www.howtogeek.com/350906/how-to-check-which-version-of-macos-youre-using/) si deseas saber cómo hacerlo.
+Recomendamos que utilicéis vuestro propio ordenador portátil para este curso. Si aún no lo habéis hecho, descargad e instalad R y RStudio en vuestro ordenador portátil. Haced clic [aquí](https://www.youtube.com/watch?v=hbgzW3Cvda4) para obtener instrucciones sobre cómo hacerlo en Windows o [aquí](https://www.youtube.com/watch?v=EosOpvabcac) para obtener instrucciones sobre cómo hacerlo en Mac. Si utilizáis un Mac, sería conveniente que utilizarais la versión más actualizada del sistema operativo o, al menos, una compatible con la versión más reciente de R. Leed [esto](https://www.howtogeek.com/350906/how-to-check-which-version-of-macos-youre-using/) si deseáis saber cómo hacerlo. También es posible usar una distribución de Linux como UBUNTU si es el sistema operativo con el que trabajáis (ver [aquí](https://www.youtube.com/watch?v=DGCEFBpkLjM)).
 
 ## Abre y explora RStudio
 
-En esta sesión, nos centraremos en familiarizarnos con R Studio. Se puede utilizar R sin RStudio, pero RStudio es una aplicación que facilita el trabajo con R. RStudio ejecuta automáticamente R en segundo plano. En esta unidad del curso interactuaremos con R a través de RStudio.
+En esta sesión, nos centraremos en familiarizarnos con RStudio. Se puede utilizar R sin RStudio, pero RStudio es una aplicación que facilita el trabajo con R. RStudio ejecuta automáticamente R en segundo plano. En este  curso siempre interactuaremos con R a través de RStudio.
 
 ![](imgs/rstudio.PNG){width="80%"}
 
@@ -19,25 +19,25 @@ Cuando abras R Studio por primera vez, verás (como en la imagen anterior) que h
 
 ![](imgs/openscript.PNG){width="80%"}
 
-La vista en R Studio está estructurada de manera que en una sesión normal se muestran cuatro paneles abiertos. Haz clic en el menú desplegable *File*, selecciona *New File* y, a continuación, *R Script*. Ahora verás las cuatro áreas de la ventana en pantalla. En cada una de estas áreas puedes cambiar entre diferentes vistas y paneles. También puedes utilizar el ratón para cambiar el tamaño de las diferentes ventanas si te resulta más cómodo.
+La vista en R Studio está estructurada de manera que en una sesión normal se muestran cuatro paneles abiertos. Haz clic en el menú desplegable *File*, selecciona *New File* y, a continuación, *R Script* (trabajo con la versión en inglés de RStudio y MAC, si habéis instalado una versión en castellano es posible que estos nombres aparezcan en castellano). Ahora verás las cuatro áreas de la ventana en pantalla. En cada una de estas áreas puedes cambiar entre diferentes vistas y paneles. También puedes utilizar el ratón para cambiar el tamaño de las diferentes ventanas si te resulta más cómodo.
 
 ![](imgs/the4views.PNG){width="80%"}
 
 Fíjate, por ejemplo, en la zona inferior derecha. En esta zona puedes ver que hay diferentes pestañas, que están asociadas a diferentes vistas. En las pestañas de esta sección se pueden ver que hay diferentes vistas disponibles: *Files*, *Plots*, *Packages*, *Help*, *Viewer* y *Presentation*. La pestaña **Files** te permite ver los archivos del directorio físico que está configurado actualmente como tu entorno de trabajo. Puedes considerarla como una ventana del Explorador de Windows que te permite ver el contenido de una carpeta.
 
-En el panel **Plots** verás cualquier visualización de datos o representación gráfica de datos que produzcas. Todavía no hemos producido ninguno, por lo que por ahora está vacío. Si haces clic en **Packages**, verás los paquetes que están disponibles actualmente en tu instalación. ¿Qué es un «paquete» en este contexto?
+En el panel **Plots** verás cualquier visualización de datos o representación gráfica de datos que produzcas. Todavía no hemos producido ninguno, por lo que por ahora está vacío. Si haces clic en **Packages**, verás los paquetes que están disponibles actualmente en tu instalación. ¿Qué es un "paquete" en este contexto?
 
-Los paquetes son módulos que amplían las funciones de R. Hay miles de ellos. Algunos vienen preinstalados cuando se realiza una instalación básica de R. Otros los eliges e instalas tú mismo. En este curso presentaremos algunos paquetes importantes que recomendamos y que deberías instalar.
+Los paquetes son módulos que amplían las funciones de R. Hay miles de ellos. Algunos vienen pre-instalados cuando se realiza una instalación básica de R. Otros los eliges e instalas tú mismo. En este curso presentaremos algunos paquetes importantes que recomendamos y que deberías instalar.
 
 El otro panel realmente útil en esta parte de la pantalla es el visor de **Help**. Aquí puedes acceder a la documentación de los distintos paquetes que componen R. Aprender a utilizar esta documentación será esencial si deseas sacar el máximo partido a R.
 
-En la esquina diagonalmente opuesta, la superior izquierda, ahora debería tener una ventana de script abierta. El **Script** es donde se escribe el código de programación, las instrucciones que se envían al ordenador. Un script no es más que un archivo de texto en el que se puede escribir. A diferencia de otros programas de análisis de datos que hayas utilizado anteriormente (Excel, SPSS), debes interactuar con R escribiendo instrucciones y pidiendo a R que las evalúe. R es un lenguaje de programación *interpretado*: escribes instrucciones (código) que el motor R tiene que interpretar para hacer algo. Y todas las instrucciones que escribimos pueden y deben guardarse en un script, para que puedas recuperar más tarde lo que hiciste y tu "yo futuro" entienda y recuerde lo que hizo tu "yo pasado".
+En la esquina diagonalmente opuesta, la superior izquierda, ahora deberías tener una ventana de script abierta. El **Script** es donde se escribe el código de programación, las instrucciones que se envían al ordenador. Un script no es más que un archivo de texto en el que se puede escribir. A diferencia de otros programas de análisis de datos que hayas utilizado anteriormente (Excel, SPSS), debes interactuar con R escribiendo instrucciones y pidiendo a R que las evalúe. R es un lenguaje de programación *interpretado*: escribes instrucciones (código) que el motor R tiene que interpretar para hacer algo. Y todas las instrucciones que escribimos pueden y deben guardarse en un script, para que puedas recuperar más tarde lo que hiciste y tu "yo futuro" entienda y recuerde lo que hizo tu "yo pasado".
 
 Una de las principales ventajas de realizar el análisis de datos de esta manera es que se genera un registro escrito de cada paso que se da en el análisis. Sin embargo, el reto es que hay que aprender este lenguaje para poder utilizarlo. Ese será el objetivo principal de este curso: enseñarte a escribir código R para el análisis de datos.
 
-Como con cualquier lenguaje, cuanto más lo practiques, más fácil te resultará. La mayoría de las veces copiarás y pegarás fragmentos de código que te proporcionaremos. Pero también esperamos que desarrolles una comprensión básica de lo que hacen estos fragmentos de código. Es un poco como cocinar. Al principio, solo seguirás las recetas tal y como se te dan, pero a medida que te sienta más cómodo en tu «cocina», te sentirás más cómodo experimentando.
+Como con cualquier lenguaje, cuanto más lo practiques, más fácil te resultará. La mayoría de las veces copiarás y pegarás fragmentos de código que te proporcionaremos en este manual. Pero también esperamos que desarrolles una comprensión básica de lo que hacen estos fragmentos de código. Es un poco como cocinar. Al principio, solo seguirás las recetas tal y como se te dan, pero a medida que te sienta más cómodo o cómoda en tu "cocina", te sentirás más cómodo o cómoda experimentando.
 
-La ventaja de realizar el análisis de esta manera es que, una vez que hayas escrito tus instrucciones y las haya guardado en un archivo, podrá compartirlas con otras personas y ejecutarlas cada vez que lo desees en cuestión de segundos. Esto crea un registro *reproducible* de tu análisis: algo que tus colaboradores u otras personas en cualquier lugar (incluido tu yo futuro, el que habrá olvidado cómo hacer las cosas) podrían ejecutar y obtener los mismos resultados que obtuviste en algún momento anterior.
+La ventaja de realizar el análisis de esta manera es que, una vez que hayas escrito tus instrucciones y las haya guardado en un archivo, podrá compartirlas con otras personas y ejecutarlas cada vez que lo desees en cuestión de segundos. Esto crea un registro *reproducible* de tu análisis: algo que tus colaboradores u otras personas en cualquier lugar (incluido tu yo futuro, el que con total certeza habrá olvidado qué hiciste y cómo lo hiciste) podrían ejecutar y obtener los mismos resultados que obtuvistes en algún momento anterior.
 
 Esto hace que la ciencia sea más transparente, y la transparencia conlleva muchas ventajas. Por ejemplo, hace que tu investigación sea más fiable. No subestimes lo importante que es esto. La **reproducibilidad** se está convirtiendo en un criterio clave para evaluar la buena calidad de la investigación. Y herramientas como R nos permiten mejorarla. Si quieres saber más sobre la investigación reproducible, puedes leer más [aquí](http://theconversation.com/the-science-reproducibility-crisis-and-what-can-be-done-about-it-74198).
 
@@ -45,11 +45,11 @@ Esto hace que la ciencia sea más transparente, y la transparencia conlleva much
 
 RStudio te permite personalizar su aspecto. Por ejemplo, trabajar con fondos blancos no suele ser una buena idea si te preocupa tu vista. Si no quieres acabar con los ojos secos, no solo es recomendable que sigas la regla 20-20-20 (cada 20 minutos, mira durante 20 segundos un objeto situado a 20 metros de distancia), sino que también puede ser una buena idea utilizar fondos de pantallas más agradables para la vista (por ejemplo, un modo oscuro).
 
-Haz clic en el menú *Tools* y selecciona *Global options*. Se abrirá una ventana emergente con varias opciones. Selecciona *Appearance*. En esta sección puedes cambiar el tipo y tamaño de la fuente, pero también el tipo de fondo del tema que R utilizará en las distintas ventanas. Tengo problemas de visión, por lo que a menudo aumento el tipo de fuente. También utilizo el tema *Tomorrow Night Bright* para evitar que mis ojos se sequen demasiado por el esfuerzo de leer una pantalla iluminada, pero es posible que tu prefieras otro diferente. Puedes previsualizarlos y luego hacer clic en aplicar para seleccionar el que más te guste. Esto no cambiará tus resultados ni tu análisis. Es solo algo que quizá desees hacer para que todo se vea mejor y sea más saludable para tí.
+Haz clic en el menú *Tools* y selecciona *Global options*. Se abrirá una ventana emergente con varias opciones. Selecciona *Appearance*. En esta sección puedes cambiar el tipo y tamaño de la fuente, pero también el tipo de fondo del tema que R utilizará en las distintas ventanas. Tengo problemas de visión, por lo que a menudo aumento el tipo de fuente. También utilizo el tema *Tomorrow Night Bright* para evitar que mis ojos se sequen demasiado por el esfuerzo de leer una pantalla iluminada, pero es posible que tu prefieras otro diferente. Puedes pre-visualizarlos y luego hacer clic en "aplicar" para seleccionar el que más te guste. Esto no cambiará tus resultados ni tus análisis. Es solo algo que quizá desees hacer para que todo se vea mejor y sea más saludable para tí.
 
 ## Organización: Proyectos R
 
-Siempre que realices un análisis, trabajarás con una gran variedad de archivos. Es posible que tengas un fichero de datos de Excel (o algún otro tipo de archivo de datos, como csv, por ejemplo), un archivo de Microsoft Word o parecido en el que está escribiendo el ensayo con tus resultados, pero también un script con todo el código de programación que has estado utilizando. R necesita saber dónde se encuentran todos estos archivos en tu ordenador. A menudo recibirás mensajes de error porque esperas que R encuentre uno de estos archivos en una ubicación incorrecta. **Por lo tanto, es absolutamente fundamental que comprendas cómo tu ordenador organiza y almacena los archivos.** Puedes ver los siguientes vídeos para comprender los conceptos básicos de la gestión de archivos y las rutas de archivo:
+Siempre que realices un análisis, trabajarás con una gran variedad de archivos. Es posible que tengas un fichero de datos de Excel (o algún otro tipo de archivo de datos, como csv, por ejemplo), un archivo de Microsoft Word o parecido en el que está escribiendo el ensayo con tus resultados, pero también un script con todo el código de programación que has estado utilizando. R necesita saber dónde se encuentran todos estos archivos en tu ordenador. A menudo recibirás mensajes de error porque esperas que R encuentre uno de estos archivos en una ubicación incorrecta. **Por lo tanto, es absolutamente fundamental que comprendas cómo tu ordenador organiza y almacena los archivos.** Debes ver los siguientes vídeos para comprender los conceptos básicos de la gestión de archivos y las rutas de archivo. Están en inglés pero e YouTube puedes poner sub-titulos en castellano (si no sabes como hacerlo pregúntanos):
 
 [Usuarios de Windows](https://www.youtube.com/watch?v=k-EID5_2D9U)
 
@@ -57,9 +57,9 @@ Siempre que realices un análisis, trabajarás con una gran variedad de archivos
 
 La mejor manera de evitar problemas con la gestión de archivos en R es utilizando lo que RStudio denomina **R Projects**.
 
-Técnicamente, un proyecto RStudio es simplemente un directorio (una carpeta) con el nombre del proyecto y algunos archivos y carpetas creados por R Studio para fines internos. Aquí es donde debes guardar tus scripts, tus datos y tus informes. Puedes gestionar esta carpeta con el administrador de su propio sistema operativo (por ejemplo, el Explorador de Windows) o a través del administrador de archivos de R Studio (al que se accede en la esquina inferior derecha de las ventanas de RStudio). Cuando se vuelve a abrir un proyecto, RStudio abre todos los archivos y vistas de datos que estaban abiertos cuando se cerró el proyecto la última vez.
+Técnicamente, un proyecto RStudio es simplemente un directorio (una carpeta) con el nombre del proyecto y algunos archivos y carpetas creados por RStudio para fines internos. Aquí es donde debes guardar tus scripts, tus datos y tus informes. Puedes gestionar esta carpeta con el administrador de su propio sistema operativo (por ejemplo, el Explorador de Windows) o a través del administrador de archivos de R Studio (al que se accede en la esquina inferior derecha de las ventanas de RStudio). Cuando se vuelve a abrir un proyecto, RStudio abre todos los archivos y vistas de datos que estaban abiertos cuando se cerró el proyecto la última vez.
 
-Aprendamos a crear un proyecto. Vaya al menú desplegable *File* y seleccione *New Project*.
+Aprendamos a crear un proyecto. Ve al menú desplegable *File* y selecciona *New Project*.
 
 ![](imgs/newproject.png){width="80%"}
 
@@ -67,15 +67,15 @@ Se abrirá un cuadro de diálogo en el que se te pedirá que especifiques qué t
 
 ![](imgs/newproject2.png){width="80%"}
 
-Ahora aparecerá otro cuadro de diálogo en el que tendrás que especificar qué tipo de proyecto deseas crear. Selecciona la primera opción, «New Project».
+Ahora aparecerá otro cuadro de diálogo en el que tendrás que especificar qué tipo de proyecto deseas crear. Selecciona la primera opción, "New Project".
 
 ![](imgs/newproject3.png){width="80%"}
 
-Por último, podrás seleccionar un nombre para tu proyecto (en la imagen siguiente utilizo el nombre "Rstudy", pero puedes utilizar cualquier nombre sensato que prefieras) y tendrás que especificar la carpeta/directorio en el que colocar este directorio. Selecciona la ubicación que prefieras en tu ordenador portátil (preferiblemente, para evitar problemas más adelante no eligas el escritorio).
+Por último, podrás seleccionar un nombre para tu proyecto (en la imagen siguiente utilizo el nombre "Rstudy", pero puedes utilizar cualquier nombre sensato que prefieras) y tendrás que especificar la carpeta/directorio en el que colocar este directorio. Selecciona la ubicación que prefieras en tu ordenador portátil (¡preferiblemente, para evitar problemas más adelante no eligas el escritorio!).
 
 ![](imgs/newproject4.png){width="80%"}
 
-En proyectos sencillos, es posible que solo tengas un archivo de script y un archivo de datos. Sin embargo, en proyectos más complejos, las cosas pueden complicarse rápidamente. Por lo tanto, es posible que desees crear subdirectorios dentro de la carpeta del proyecto. Normalmente yo utilizo la siguiente estructura en mi trabajo para colocar todos los archivos de un determinado tipo en el mismo subdirectorio:
+En proyectos sencillos, es posible que solo tengas un archivo de script y un archivo de datos. Sin embargo, en proyectos más complejos, las cosas pueden complicarse rápidamente. Por lo tanto, es posible que desees crear sub-directorios dentro de la carpeta del proyecto. Normalmente yo a menudo utilizo la siguiente estructura en mi trabajo para colocar todos los archivos de un determinado tipo en el mismo sub-directorio:
 
 -   *Scripts y código*: aquí guardo todos los archivos de texto con mi código analítico.
 
@@ -85,17 +85,17 @@ En proyectos sencillos, es posible que solo tengas un archivo de script y un arc
 
 -   *Datos modificados*: todos los análisis implican realizar transformaciones y cambios en los archivos de datos originales. No conviene alterar los archivos de datos originales, por lo que lo que hay que hacer es crear nuevos archivos de datos tan pronto como se empiecen a modificar los datos de origen. Yo los coloco en un subdirectorio diferente.
 
--   *Bibliografía*: El análisis consiste en responder a preguntas de investigación. Siempre hay bibliografía sobre estas preguntas. Coloco la bibliografía particularmente relevante para el proyecto analítico que estoy llevando a cabo en este subdirectorio.
+-   *Bibliografía*: El análisis consiste en responder a preguntas de investigación. Siempre hay bibliografía sobre estas preguntas. Coloco la bibliografía particularmente relevante para el proyecto analítico que estoy llevando a cabo en este sub-directorio.
 
 -   *Informes y redacción*: Aquí es donde archivo todos los informes y visualizaciones de datos relacionados con mi análisis.
 
-Puede crear estos subdirectorios utilizando el Explorador de Windows o la ventana Archivos en R Studio.
+Puede crear estos subdirectorios utilizando el Explorador de Windows, o gestores equivalentes en otros sistemas operativos, o la ventana Archivos en RStudio.
 
 ## Funciones: Habla con tu ordenador
 
 Hasta ahora hemos visto una introducción a la interfaz principal que vas a utilizar y hemos hablado de los proyectos de RStudio. En esta unidad vas a utilizar esta interfaz y vas a crear y utilizar archivos dentro de tus proyectos de RStudio para producir análisis basados en código de programación que tendrás que escribir utilizando el lenguaje R.
 
-Escribamos un código muy sencillo utilizando R para comunicarnos con tu ordenador. Primero, abre un nuevo script dentro del proyecto que acabas de crear. Escribe las siguientes instrucciones en la ventana del script. Cuando hayas terminado, haz clic en la esquina superior derecha donde dice *Run* (si prefieres los atajos rápidos, puedes seleccionar el texto y luego pulsar Ctrl + Enter):
+Escribamos un código muy sencillo utilizando R para comunicarnos con tu ordenador. Primero, abre un nuevo script dentro del proyecto que acabas de crear: selecciona "File" y luego "New File" y aquí "R Script". Escribe las siguientes instrucciones en la ventana del script que acabas de crear. Cuando hayas terminado, haz clic en la esquina superior derecha donde dice *Run* (si prefieres los atajos rápidos, puedes seleccionar el texto y luego pulsar Ctrl + Enter):
 
 ```{r}
 print("Me encanta programar")
@@ -105,17 +105,17 @@ print("Me encanta programar")
 
 En este manual verás cuadros en gris con fragmentos de código. Puedes copiar y pegar este código en la ventana de tu script y ejecutarlo desde allí para reproducir nuestros resultados. A medida que avancemos, iremos cubriendo nuevos fragmentos de código.
 
-A veces, en estos documentos verás los resultados de la ejecución del código, lo que se muestra en tu consola o en tu visor de gráficos. Los resultados aparecerán dentro de un cuadro como el anterior.
+A veces, en estos documentos verás los resultados de la ejecución del código, lo que se muestra en tu consola o en tu visor de gráficos. Los resultados aparecerán dentro de un cuadro como el anterior. No obstante, para mantener esta pagina web un tanto presentable no siempre incluiremos en este manual los resultados que tu obtendrás cuando ejecutas el código.
 
-El lenguaje R utiliza **funciones** para indicar al ordenador qué debe hacer. En el *lenguaje* R, las funciones son los *verbos*. Puede pensar en las funciones como comandos predefinidos que alguien ya ha programado en R y que le indican a R qué debe hacer. Aquí has aprendido tu primera función R: *print*. Lo único que hace esta función es pedirle a R que imprima lo que quieras en la consola principal (véase la ventana de la esquina inferior izquierda).
+El lenguaje R utiliza **funciones** para indicar al ordenador qué debe hacer. En el *lenguaje* R, las funciones son los *verbos*. Puede pensar en las funciones como comandos predefinidos que alguien ya ha programado en R y que le indican a R qué debe hacer. Aquí has aprendido tu primera función R: `print`. Lo único que hace esta función es pedirle a R que imprima lo que quieras en la consola principal (véase la ventana de la esquina inferior izquierda).
 
 En R, se pueden pasar varios **argumentos** a cualquier función. Estos argumentos controlan lo que hará la función en cada caso. Los argumentos aparecen entre parentesis. Aquí hemos pasado el texto «Me encanta programar» como argumento. Una vez ejecutado el programa, al hacer clic en *Run*, el motor R envía esto a la CPU de tu máquina en forma de código binario y esto produce un resultado. En este caso, vemos ese resultado impreso en la consola principal.
 
-Cada función de R admite diferentes tipos de argumentos. Aprender R implica no solo aprender diferentes funciones, sino también aprender cuáles son los argumentos válidos que se pueden pasar a cada función.
+Cada función de R admite diferentes tipos de argumentos. Aprender R implica no solo aprender diferentes funciones (nuevos verbos que te permiten hacer cosas diferentes), sino también aprender cuáles son los argumentos válidos que se pueden pasar a cada función.
 
 ![](imgs/consoleresults.PNG){width="80%"}
 
-Como se ha indicado anteriormente, la ventana de la esquina inferior izquierda es la **consola** principal. Si ejecutaste el código anterior, verás que allí aparecen impresas las palabras «Me encanta programar». Si en lugar de utilizar RStudio estuvieras trabajando directamente desde R, eso es todo lo que obtendrías: la consola principal, donde puedes escribir código de forma interactiva (en lugar de todas las diferentes ventanas que ves en RStudio). Puede escribir tu código directamente en la consola principal y ejecutarlo línea por línea de forma interactiva. Sin embargo, lo recomendable es ejecutar el código desde scripts, para que te acostumbres a la idea de documentar adecuadamente todos los pasos que das.
+Como se ha indicado anteriormente, la ventana de la esquina inferior izquierda es la **consola** principal. Si ejecutaste el código anterior, verás que allí aparecen impresas las palabras "Me encanta programar". Si en lugar de utilizar RStudio estuvieras trabajando directamente desde R, eso es todo lo que obtendrías: la consola principal, donde puedes escribir código de forma interactiva (en lugar de todas las diferentes ventanas que ves en RStudio). Puede escribir tu código directamente en la consola principal y ejecutarlo línea por línea de forma interactiva. Sin embargo, lo recomendable es ejecutar el código desde scripts, para que te acostumbres a la idea de documentar adecuadamente todos los pasos que das.
 
 ## Más información sobre los paquetes
 
@@ -127,29 +127,31 @@ Cuando instalas R, solo instalas un conjunto de paquetes básicos, no los más d
 
 ![](imgs/packages.PNG){width="80%"}
 
-Si acaba de instalar R en su ordenador portátil, verás una lista bastante breve de paquetes que constituyen la instalación básica de R. Sin embargo, es fundamental saber cómo instalar paquetes, ya que lo harás con bastante frecuencia.
+Si acaba de instalar R en tu ordenador portátil, verás una lista bastante breve de paquetes que constituyen la instalación básica de R. Sin embargo, es fundamental saber cómo instalar paquetes, ya que lo harás con bastante frecuencia.
 
-Vamos a instalar un paquete llamado «cowsay» para mostrar el proceso. En el panel Paquetes hay un menú *Install* que abre un cuadro de diálogo y le permite instalar paquetes. En vez de usar esta opción, vamos a utilizar código para hacerlo, para instalar este paquete. Solo tienes que copiar y pegar el código siguiente en tu script y ejecutarlo:
+Vamos a instalar un paquete llamado "cowsay" para mostrar el proceso. En el panel Paquetes hay un menú *Install* que abre un cuadro de diálogo y te permite instalar paquetes. En vez de usar esta opción, vamos a utilizar código para hacerlo, para instalar este paquete. Solo tienes que copiar y pegar el código siguiente en tu script y ejecutarlo:
 
-```{r, eval=FALSE}
+```{r}
+#| eval: false
 install.packages("cowsay")
 ```
 
-Aquí estamos introduciendo una nueva función «install.packages» y lo que hemos pasado como argumento es el nombre del paquete que queremos instalar. Así es como instalamos un paquete *que está disponible en el repositorio oficial CRAN*. Dado que te estás conectando a un repositorio en línea, necesitarás una conexión a Internet cada vez que quieras instalar un paquete.
+Aquí estamos introduciendo una nueva función `install.packages` y lo que hemos pasado como argumento es el nombre del paquete que queremos instalar. Así es como instalamos un paquete *que está disponible en el repositorio oficial CRAN*. Dado que te estás conectando a un repositorio en línea, necesitarás una conexión a Internet cada vez que quieras instalar un paquete.
 
 [CRAN](https://cran.r-project.org/) es un repositorio oficial que cuenta con una colección de paquetes R que cumplen con un conjunto mínimo de criterios de calidad. Es un lugar bastante seguro para obtener paquetes. Si quisiéramos instalar un paquete de otro lugar, tendríamos que adaptar el código. Más adelante en otras sesiones verás cómo se instalan paquetes desde GitHub.
 
-Esta línea de código (tal y como está escrita actualmente) instalará este paquete en una biblioteca personal. Si utilizas un equipo con Windows, este código colocará este paquete en una biblioteca personal dentro de su carpeta "Documentos". Una vez que instale un paquete, permanecerá en el equipo/ubicación donde lo instale hasta que lo elimines físicamente.
+Esta línea de código (tal y como está escrita actualmente) instalará este paquete en una biblioteca personal. Si utilizas un equipo con Windows, este código colocará este paquete en una biblioteca personal dentro de su carpeta "Documentos". Una vez que instales un paquete, permanecerá en el equipo/ubicación donde lo instales hasta que lo elimines físicamente.
 
-¿Cómo se averigua qué hace un paquete? Consultando la documentación correspondiente. En la ventana Packages, desplázate hacia abajo hasta encontrar el nuevo paquete que hemos instalado. Aquí verás el nombre del paquete (cowsay), una breve descripción de lo que hace el programa y la versión que has instalado (una indicación de que un paquete es bueno es que haya pasado por varias versiones, lo que significa que alguien se asegura de que el paquete reciba actualizaciones y mejoras periódicas). La versión que tengo para cowsay es la 1.2.0. La tuya puede ser más antigua o más reciente. En este momento, eso no tiene mucha importancia.
+¿Cómo se averigua qué hace un paquete? Consultando la documentación correspondiente. En la ventana *Packages*, desplázate hacia abajo hasta encontrar el nuevo paquete que hemos instalado. Aquí verás el nombre del paquete (cowsay), una breve descripción de lo que hace el programa y la versión que has instalado (una indicación de que un paquete es bueno es que haya pasado por varias versiones, lo que significa que alguien se asegura de que el paquete reciba actualizaciones y mejoras periódicas). La versión que tengo para cowsay es la 1.2.0. La tuya puede ser más antigua o más reciente. En este momento, eso no tiene mucha importancia.
 
 Haga clic en el nombre *cowsay*. Verá que RStudio te ha llevado a la pestaña Help. Aquí encontrará los archivos de ayuda para este paquete, incluida toda la documentación disponible.
 
 A todos los principiantes en R les resultarán un poco confusos estos archivos de ayuda. Pero al cabo de un tiempo, su formato y estructura empezarán a tener sentido para tí. Haz clic donde dice *User guides, package vignettes, and other documentation*. La documentación en R ha mejorado mucho desde que la gente empezó a escribir **viñetas** para sus paquetes. Son pequeños tutoriales que explican con ejemplos lo que hace cada paquete. Haga clic en *cowsay::cowsay_tutorial* que aparece en la lista. Encontrarás un archivo html que te ofrece un tutorial detallado sobre este paquete. No es necesario que lo leas ahora, pero recuerda que esta es una forma de encontrar ayuda cuando utilice R.
 
-Probemos algunas de las funciones de este paquete. Usaremos la función «say»:
+Probemos algunas de las funciones de este paquete. Usaremos la función `say`:
 
-```{r, eval=FALSE}
+```{r}
+#| eval: false
 say("Me encanta programar")
 ```
 
@@ -157,7 +159,7 @@ Aparecerá un mensaje de error indicando que no se ha encontrado esta función. 
 
 Entonces, ¿por qué nos aparece este error? Instalar un paquete es solo el primer paso para poder usarlo. El siguiente paso, cuando quieres utilizarlo en una sesión determinada, es **cargarlo**.
 
-Piensa en ello como en un par de zapatos. Los compras una vez, pero tienes que sacarlos del armario y calzarlos cuando quieres disfrutar de su uso. Lo mismo ocurre con los paquetes: solo los instalas una vez, pero tienes que cargarlos desde tu "biblioteca" cada vez que quieras utilizarlos dentro de una sesión determinada (una vez cargados, permanecerán cargados hasta que finalices la sesión).
+Piensa en ello como en un par de zapatos. Los compras una vez, pero tienes que sacarlos del armario y calzarlos cuando quieres disfrutar de su uso. Lo mismo ocurre con los paquetes: solo los instalas una vez, pero tienes que cargarlos desde tu "biblioteca" cada vez que quieras utilizarlos dentro de una sesión determinada (una vez cargados, permanecerán cargados hasta que finalices la sesión). Recuerda, igual que los zapatos, si te los pones una noche, ¡no tienes que ponértelos de nuevo cada vez que vas a dar un paso! A veces, nos encontramos con que principiantes piensan que tienen que cargar un paquete en una misma sesión cada vez que van a usera una función de un paquete determinado: no es así (solamente tienes que cargar un paquete una vez por sesión).
 
 Para ver qué paquetes tienes actualmente **cargados** en tu sesión, utiliza la función `search()` (en este caso, no es necesario pasarle ningún argumento).
 
