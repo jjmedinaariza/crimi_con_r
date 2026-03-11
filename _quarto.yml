@@ -1,0 +1,29 @@
+project:
+  type: book
+
+book:
+  title: "Criminología con R"
+  author: "J. Medina, S. Kemp, A. Trinidad, J. Torres y A. Moveva"
+  date: "3/3/2026"
+  page-navigation: true
+  cover-image: "cover.jpeg"
+  chapters:
+    - index.qmd
+    - intro.qmd
+    - causality.qmd
+    - visualisation.qmd
+    
+    
+
+bibliography: references.bib
+lang: es
+format:
+  html:
+    theme:
+      - cosmo
+      - brand
+  pdf:
+    documentclass: scrreprt
+
+editor: visual
+

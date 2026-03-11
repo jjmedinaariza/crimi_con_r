@@ -1,0 +1,1667 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Juanjo Medina">
+
+<title>3&nbsp; Visualización de datos con R – Criminología con R</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./causality.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-485d01fc63b59abcd3ee1bf1e8e2748d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Sin resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./visualisation.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Visualización de datos con R</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Criminología con R</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Buscar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bienvenida</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Una introducción a R</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./causality.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Exploración y carpinteria de datos</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./visualisation.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Visualización de datos con R</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tabla de contenidos</h2>
+   
+  <ul>
+  <li><a href="#introducción" id="toc-introducción" class="nav-link active" data-scroll-target="#introducción"><span class="header-section-number">3.1</span> Introducción</a></li>
+  <li><a href="#anatomía-de-un-gráfico" id="toc-anatomía-de-un-gráfico" class="nav-link" data-scroll-target="#anatomía-de-un-gráfico"><span class="header-section-number">3.2</span> Anatomía de un gráfico</a></li>
+  <li><a href="#qué-gráfico-debo-utilizar" id="toc-qué-gráfico-debo-utilizar" class="nav-link" data-scroll-target="#qué-gráfico-debo-utilizar"><span class="header-section-number">3.3</span> ¿Qué gráfico debo utilizar?</a></li>
+  <li><a href="#visualización-de-variables-numéricas-histogramas" id="toc-visualización-de-variables-numéricas-histogramas" class="nav-link" data-scroll-target="#visualización-de-variables-numéricas-histogramas"><span class="header-section-number">3.4</span> Visualización de variables numéricas: histogramas</a></li>
+  <li><a href="#visualización-de-variables-numéricas-gráficos-de-densidad" id="toc-visualización-de-variables-numéricas-gráficos-de-densidad" class="nav-link" data-scroll-target="#visualización-de-variables-numéricas-gráficos-de-densidad"><span class="header-section-number">3.5</span> Visualización de variables numéricas: gráficos de densidad</a></li>
+  <li><a href="#visualización-de-variables-numéricas-diagramas-de-caja" id="toc-visualización-de-variables-numéricas-diagramas-de-caja" class="nav-link" data-scroll-target="#visualización-de-variables-numéricas-diagramas-de-caja"><span class="header-section-number">3.6</span> Visualización de variables numéricas: diagramas de caja</a></li>
+  <li><a href="#exploración-de-las-relaciones-entre-dos-variables-cuantitativas-diagramas-de-dispersión" id="toc-exploración-de-las-relaciones-entre-dos-variables-cuantitativas-diagramas-de-dispersión" class="nav-link" data-scroll-target="#exploración-de-las-relaciones-entre-dos-variables-cuantitativas-diagramas-de-dispersión"><span class="header-section-number">3.7</span> Exploración de las relaciones entre dos variables cuantitativas: diagramas de dispersión</a></li>
+  <li><a href="#condicionamiento-de-diagramas-de-dispersión-en-una-tercera-variable" id="toc-condicionamiento-de-diagramas-de-dispersión-en-una-tercera-variable" class="nav-link" data-scroll-target="#condicionamiento-de-diagramas-de-dispersión-en-una-tercera-variable"><span class="header-section-number">3.8</span> Condicionamiento de diagramas de dispersión en una tercera variable</a></li>
+  <li><a href="#matriz-de-diagramas-de-dispersión" id="toc-matriz-de-diagramas-de-dispersión" class="nav-link" data-scroll-target="#matriz-de-diagramas-de-dispersión"><span class="header-section-number">3.9</span> Matriz de diagramas de dispersión</a></li>
+  <li><a href="#títulos-leyendas-y-temas-en-ggplot2" id="toc-títulos-leyendas-y-temas-en-ggplot2" class="nav-link" data-scroll-target="#títulos-leyendas-y-temas-en-ggplot2"><span class="header-section-number">3.10</span> Títulos, leyendas y temas en ggplot2</a></li>
+  <li><a href="#representación-de-datos-categóricos-gráficos-de-barras" id="toc-representación-de-datos-categóricos-gráficos-de-barras" class="nav-link" data-scroll-target="#representación-de-datos-categóricos-gráficos-de-barras"><span class="header-section-number">3.11</span> Representación de datos categóricos: gráficos de barras</a></li>
+  <li><a href="#recursos-adicionales" id="toc-recursos-adicionales" class="nav-link" data-scroll-target="#recursos-adicionales"><span class="header-section-number">3.12</span> Recursos adicionales</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Visualización de datos con R</span></h1>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Autor/a</div>
+  <div class="quarto-title-meta-heading">Afiliación</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Juanjo Medina </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Universidad de Sevilla
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introducción" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="introducción"><span class="header-section-number">3.1</span> Introducción</h2>
+<p>Una imagen vale más que mil palabras; esta idea básica también se aplica a la presentación e interpretación de datos. De hecho, se ha producido un cambio creciente en el análisis de datos hacia enfoques más visuales tanto para la interpretación como para la difusión del análisis numérico. Parte de la nueva revolución de los datos consiste en la mezcla de ideas procedentes de la visualización del análisis estadístico y el diseño visual. De hecho, la visualización de datos es una de las áreas de desarrollo más interesantes en este campo.</p>
+<p>Unos buenos gráficos no solo ayudan a los investigadores a hacer que sus datos sean más fáciles de entender para el público en general, sino que también son una forma útil de comprender los datos nosotros mismos. En muchos sentidos, a menudo es una forma más intuitiva de comprender los patrones de nuestros datos que intentar examinar los resultados numéricos presentados en forma de tabla.</p>
+<p>Investigaciones recientes han revelado que los artículos con buenos gráficos se perciben en general como más claros e interesantes, y sus autores se perciben como más inteligentes (véase <a href="https://vimeo.com/181771433">esta presentación</a>).</p>
+<p>La preparación para esta sesión incluye muchos recursos excelentes sobre la visualización de información cuantitativa, y si no ha tenido tiempo de revisarlos, le recomendamos que se tome un tiempo para hacerlo.</p>
+<p>Al igual que con otros aspectos de R, hay una serie de funciones básicas que se pueden utilizar para producir gráficos. Sin embargo, estas ofrecen posibilidades limitadas para la creación de gráficos.</p>
+<p>El paquete que utilizaremos a lo largo de este tutorial es <code>ggplot2</code>. El objetivo de <code>ggplot2</code> es implementar la <a href="http://www.springer.com/statistics/computational+statistics/book/978-0-387-24544-7">gramática de los gráficos</a>. El paquete <code>ggplot2</code> cuenta con una excelente <a href="http://ggplot2.org/">documentación</a> en línea y se está convirtiendo en un estándar del sector en algunas áreas. <a href="https://medium.com/bbc-visual-and-data-journalism/how-the-bbc-visual-and-data-journalism-team-works-with-graphics-in-r-ed0b35693535">Aquí</a>, por ejemplo, puede leer cómo lo utiliza la BBC como parte de su servicio de noticias.</p>
+<p>Si aún no tiene el paquete instalado (compruébelo), deberá hacerlo utilizando la función <code>install.packages()</code>.</p>
+<p>A continuación, deberá cargar el paquete</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2) </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>La gramática de gráficos en la que se basa este paquete define varios componentes de un gráfico. Algunos de los más importantes son:</p>
+<p>-<strong>Los datos</strong>: Para utilizar <code>ggplot2</code>, los datos deben almacenarse como un marco de datos o tibble.</p>
+<p>-<strong>Las geometrías</strong>: Describen los objetos que representan los datos (por ejemplo, puntos, líneas, polígonos, etc.). Esto es lo que se dibuja. Y se pueden tener varios tipos diferentes superpuestos entre sí en la misma visualización.</p>
+<p>-<strong>La estética</strong>: Describe las características visuales que representan los datos (por ejemplo, posición, tamaño, color, forma, transparencia).</p>
+<p>-<strong>Facetas</strong>: describen cómo se dividen los datos en subconjuntos y se muestran como múltiples gráficos pequeños.</p>
+<p>-<strong>Estadísticas</strong>: describen las transformaciones estadísticas que suelen resumir los datos.</p>
+<p>Vamos paso a paso.</p>
+</section>
+<section id="anatomía-de-un-gráfico" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="anatomía-de-un-gráfico"><span class="header-section-number">3.2</span> Anatomía de un gráfico</h2>
+<p>Básicamente, la filosofía que subyace a esto es que todos los gráficos están compuestos por capas. El paquete <code>ggplot2</code> se basa en la gramática de los gráficos, la idea de que se puede construir cualquier gráfico a partir de los mismos componentes básicos: un conjunto de datos, un conjunto de geometrías (marcas visuales que representan puntos de datos) y un sistema de coordenadas.</p>
+<p>Veamos este ejemplo (tomado de <em>Wickham, H. (2010). A layered grammar of graphics. Journal of Computational and Graphical Statistics, 19(1), 3-28.</em>)</p>
+<p>Tenemos una tabla como esta:</p>
+<p><img src="imgs/table.png" class="img-fluid"></p>
+<p>A continuación, querrás trazar esto. Para ello, debes crear un gráfico que combine las siguientes capas:</p>
+<p><img src="imgs/layers.png" class="img-fluid"></p>
+<p>El resultado final será el siguiente gráfico:</p>
+<p><img src="imgs/combined.png" class="img-fluid"></p>
+<p>Veamos cómo queda esto en un gráfico.</p>
+<p>Echemos un vistazo a algunos datos sobre las <a href="https://www.gov.uk/government/publications/football-related-arrests-and-banning-orders-england-and-wales-season-2016-to-2017/football-related-arrests-and-banning-order-statistics-england-and-wales%20-2016-to-2017-season">prohibiciones de acceso a los estadios</a> de diferentes clubes de fútbol.</p>
+<p>Primero hay que leer los datos. Guardamos estos datos en un sitio web y se pueden descargar con el siguiente código:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cargar la biblioteca readr e importar los datos utilizando la función read_csv().</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>fbo <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/eonk/dar_book/main/datasets/FootbalBanningOrders.csv"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Una cosa que mencionamos en el primer laboratorio son las convenciones para nombrar objetos. Esto también se aplica a los nombres de las variables (es decir, los nombres de las columnas) dentro de los datos. Si observas el marco de datos fbo, ya sea con la función <code>View()</code> o imprimiendo los nombres de las columnas con la función <code>names()</code>, verás que este conjunto de datos incumple ese requisito:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(fbo)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "...1"                         "Club.Supported"              
+[3] "Banning.Orders"               "League.of.the.Club.Supported"</code></pre>
+</div>
+</div>
+<p>Para solucionar esto, podemos utilizar una función llamada <code>clean_names()</code> que se encuentra dentro del paquete <code>janitor</code>. Esta función sustituirá cualquier espacio por un guión bajo y también convertirá las mayúsculas en minúsculas. ¡Mucho más ordenado!</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>fbo <span class="ot">&lt;-</span> <span class="fu">clean_names</span>(fbo)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Imprime de nuevo los nombres para ver el cambio.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(fbo)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "x1"                           "club_supported"              
+[3] "banning_orders"               "league_of_the_club_supported"</code></pre>
+</div>
+</div>
+<p>Ahora exploremos la cuestión del número de órdenes de prohibición para clubes de diferentes ligas. Pero, como primer paso, representemos gráficamente el número de órdenes de prohibición para cada club. Construyamos este gráfico:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> fbo, <span class="fu">aes</span>(<span class="at">x =</span> club_supported, <span class="at">y=</span>banning_orders)) <span class="sc">+</span> <span class="co">#data</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>() <span class="sc">+</span> <span class="co">#geometry</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_bw</span>() <span class="co">#backgroud coordinate system</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>La primera línea anterior inicia un gráfico llamando a la función <code>ggplot()</code> e introduciendo los datos en ella. Debe nombrar su conjunto de datos con el argumento <code>data</code> y, a continuación, dentro del comando <code>aes()</code>, pasar las variables específicas que desea representar gráficamente. En este caso, solo queremos ver la distribución de una variable, las órdenes de prohibición, en el eje y, y representaremos gráficamente el club apoyado en el eje x.</p>
+<p>La segunda línea es donde añadimos la <em>geometría</em>. Aquí es donde le indicamos a R cómo queremos que sea el gráfico. En este caso, indicamos que queremos que sean puntos utilizando <code>geom_points</code>. Puede ver una lista de todas las geometrías posibles <a href="https://ggplot2.tidyverse.org/reference/">aquí</a>.</p>
+<p>La tercera línea es donde podemos ajustar la visualización del gráfico. Aquí he utilizado <code>theme_bw()</code>, que es un tema muy limpio y agradable. Puedes probar con otros temas. Para obtener una lista de temas, también puedes consultar el recurso <a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">aquí</a>. Si quieres más variedad, puedes explorar el paquete <a href="https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/"><code>ggthemes</code></a>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> fbo, <span class="fu">aes</span>(<span class="at">x =</span> club_supported, <span class="at">y=</span>banning_orders)) <span class="sc">+</span> <span class="co">#data</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>() <span class="sc">+</span> <span class="co">#geometry</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_dark</span>() <span class="co">#backgroud coordinate system</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Cambiar el tema no es lo único que se puede hacer con el tercer elemento. Por ejemplo, aquí no se pueden leer realmente las etiquetas de los ejes, porque se superponen entre sí. Una solución sería girar las etiquetas de los ejes 90 grados, con el siguiente código: <code>axis.text.x = element_text(angle = 90, hjust = 1)</code>. Este código se pasa al argumento <code>theme</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> fbo, <span class="fu">aes</span>(<span class="at">x =</span> club_supported, <span class="at">y=</span>banning_orders)) <span class="sc">+</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">hjust =</span> <span class="dv">1</span>))                                   </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Vale, ¿y si no queremos que sean puntos, sino un gráfico de barras?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> fbo, <span class="fu">aes</span>(<span class="at">x =</span> club_supported, <span class="at">y=</span>banning_orders)) <span class="sc">+</span> <span class="co">#data</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>) <span class="sc">+</span> <span class="co">#geometry</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">hjust =</span> <span class="dv">1</span>)) <span class="co">#backgroud coordinate system</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Quizás hayas notado que aquí pasamos un argumento <code>stat = «identity»</code> a la función <code>geo_bar()</code>. Esto se debe a que puedes tener un gráfico de barras en el que la altura de la barra muestra la frecuencia (<code>stat = “count”</code>) o en el que la altura se toma de una variable de tu marco de datos (<code>stat = «identity»</code>). Aquí hemos especificado un valor y (altura) como la variable banning_orders.</p>
+<p>¡Esto es genial! Pero, ¿y si me gustan ambos?</p>
+<p>Bueno, esta es la belleza del enfoque por capas de <code>ggplot2</code>. ¡Puedes superponer tantas geometrías como desees! XD</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> fbo, <span class="fu">aes</span>(<span class="at">x =</span> club_supported, <span class="at">y=</span>banning_orders)) <span class="sc">+</span> <span class="co">#data</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>) <span class="sc">+</span>                                 <span class="co">#geometry 1 </span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span>                                                <span class="co">#geometry 2</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">hjust =</span> <span class="dv">1</span>))      <span class="co">#backgroud coordinate system</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>También puedes añadir otras cosas. Por ejemplo, puedes añadir el número medio de <em>órdenes de prohibición</em>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> fbo, <span class="fu">aes</span>(<span class="at">x =</span> club_supported, <span class="at">y=</span>banning_orders)) <span class="sc">+</span> <span class="co">#data</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>) <span class="sc">+</span> <span class="co">#geometría 1 </span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>() <span class="sc">+</span> <span class="co">#geometría 2</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fu">mean</span>(fbo<span class="sc">$</span>banning_orders)) <span class="sc">+</span> <span class="co">#línea media</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">hjust =</span> <span class="dv">1</span>)) <span class="co">#sistema de coordenadas de fondo</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>¡Esto es básicamente todo lo que necesitas saber para crear un gráfico! Hasta ahora hemos introducido mucho código, parte del cual quizá no entiendas del todo. No te preocupes demasiado, solo queríamos darte una introducción rápida a algunas de las posibilidades. Más adelante en la sesión, volveremos a algunas de estas funciones de forma más pausada. Lo importante de esta sección es comprender los elementos básicos de la gramática de los gráficos.</p>
+</section>
+<section id="qué-gráfico-debo-utilizar" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="qué-gráfico-debo-utilizar"><span class="header-section-number">3.3</span> ¿Qué gráfico debo utilizar?</h2>
+<p>Hay muchos aspectos que hay que tener en cuenta a la hora de elegir qué gráfico utilizar para representar visualmente los datos. Existen algunas pautas sobre buenas prácticas, pero al final hay que tener en cuenta qué es lo mejor para los datos. ¿Qué se quiere mostrar? ¿Qué gráfico comunicará mejor el mensaje? ¿Se trata de una comparación entre grupos? ¿Es la distribución de frecuencias de una variable?</p>
+<p>Como orientación, puede utilizar la siguiente <a href="https://flowingdata.com/2009/01/15/flow-chart-shows-you-what-chart-to-use/">hoja de referencia, tomada del blog Flowingdata de Nathan Yau</a>:</p>
+<p><img src="imgs/chart-chart.jpg" class="img-fluid"></p>
+<p>Sin embargo, ten en cuenta que esto es más bien una guía, destinada a orientarte en la dirección correcta. Hay muchas formas de visualizar los mismos datos y, a veces, es posible que quieras experimentar con algunas de ellas para ver cuáles son las diferencias.</p>
+<p>También hay una gran cantidad de investigaciones sobre lo que funciona a la hora de mostrar información cuantitativa. El libro clásico es el de Edward Tufte<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>, pero desde entonces hay muchos otros investigadores que se centran en los enfoques para mostrar datos. Dos libros útiles que puede consultar son Few (2012)[^03-visualisation-2] y Cairo (2016)[^03-visualisation-3]. Claus Wilke también está elaborando un libro de texto disponible gratuitamente <a href="https://serialmentor.com/dataviz/">en Internet</a>. Estos autores suelen ofrecer recomendaciones sobre qué utilizar (y qué no utilizar) en determinados contextos.</p>
+<p>Por ejemplo, la mayoría de los expertos en visualización de datos coinciden en que no se deben utilizar gráficos en 3D a menos que la tercera dimensión tenga algún significado. Por lo tanto, utilizar gráficos 3D solo con fines decorativos, como en <a href="https://mir-s3-cdn-cf.behance.net/project_modules/disp/2505dd10837923.56030acd2ef20.jpg">este caso</a>, suele estar mal visto. Sin embargo, hay casos en los que incluir una tercera dimensión es fundamental para comunicar los resultados. Véase este <a href="http://www.visualisingdata.com/2015/03/when-3d-works/">ejemplo</a>.</p>
+<p>A menudo, también se menosprecian ciertos tipos de gráficos. Por ejemplo, el <a href="https://en.wikipedia.org/wiki/Pie_chart"><em>gráfico circular</em></a> es uno de ellos. A mucha gente (incluido el director de su curso) le disgustan los gráficos circulares, véase, por ejemplo, <a href="http://www.storytellingwithdata.com/blog/2011/07/death-to-pie-charts">aquí</a> o <a href="http://www.businessinsider.com/pie-charts-are-the-worst-2013-6?IR=T">aquí</a>. Si quieres mostrar proporciones, las investigaciones indican que un gráfico circular cuadrado tiene más probabilidades de ser interpretado correctamente por los espectadores. Véase <a href="https://eagereyes.org/blog/2016/a-reanalysis-of-a-study-about-square-pie-charts-from-2009">aquí</a>.</p>
+<p>Además, en algunos casos, los gráficos de barras (si se utilizan para visualizar variables cuantitativas) pueden ocultar características importantes de los datos y puede que no sean el medio más adecuado para realizar comparaciones:</p>
+<p><img src="imgs/barbarplots.jpg" class="img-fluid"></p>
+<p>Esto ha dado lugar a una <a href="https://www.kickstarter.com/projects/1474588473/barbarplots/description">campaña en Kickstarter</a> para prohibir los gráficos de barras…</p>
+<p>Por lo tanto, elegir el gráfico adecuado y cómo diseñar los diferentes elementos de un gráfico es, en cierto modo, un arte que requiere práctica y un buen conocimiento de la literatura sobre visualización de datos. Aquí solo podemos ofrecerte una introducción a algunas de estas cuestiones. Al final del capítulo, también destacaremos recursos adicionales que quizá te interese explorar por tu cuenta.</p>
+<p>Una consideración importante es que el gráfico que utilice depende de los datos que esté representando, así como del mensaje que desee transmitir con el gráfico, el público al que va dirigido e incluso el formato en el que se presentará (un sitio web, un informe impreso, una presentación de PowerPoint, etc.). Así, por ejemplo, volviendo de nuevo a la diferencia entre el número de órdenes de prohibición entre clubes de diferentes ligas, ¿cuáles son algunas formas de representar estos datos?</p>
+<p>Una sugerencia es crear un histograma para cada uno. Puede utilizar la opción <code>facet_wrap()</code> de ggplot para dividir los gráficos por una variable de agrupación. Por ejemplo, para crear un histograma de órdenes de prohibición, escriba:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> fbo, <span class="fu">aes</span>(<span class="at">x =</span> banning_orders)) <span class="sc">+</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_histogram</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Ahora, para dividirlo por <em>league_of_the_club_supported</em>, utiliza <code>facet_wrap()</code> en la capa de coordenadas del gráfico.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> fbo, <span class="fu">aes</span>(<span class="at">x =</span> banning_orders)) <span class="sc">+</span> </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_histogram</span>() <span class="sc">+</span> </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">facet_wrap</span> (<span class="sc">~</span>league_of_the_club_supported)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Bueno, se puede ver que hay una distribución diferente en cada liga. Pero, ¿es fácil compararlas? ¿Quizás otro enfoque lo haría más fácil? Personalmente, me gustan los diagramas de caja (los explicaremos con más detalle a continuación) para mostrar la distribución. Así que probemos:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> fbo, <span class="fu">aes</span>(<span class="at">x =</span> league_of_the_club_supported, <span class="at">y =</span> banning_orders)) <span class="sc">+</span> </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_boxplot</span>() </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Esto facilita considerablemente la comparación, ¿verdad? ¡Pero el orden es extraño! ¿Recuerdas que hablamos de factores en semanas anteriores? Bueno, lo bueno de los factores es que podemos ordenarlos en su orden natural. Si no especificamos un orden, R utiliza el orden alfabético. Así que reordenemos nuestro factor. Para ello, especificamos los niveles en el orden en que queremos que se incluyan dentro del factor. Utilizamos el código que introdujimos la semana pasada para hacerlo.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>fbo<span class="sc">$</span>league_of_the_club_supported <span class="ot">&lt;-</span> <span class="fu">factor</span>(fbo<span class="sc">$</span>league_of_the_club_supported, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Premier League"</span>, <span class="st">"Championship"</span>, <span class="st">"League One"</span>, <span class="st">"League Two"</span>, <span class="st">"Other clubs"</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>¡Y ahora vuelve a crear el gráfico!</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> fbo, <span class="fu">aes</span>(<span class="at">x =</span> league_of_the_club_supported, <span class="at">y =</span> banning_orders)) <span class="sc">+</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_boxplot</span>() </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>¡Esto es genial! Podemos ver que cuanto más alta es la liga, más órdenes de prohibición hay. ¿Alguna idea de por qué?</p>
+<p>Ahora veremos algunos ejemplos de cómo crear gráficos utilizando el paquete <code>ggplot2</code>, deteniéndonos un poco más en cada uno de ellos.</p>
+</section>
+<section id="visualización-de-variables-numéricas-histogramas" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="visualización-de-variables-numéricas-histogramas"><span class="header-section-number">3.4</span> Visualización de variables numéricas: histogramas</h2>
+<p>Los histogramas son una forma útil de representar variables cuantitativas de forma visual.</p>
+<p>Como se ha mencionado anteriormente, en este curso haremos hincapié en el uso de la función <code>ggplot()</code>. Con <code>ggplot()</code> se empieza con un lienzo en blanco y se van añadiendo capas específicas. La función <code>ggplot()</code> puede especificar el conjunto de datos y la estética (las características visuales que representan los datos).</p>
+<p>Para obtener los datos que vamos a utilizar aquí, cargue el paquete <code>MASS</code> y, a continuación, invoque los datos <em>Boston</em> en su entorno.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Boston)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Este paquete tiene un marco de datos llamado <em>Boston</em>. Contiene datos sobre el valor de las viviendas en los suburbios de Boston (EE. UU.). Para acceder al libro de códigos (donde se pueden consultar las variables), utilice «?», <code>?Boxton</code>.</p>
+<p>Bien, vamos a crear un gráfico sobre la variable que representa la tasa de criminalidad per cápita por ciudad (<em>crim</em>).</p>
+<p>Si quieres crear un histograma con la función <code>ggplot</code>, utiliza el siguiente código:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Boston, <span class="fu">aes</span>(<span class="at">x =</span> crim)) <span class="sc">+</span> </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_histogram</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Como puedes ver, <code>ggplot</code> funciona de tal manera que puedes añadir una serie de especificaciones adicionales (capas, anotaciones). En este sencillo gráfico, la función <code>ggplot</code> simplemente asigna <em>crim</em> como la variable que se va a mostrar (como uno de los <strong>elementos estéticos</strong>) y el conjunto de datos. A continuación, se añade <code>geom_histogram</code> para indicar a R que se desea que esta variable se represente como un histograma. Más adelante veremos qué otras cosas se pueden añadir.</p>
+<p>Un histograma consiste simplemente en colocar los casos en «compartimentos» y luego crear una barra para cada compartimento. Se puede considerar como una <em>distribución de frecuencias agrupadas visualmente</em>. El código que hemos utilizado hasta ahora ha utilizado un ancho de compartimento de rango de tamaño/30, como R nos ha recordado amablemente en la salida. Pero puede modificar este parámetro si desea obtener una imagen más aproximada o más detallada. De hecho, siempre debe probar diferentes especificaciones del ancho de compartimento hasta encontrar uno que cuente toda la historia de forma concisa.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Boston, <span class="fu">aes</span>(<span class="at">x =</span> crim)) <span class="sc">+</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>) </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Como puede ver, podemos pasar argumentos a los geoms. Aquí estamos cambiando el tamaño de los bins (para más detalles sobre otros argumentos, puede consultar los archivos de ayuda). Al utilizar un bin-width de 1, estamos creando esencialmente una barra por cada unidad de aumento en la tasa porcentual de delincuencia. Seguimos viendo que la mayoría de las ciudades tienen un nivel de delincuencia muy bajo.</p>
+<p>Sumemos el número de ciudades con un valor inferior a 1 en la tasa de criminalidad per cápita. Para ello, utilizamos la función sum, especificando que solo nos interesa sumar los casos en los que el valor de la variable <em>crim</em> es inferior a 1.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(Boston<span class="sc">$</span>crim <span class="sc">&lt;</span> <span class="dv">1</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 332</code></pre>
+</div>
+</div>
+<p>Podemos ver que la gran mayoría de las ciudades, 332 de 506, tienen una tasa de criminalidad per cápita inferior al 1 %. Pero también podemos ver que hay algunas ciudades que tienen una alta concentración de delitos. Esta es una característica espacial de la delincuencia: tiende a concentrarse en determinadas zonas y lugares. Se puede ver cómo podemos utilizar visualizaciones para mostrar los datos y obtener una primera impresión de cómo pueden estar distribuidos.</p>
+<p>Al trazar una variable continua, nos interesan las siguientes características:</p>
+<ul>
+<li><strong>Asimetría</strong>: si la distribución está sesgada hacia la derecha o hacia la izquierda, o si sigue una forma más simétrica.</li>
+<li><strong>Valores atípicos</strong>: ¿Hay uno o más valores que parecen muy diferentes a los demás?</li>
+<li><strong>Multimodalidad</strong>: ¿Cuántos picos tiene la distribución? Más de un pico puede indicar que la variable está midiendo diferentes grupos.</li>
+<li><strong>Imposibilidades u otras anomalías</strong>: valores que son simplemente poco realistas teniendo en cuenta lo que estamos midiendo (por ejemplo, alguien con una edad de 1000 años). A veces se puede encontrar una distribución de datos con un recuento de frecuencias muy alto (e inverosímil) para un valor concreto. Quizás se mida la edad y se tenga un gran número de casos de 99 años (que suele ser un código utilizado para los datos que faltan).</li>
+<li><strong>Dispersión</strong>: nos da una idea de la variabilidad de nuestros datos.</li>
+</ul>
+<p>A menudo visualizamos los datos porque queremos comparar distribuciones. <strong>La mayor parte del análisis de datos consiste en hacer comparaciones</strong>. Vamos a explorar si la distribución de la delincuencia en este conjunto de datos es diferente en las zonas menos prósperas. La variable <em>medv</em> mide en el conjunto de datos de Boston el valor medio de las viviendas ocupadas por sus propietarios. A efectos de esta ilustración, quiero dicotomizar[^03-visualización-4] esta variable, para crear un grupo de ciudades con valores particularmente bajos frente a todas las demás. Para obtener más detalles sobre cómo recodificar variables con R, puede leer las secciones pertinentes en <a href="http://www.statmethods.net/management/variables.html">Quick R</a> o en <a href="http://www.cookbook-r.com/Manipulating_data/Recoding_data/">R Cookbook</a>. Pronto aprenderemos más sobre la recodificación y la transformación de variables en R.</p>
+<p>¿Cómo podemos crear una variable categórica basada en la información de una variable cuantitativa? Veamos el siguiente código y prestemos atención a él y a la explicación que aparece a continuación.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>Boston<span class="sc">$</span>lowval[Boston<span class="sc">$</span>medv <span class="sc">&lt;=</span> <span class="fl">17.02</span>] <span class="ot">&lt;-</span> <span class="st">"Valor bajo"</span> </span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>Boston<span class="sc">$</span>lowval[Boston<span class="sc">$</span>medv <span class="sc">&gt;</span> <span class="fl">17.02</span>] <span class="ot">&lt;-</span> <span class="st">"Valor más alto"</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>En primer lugar, le indicamos a R que cree un nuevo vector (<em>lowval</em>) en el marco de datos de Boston. A este vector se le asignará el valor de carácter «Valor bajo» cuando se cumpla la condición entre corchetes. Es decir, estamos diciendo que siempre que el valor de <em>medv</em> sea inferior a 17,02, la nueva variable <em>lowval</em> será igual a «Valor bajo». He elegido 17,02 porque es el primer cuartil de <em>medv</em> (prueba este código <code>summary(Boston$medv)</code> y busca 17,02). A continuación, le indicamos a R que, cuando el valor sea superior a 17,02, asignaremos esos casos a una nueva categoría textual llamada «Valor más alto».</p>
+<p>La variable que hemos creado era un vector de caracteres (como podemos ver si ejecutamos la función <code>class</code>). Por lo tanto, vamos a transformarla en un factor utilizando la función <code>as.factor</code> (muchas funciones diseñadas para trabajar con variables categóricas esperan un factor como entrada, no solo un vector de caracteres). Si volvemos a ejecutar la función <code>class</code>, veremos que hemos cambiado la variable original.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(Boston<span class="sc">$</span>lowval)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "character"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>Boston<span class="sc">$</span>lowval <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(Boston<span class="sc">$</span>lowval)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(Boston<span class="sc">$</span>lowval)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "factor"</code></pre>
+</div>
+</div>
+<p>Ahora podemos generar el gráfico. Lo haremos utilizando <strong>facetas</strong>. Las facetas son otro elemento de la gramática de los gráficos, las utilizamos para definir subconjuntos de los datos que se representarán como múltiples grupos. En este caso, le pedimos a R que genere dos gráficos definidos por los dos niveles del factor que acabamos de crear.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Boston, <span class="fu">aes</span>(<span class="at">x =</span> crim)) <span class="sc">+</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">facet_grid</span>(lowval <span class="sc">~</span> .) </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Visualmente puede que no se vea muy bien, pero empieza a contar una historia. Podemos ver que hay una proporción considerablemente menor de ciudades con bajos niveles de delincuencia en el grupo de ciudades que tienen viviendas más baratas. Es una distribución más plana y menos sesgada. Se puede ver cómo la expresión <code>facet_grid()</code> le dice a R que cree el histograma de la variable mencionada en la función <code>ggplot</code> para los grupos definidos por la entrada categórica de interés (el factor <em>lowval</em>).</p>
+<p>Podríamos hacer algunas cosas que tal vez ayuden a enfatizar la comparación, como, por ejemplo, añadir color a cada uno de los grupos.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Boston, <span class="fu">aes</span>(<span class="at">x =</span> crim, <span class="at">fill =</span> lowval)) <span class="sc">+</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">facet_grid</span>(lowval <span class="sc">~</span> .) <span class="sc">+</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>El argumento <code>fill</code> dentro de <code>aes</code> le indica a R qué variable debe asignar colores. Ahora, cada uno de los niveles (grupos) definidos por la variable <em>lowval</em> tendrá un color diferente. La instrucción <code>theme</code> que añadimos le indica a R que no coloque una leyenda en el gráfico explicando que el rojo es un valor más alto y el color verdoso es un valor más bajo. Ya podemos verlo sin necesidad de una etiqueta.</p>
+<p>En lugar de utilizar facetas, podríamos superponer los histogramas con un poco de transparencia. Las transparencias funcionan mejor cuando se proyectan en pantallas que en documentos impresos, así que tenlo en cuenta a la hora de decidir si utilizarlas en lugar de facetas. El código es el siguiente:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Boston, <span class="fu">aes</span>(<span class="at">x =</span> crim, <span class="at">fill =</span> lowval)) <span class="sc">+</span> </span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_histogram</span>(<span class="at">position =</span> <span class="st">"identity"</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>En el código anterior, el argumento «fill» identifica de nuevo la variable factorial en el conjunto de datos que agrupa los casos. Además, «position = identity» indica a R que superponga las distribuciones y «alpha» solicita el grado de transparencia; un valor más bajo (por ejemplo, 0,2) será más transparente.</p>
+<p>En este caso, parte del problema que tenemos es que la asimetría puede dificultar la apreciación de las diferencias. Cuando se trata de distribuciones asimétricas como esta, a veces es conveniente utilizar una transformación <a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. Volveremos a esto más adelante en este semestre. Por ahora, basta con decir que tomar el logaritmo de una variable asimétrica ayuda a reducir la asimetría y a ver los patrones con mayor claridad. Para visualizar un poco mejor las diferencias, podríamos pedir el logaritmo de la tasa de criminalidad per cápita. Observe que también añado una constante de 1 a la variable <em>crim</em>, para evitar valores NA en la variable recién creada si el valor en <em>crim</em> es cero (no se puede tomar el logaritmo de 0).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Boston, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">log10</span>(crim <span class="sc">+</span> <span class="dv">1</span>), <span class="at">fill =</span> lowval)) <span class="sc">+</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_histogram</span>(<span class="at">position =</span> <span class="st">"identity"</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Ahora el gráfico es un poco más claro. Parece bastante evidente que la distribución de la delincuencia es muy diferente entre estos dos tipos de ciudades.</p>
+</section>
+<section id="visualización-de-variables-numéricas-gráficos-de-densidad" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="visualización-de-variables-numéricas-gráficos-de-densidad"><span class="header-section-number">3.5</span> Visualización de variables numéricas: gráficos de densidad</h2>
+<p>Para distribuciones más suaves, puede utilizar un gráfico de densidad. Debe disponer de una cantidad considerable de datos para utilizarlos, ya que, de lo contrario, podría acabar con mucho ruido no deseado. Veamos primero el gráfico de densidad única para todos los casos. Observe que lo único que hacemos es invocar un tipo diferente de geom:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Boston, <span class="fu">aes</span>(<span class="at">x =</span> crim)) <span class="sc">+</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_density</span>() </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>En un gráfico de densidad, intentamos visualizar la distribución de probabilidad subyacente de los datos dibujando una curva continua adecuada. Así, en un gráfico de densidad, el área bajo las líneas suma 1 y el eje Y, vertical, nos da ahora la probabilidad estimada (supuesta) para los diferentes valores del eje X, horizontal. Esta curva se supone a partir de los datos y el método que utilizamos para esta suposición o estimación se denomina estimación de densidad del núcleo. Puede obtener más información sobre los gráficos de densidad <a href="https://serialmentor.com/dataviz/histograms-density-plots.html">aquí</a>.</p>
+<p>En este gráfico, podemos ver que hay una alta probabilidad estimada de observar una ciudad con una tasa de criminalidad per cápita cercana a cero y una baja probabilidad estimada de ver ciudades con altas tasas de criminalidad per cápita. Como puede observar, proporciona una representación más suave de la distribución (en comparación con los histogramas).</p>
+<p>También puede utilizar esto para comparar la distribución de una variable cuantitativa entre los niveles de una variable categórica (factor) y, como antes, es posible que sea mejor tomar el logaritmo de variables sesgadas como la delincuencia:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Estamos mapeando «lowval» como la variable que colorea las líneas </span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Boston, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">log10</span>(crim <span class="sc">+</span> <span class="dv">1</span>), <span class="at">colour =</span> lowval)) <span class="sc">+</span> </span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_density</span>() </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>O también se pueden utilizar transparencias:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Boston, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">log10</span>(crim <span class="sc">+</span> <span class="dv">1</span>), <span class="at">fill =</span> lowval)) <span class="sc">+</span> </span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_density</span>(<span class="at">alpha =</span> .<span class="dv">3</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>¿Ha notado la diferencia con los histogramas comparativos? Al utilizar gráficos de densidad, estamos reescalando para garantizar la misma área para cada uno de los niveles de nuestra variable de agrupación. Esto facilita la comparación de dos grupos que tienen frecuencias diferentes. Las áreas bajo la curva suman 1 para ambos grupos, mientras que en el histograma el área dentro de las barras representa el número de casos en cada uno de los grupos. Si tiene muchos más casos en un grupo que en el otro, puede resultar difícil hacer comparaciones o ver claramente la distribución del grupo con menos casos. Por lo tanto, esta es una de las razones por las que puede ser conveniente utilizar gráficos de densidad.</p>
+<p>Los gráficos de densidad son una buena opción cuando se desea comparar hasta tres grupos. Si tiene muchos más grupos, es posible que desee considerar otras alternativas. Una de ellas es el <strong>gráfico de línea de cresta</strong>, también conocido como gráfico de Joy Division (ya que quedó inmortalizado en la portada de uno de sus álbumes):</p>
+<p><img src="imgs/joydivision.png" class="img-fluid"> Se pueden generar con el paquete <code>ggridges</code>. Antes de dicotomizar la variable <em>medv</em> de forma manual, podemos utilizar métodos más directos para dividir las variables numéricas en varias categorías utilizando la información que ya contienen. Supongamos que queremos dividir <em>medv</em> en deciles. Para ello, podríamos utilizar la función <code>mutate</code> de <code>dplyr</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>Boston <span class="ot">&lt;-</span> <span class="fu">mutate</span>(Boston, <span class="at">dec_medv =</span> <span class="fu">ntile</span>(medv, <span class="dv">10</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>La función <code>mutate</code> añade una nueva variable a nuestro objeto de marco de datos existente. Vamos a llamar a esta variable <em>dec_medv</em> porque vamos a dividir <em>medv</em> en diez grupos de igual tamaño (este nombre es arbitrario, puedes llamarla como quieras). Para ello, utilizaremos la función <code>ntile</code> como argumento dentro de mutate. Definiremos la nueva variable <em>dec_medv</em> explicando a R que esta variable será el resultado de pasar la función <code>ntile</code> a <em>medv</em>. Para que <code>ntile</code> divida <em>medv</em> en 10, pasamos este valor como argumento a la función. Para que se almacene el resultado de ejecutar <code>mutate</code>, lo asignamos al objeto <em>Boston</em>.</p>
+<p>Compruebe los resultados:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(Boston<span class="sc">$</span>dec_medv)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ 1  2  3  4  5  6  7  8  9 10 
+51 51 51 51 51 51 50 50 50 50 </code></pre>
+</div>
+</div>
+<p>Ahora podemos utilizar esta nueva variable para ilustrar el uso del paquete <code>ggridge</code>. En primer lugar, deberá instalar este paquete y, a continuación, cargarlo. Verá que lo único que hace este paquete es ampliar la funcionalidad de <code>ggplot2</code> añadiendo un nuevo tipo de geom. Aquí, la variable que define los grupos debe ser un factor, por lo que le indicaremos a <code>ggplot</code> que trate <em>dec_medv</em> como un factor utilizando <code>as.factor</code>. Usar <code>as.factor</code> de esta manera nos ahorra tener que crear otra variable más que vamos a almacenar como factor. Aquí no estamos creando una nueva variable, solo le estamos indicando a R que trate esta variable numérica <em>como si</em> fuera un factor. Asegúrate de comprender esta diferencia.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggridges)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Boston, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">log10</span>(crim <span class="sc">+</span> <span class="dv">1</span>), <span class="at">y =</span> <span class="fu">as.factor</span>(dec_medv))) <span class="sc">+</span> <span class="fu">geom_density_ridges</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Podemos ver que la distribución de la delincuencia es particularmente diferente cuando nos centramos en los tres deciles con el nivel de ingresos más bajo. Para obtener más detalles sobre este tipo de gráfico, puede leer la <a href="https://cran.r-project.org/web/packages/ggridges/vignettes/introduction.html">vignette</a> de este paquete.</p>
+</section>
+<section id="visualización-de-variables-numéricas-diagramas-de-caja" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="visualización-de-variables-numéricas-diagramas-de-caja"><span class="header-section-number">3.6</span> Visualización de variables numéricas: diagramas de caja</h2>
+<p>Los <a href="http://tomhopper.me/2014/07/04/the-most-useful-data-plot-youve-never-used/">diagramas de caja</a> son una forma interesante de presentar el resumen de 5 números (el valor mínimo, el primer cuartil, la mediana, el tercer cuartil y el valor máximo de un conjunto de números) de forma visual. Si queremos utilizar <code>ggplot</code> para trazar una sola variable numérica, necesitamos un código complicado, ya que <code>ggplot</code> asume que se desea un diagrama de caja para comparar varios grupos. Por lo tanto, necesitamos establecer algún valor arbitrario para la variable de agrupación y también es posible que queramos eliminar los marcadores y las etiquetas del eje x.</p>
+<p>Para esta ilustración, voy a mostrar la distribución del valor mediano de la propiedad en las distintas ciudades en lugar de la delincuencia.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Boston, <span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">1</span>, <span class="at">y =</span> medv)) <span class="sc">+</span> </span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="cn">NULL</span>) <span class="sc">+</span> <span class="co">#elimina los marcadores del eje x</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_blank</span>())</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-33-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Sin embargo, los diagramas de caja cobran vida cuando se utilizan para comparar la distribución de una variable cuantitativa entre varios grupos. Veamos la distribución de <em>log(delitos)</em> entre zonas más baratas y más caras:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Boston, <span class="fu">aes</span>(<span class="at">x =</span> lowval, <span class="at">y=</span><span class="fu">log10</span>(crim <span class="sc">+</span> <span class="dv">1</span>))) <span class="sc">+</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_boxplot</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Con un diagrama de caja como este, se puede ver de inmediato que la mayor parte de las zonas más baratas son muy diferentes de la mayor parte de las zonas más caras. El primer cuartil de la distribución de las zonas bajas coincide aproximadamente con el punto en el que empezamos a ver <strong>valores atípicos</strong> para las zonas más caras.</p>
+<p>Esto puede ser aún más útil cuando se tienen varios grupos. Probemos con un ejemplo utilizando el marco de datos <em>BCS0708</em>. Se trata de un conjunto de datos de la Encuesta Británica sobre Delincuencia de 2007/08. Puede utilizar el código siguiente para descargarlo.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Creamos un objeto de marco de datos leyendo los datos del archivo webaddress.csv</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>BCS0708<span class="ot">&lt;-</span><span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/eonk/dar_book/main/datasets/BCS0708.csv"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Este conjunto de datos contiene una variable cuantitativa que mide el nivel de preocupación por la delincuencia (<em>tcviolent</em>): las puntuaciones altas representan niveles altos de preocupación. Vamos a ver cómo cambia la puntuación de esta variable según el origen étnico (<em>ethgrp2</em>).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Un diagrama de caja comparativo del origen étnico y la preocupación por los delitos violentos</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(BCS0708, <span class="fu">aes</span>(<span class="at">x =</span> ethgrp2, <span class="at">y =</span> tcviolent)) <span class="sc">+</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_boxplot</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-36-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Bien. Pero podría ser mejor. Para empezar, podríamos ordenar los grupos a lo largo del eje X para que los grupos étnicos se posicionen según su nivel de preocupación. En segundo lugar, tal vez queramos excluir la información de los casos NA sobre etnia (representados por una línea plana).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Un diagrama de caja comparativo más bonito (excluyendo NA y reordenando la variable X)</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">filter</span>(BCS0708, <span class="sc">!</span><span class="fu">is.na</span>(ethgrp2) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(tcviolent)), </span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(ethgrp2, tcviolent, <span class="at">FUN =</span> median), <span class="at">y =</span> tcviolent)) <span class="sc">+</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_boxplot</span> ()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-37-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>La función <code>filter</code> de <code>dplyr</code> utiliza un argumento lógico para indicar a R que solo utilice los casos que no tengan valores NA en las dos variables que estamos utilizando. El signo de exclamación seguido de <code>is.na</code> y luego el nombre de una variable es la forma en que R dice «lo contrario de NA para la variable especificada». Así que, en esencia, le estamos diciendo a R que solo mire los datos que no son NA en estas variables. La función <code>reorder</code>, por otro lado, le pide a R que reordene los niveles de etnia según el valor mediano de preocupación por los delitos violentos. Dado que estamos utilizando esas funciones <em>dentro</em> de la función <code>ggplot</code>, este subconjunto y este reordenamiento (al igual que con <code>as.factor</code> anteriormente) no introducen cambios permanentes en el conjunto de datos original. Si prefiere reordenar según la media, solo tiene que cambiar ese parámetro después de la opción <code>FUN</code> (por ejemplo, <code>FUN = mean</code>).</p>
+</section>
+<section id="exploración-de-las-relaciones-entre-dos-variables-cuantitativas-diagramas-de-dispersión" class="level2" data-number="3.7">
+<h2 data-number="3.7" class="anchored" data-anchor-id="exploración-de-las-relaciones-entre-dos-variables-cuantitativas-diagramas-de-dispersión"><span class="header-section-number">3.7</span> Exploración de las relaciones entre dos variables cuantitativas: diagramas de dispersión</h2>
+<p>Hasta ahora hemos visto cómo se pueden utilizar histogramas, diagramas de densidad y diagramas de caja para representar variables numéricas y comparar grupos en relación con variables numéricas. Dicho de otro modo, se pueden utilizar histogramas comparativos, diagramas de densidad o diagramas de caja para evaluar la relación entre una variable numérica y una variable categórica (la variable que define los grupos). ¿Cómo se explora la relación entre dos variables numéricas?</p>
+<p>A la hora de analizar la relación entre dos variables cuantitativas, nada supera al <strong>gráfico de dispersión</strong>. <a href="http://www.datavis.ca/papers/friendly-scat.pdf">Este</a> es un artículo muy interesante sobre la historia del gráfico de dispersión.</p>
+<p>Un diagrama de dispersión representa una variable en el eje Y y otra en el eje X. Normalmente, si tienes en mente una variable de resultado o respuesta clara, la colocas en el eje Y y la variable explicativa en el eje X.</p>
+<p>Así es como se crea un diagrama de dispersión con <code>ggplot()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Un diagrama de dispersión del crimen frente al valor medio de las propiedades</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Boston, <span class="fu">aes</span>(<span class="at">x =</span> medv, <span class="at">y =</span> crim)) <span class="sc">+</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-38-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Cada punto representa un caso de nuestro conjunto de datos y las coordenadas asociadas a él en este plano bidimensional vienen dadas por su valor en las variables Y (delincuencia) y X (valor medio de las propiedades).</p>
+<p>¿Qué se busca en un diagrama de dispersión? Se quiere evaluar los patrones globales y locales, así como las desviaciones. Podemos ver claramente que, con niveles bajos de <em>medv</em>, hay una mayor probabilidad en estos datos de que el nivel de delincuencia sea más alto. Una vez que el valor medio de la propiedad alcanza los 30 000 dólares, el nivel de delincuencia es casi nulo en todas las ciudades. Hasta aquí todo bien, y sin duda predecible. La primera razón por la que miramos los diagramas de dispersión es para comprobar nuestra hipótesis (por ejemplo, zonas más pobres, más delincuencia).</p>
+<p>Sin embargo, parece que ocurre algo extraño cuando el valor medio de la propiedad ronda los 50 000 dólares. De repente, la variabilidad de la delincuencia aumenta. Parece que algunas de las zonas más caras también presentan un nivel de delincuencia bastante elevado. De hecho, hay una ruptura considerable en la distribución. ¿Qué está pasando? Sinceramente, no tengo ni idea. Pero el patrón en el nivel más alto de valor de las propiedades es realmente extraño, demasiado abrupto para ser natural.</p>
+<p>Esta es la segunda razón por la que conviene trazar los datos antes de hacer nada más. Ayuda a detectar anomalías aparentes. Digo que se trata de una anomalía porque la ruptura en el patrón es bastante notable y abrupta. Es difícil pensar en un proceso natural que genere este aumento radical y repentino de la delincuencia una vez que el valor medio de las propiedades alcanza la marca de los 50 000 dólares. Si estuvieras analizando esto en la realidad, querrías saber qué es lo que realmente impulsa este patrón (por ejemplo, averiguar sobre la recopilación de datos originales, el libro de códigos, etc.): ¿quizás el valor medio máximo se limitó a 50 000 dólares y estamos viendo esto como un aumento dramático cuando el panorama es más complejo? Por ahora, vamos a dejar esto así.</p>
+<p>Una de las cosas que se pueden observar en un diagrama de dispersión es que, incluso con un conjunto de datos pequeño como este, con solo unos 500 casos, el <strong>sobreploteo</strong> puede ser un problema. Cuando hay muchos casos con valores similares (o, lo que es peor, iguales), es difícil distinguirlos. Imagina que solo hay un caso con una combinación particular de valores X e Y. ¿Qué ves? Un único punto. Ahora imagina que tienes 500 casos con esa misma combinación de valores para X e Y. ¿Qué ves? Sigue siendo un único punto. Hay varias formas de lidiar con el sobreploteo. Una posibilidad es añadir algo de <strong>transparencia</strong> a los puntos:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Boston, <span class="fu">aes</span>(<span class="at">x =</span> medv, <span class="at">y =</span> crim)) <span class="sc">+</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>(<span class="at">alpha=</span>.<span class="dv">4</span>) <span class="co">#tendrá que probar diferentes valores para alpha</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-39-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Por qué esto es un problema puede resultar más evidente con los <code>datos BCS0708</code>. Compare los dos gráficos:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(BCS0708, <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> tcviolent)) <span class="sc">+</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-40-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(BCS0708, <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> tcviolent)) <span class="sc">+</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>(<span class="at">alpha=</span>.<span class="dv">2</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-41-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>El segundo gráfico nos da una mejor idea de dónde parecen concentrarse las observaciones, algo que no podíamos ver con el primero.</p>
+<p>El sobreploteo puede producirse cuando una medida continua se redondea a una unidad conveniente. Esto tiene el efecto de cambiar una variable continua en una variable ordinal discreta. Por ejemplo, la edad se mide en años y el peso corporal se mide en libras o kilogramos. La edad es una variable discreta, solo toma valores enteros. Por eso se ven los puntos alineados en líneas verticales paralelas. Esto también contribuye al sobreploteo en este caso.</p>
+<p>Una forma de abordar este problema concreto es mediante el <strong>jittering</strong>. El jittering consiste en añadir ruido aleatorio a los datos para evitar el sobreploteo en los gráficos estadísticos. En <code>ggplot</code>, una forma de hacerlo es pasando un argumento a <code>geom_point</code> especificando que se desea aplicar jittering a los puntos. Esto introducirá algo de ruido aleatorio para que la <em>edad</em> parezca menos discreta.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(BCS0708, <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> tcviolent)) <span class="sc">+</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>(<span class="at">alpha=</span>.<span class="dv">2</span>, <span class="at">position=</span><span class="st">"jitter"</span>) </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-42-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Alternativamente, se puede sustituir geom_point() por geom_jitter(), en cuyo caso no es necesario especificar la posición</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Otra alternativa para resolver el sobreploteo es <strong>agrupar los datos</strong> en rectángulos y asignar la densidad de los puntos al relleno del color de los rectángulos.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(BCS0708, <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> tcviolent)) <span class="sc">+</span> </span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">stat_bin2d</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-43-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Lo mismo, pero con parámetros gráficos más agradables</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(BCS0708, <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> tcviolent)) <span class="sc">+</span></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="fu">stat_bin2d</span>(<span class="at">bins=</span><span class="dv">50</span>) <span class="sc">+</span> <span class="co">#al aumentar el número de compartimentos obtenemos más granularidad</span></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a><span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">"blue"</span>, <span class="at">high =</span> <span class="st">"red"</span>) <span class="co">#cambiar colores</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-44-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Lo que hace es crear cuadros dentro del plano bidimensional; contar el número de puntos dentro de esos cuadros; y asignar un color al cuadro en función de la densidad de puntos dentro de cada uno de los rectángulos.</p>
+<p>Al observar diagramas de dispersión, a veces resulta útil resumir las relaciones mediante el trazado de líneas. Por ejemplo, se podría añadir una línea que represente la <strong>media condicional</strong>. Una media condicional es simplemente la media de la variable Y para cada valor de X. Volvamos al conjunto de datos de Boston. Podemos pedir a R que trace una línea que conecte estas medias utilizando <code>geom_line()</code> y especificando que queremos las medias condicionales.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Boston, <span class="fu">aes</span>(<span class="at">x =</span> medv, <span class="at">y =</span> crim)) <span class="sc">+</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>(<span class="at">alpha=</span>.<span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_line</span>(<span class="at">stat=</span><span class="st">"summary"</span>, <span class="at">fun.y=</span>mean)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-45-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Con solo unos 500 casos, hay muchos altibajos. Si tuviera muchos más casos para cada nivel de X, la línea se vería menos irregular. En cualquier caso, puedes producir una línea más suave utilizando <code>geom_smooth</code>. Más adelante en este semestre discutiremos cómo se calcula esta línea (aunque verás que la salida de R te dice que estás utilizando algo llamado método «loess»). Por ahora, solo tienes que saber que es una línea que intenta <em>estimar</em>, adivinar, el valor típico de Y para cada valor de X.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Boston, <span class="fu">aes</span>(<span class="at">x =</span> medv, <span class="at">y =</span> crim)) <span class="sc">+</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>(<span class="at">alpha=</span>.<span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_smooth</span>(<span class="at">colour=</span><span class="st">"red"</span>, <span class="at">size=</span><span class="dv">1</span>, <span class="at">se=</span><span class="cn">FALSE</span>) <span class="co">#Más adelante en este semestre explicaremos qué hace el argumento se; colour simplemente pide una línea roja en lugar de azul (que personalmente me resulta más difícil de ver. También estoy haciendo la línea un poco más gruesa con el tamaño 1)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-46-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Como puede ver aquí, se obtiene una línea más suave que con las medias condicionales. La línea, al igual que el diagrama de dispersión, parece sugerir una relación curvilínea general que casi se aplana una vez que los valores de las propiedades alcanzan los 20 000 dólares.</p>
+</section>
+<section id="condicionamiento-de-diagramas-de-dispersión-en-una-tercera-variable" class="level2" data-number="3.8">
+<h2 data-number="3.8" class="anchored" data-anchor-id="condicionamiento-de-diagramas-de-dispersión-en-una-tercera-variable"><span class="header-section-number">3.8</span> Condicionamiento de diagramas de dispersión en una tercera variable</h2>
+<p>Hay varias formas de trazar una tercera variable en un diagrama de dispersión. Se puede optar por el 3D, lo que puede ser adecuado en algunos contextos. Pero, en la mayoría de los casos, es preferible utilizar solo un gráfico bidimensional.</p>
+<p>Si tiene una variable de agrupación, puede asignarla al color de los puntos como uno de los argumentos estéticos. Aquí volvemos al diagrama de dispersión de <em>Boston</em>, pero añadiremos una tercera variable que indica si la ciudad está situada junto al río o no.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Diagrama de dispersión con dos variables cuantitativas y una variable de agrupación, le indicamos a R que trate «chas», un vector numérico, como un factor. </span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Boston, <span class="fu">aes</span>(<span class="at">x =</span> medv, <span class="at">y =</span> crim, <span class="at">colour =</span> <span class="fu">as.factor</span>(chas))) <span class="sc">+</span></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>() </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-47-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Curiosamente, podemos ver que hay bastantes zonas caras con altos niveles de delincuencia que parecen estar situadas junto al río. ¿Quizás se trate de una zona especialmente atractiva?</p>
+<p>Como antes, puedes añadir líneas suaves para capturar la relación. Sin embargo, lo que ocurre ahora es que <code>ggplot</code> producirá una línea para cada uno de los niveles de la variable categórica que agrupa los casos:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Boston, <span class="fu">aes</span>(<span class="at">x =</span> medv, <span class="at">y =</span> crim, <span class="at">colour =</span> <span class="fu">as.factor</span>(chas))) <span class="sc">+</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>(<span class="at">alpha=</span>.<span class="dv">4</span>) <span class="sc">+</span> <span class="co">#Estoy haciendo los puntos semitransparentes para ver mejor las líneas</span></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_smooth</span>(<span class="at">se=</span><span class="cn">FALSE</span>, <span class="at">size=</span><span class="dv">1</span>) <span class="co">#Estoy haciendo las líneas más gruesas para verlas mejor</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-48-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Se puede observar cómo la relación entre la delincuencia y el valor de las propiedades es más marcada en las zonas que no bordean el río, principalmente porque hay muchas menos zonas baratas junto al río. Obsérvese también la tendencia al alza de la línea verde en los valores altos de <em>medv</em>. Como hemos visto, parece que hay bastantes zonas especialmente caras con altos índices de delincuencia que parecen estar junto al río.</p>
+<p>También podemos asignar una variable cuantitativa a la estética del color. Cuando lo hacemos, en lugar de colores diferentes para cada categoría, tenemos una gradación de color de más oscuro a más claro en función del valor de la variable cuantitativa. A continuación mostramos la relación entre la delincuencia y el valor de las propiedades en función del estatus de la zona (los valores altos en <em>lstat</em> representan un estatus más bajo).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Boston, <span class="fu">aes</span>(<span class="at">x =</span> medv, <span class="at">y =</span> crim, <span class="at">colour =</span> lstat)) <span class="sc">+</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>() </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-49-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Como era de esperar, <em>lstat</em> y <em>medv</em> parecen estar correlacionadas. Las zonas con un estatus bajo suelen ser aquellas con propiedades más baratas (y más delincuencia), mientras que las zonas con un estatus más alto suelen ser aquellas con propiedades más caras (y menos delincuencia).</p>
+<p>Se podría asignar la tercera variable a una estética diferente (en lugar del color). Por ejemplo, se podría asignar <em>lstat</em> al tamaño de los puntos. Esto se denomina <strong>gráfico de burbujas</strong>. Sin embargo, el problema es que, en ocasiones, puede agravar el sobreploteo.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Boston, <span class="fu">aes</span>(<span class="at">x =</span> medv, <span class="at">y =</span> crim, <span class="at">size =</span> lstat)) <span class="sc">+</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>() <span class="co">#Es posible que desee añadir alfa para obtener cierta transparencia aquí.</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-50-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Si tiene muestras más grandes y los patrones no son claros (como vimos al observar la relación entre la edad y la preocupación por los delitos violentos), el condicionamiento en una tercera variable puede producir diagramas de dispersión difíciles de leer (incluso si utiliza transparencias y jittering). Veamos la relación entre la preocupación por los delitos violentos y la edad condicionada por la victimización durante el año anterior:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(BCS0708, <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> tcviolent, <span class="at">colour =</span> bcsvictim)) <span class="sc">+</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>(<span class="at">alpha=</span>.<span class="dv">4</span>, <span class="at">position=</span><span class="st">"jitter"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-51-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Es posible que notes que hay más puntos verdes en el lado izquierdo (ya que la victimización tiende a ser más común entre los jóvenes). Pero es difícil interpretar la relación con la edad. ¿Podríamos intentar utilizar facetas en lugar de <code>facet_grid</code>?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(BCS0708, <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> tcviolent)) <span class="sc">+</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>(<span class="at">alpha=</span>.<span class="dv">4</span>, <span class="at">position=</span><span class="st">"jitter"</span>) <span class="sc">+</span></span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="fu">facet_grid</span>( .<span class="sc">~</span> bcsvictim)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-52-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Sigue siendo difícil ver algo, aunque tal vez se pueda apreciar la menor densidad de los puntos en la esquina inferior derecha de la faceta que muestra a las víctimas de delitos. En un caso como este, puede ser útil trazar una línea suave</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(BCS0708, <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> tcviolent, <span class="at">colour =</span> bcsvictim)) <span class="sc">+</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>(<span class="at">alpha=</span>.<span class="dv">1</span>, <span class="at">position=</span><span class="st">"jitter"</span>) <span class="sc">+</span></span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_smooth</span>(<span class="at">size=</span><span class="fl">1.5</span>, <span class="at">se=</span><span class="cn">FALSE</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-53-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Lo que vemos aquí es que, en su mayor parte, la relación entre la edad y la preocupación por los delitos violentos parece bastante plana, independientemente de si se ha sido víctima de un delito o no. Al menos, para la mayoría de las personas. Sin embargo, una vez que llegamos a los 60 años, las cosas parecen cambiar un poco. Las personas mayores de 62 años que no han sido víctimas de delitos en el último año comienzan a manifestar una menor preocupación por la delincuencia a medida que envejecen (en comparación con aquellas que han sido víctimas de delitos).</p>
+</section>
+<section id="matriz-de-diagramas-de-dispersión" class="level2" data-number="3.9">
+<h2 data-number="3.9" class="anchored" data-anchor-id="matriz-de-diagramas-de-dispersión"><span class="header-section-number">3.9</span> Matriz de diagramas de dispersión</h2>
+<p>A veces se desea producir muchos diagramas de dispersión simultáneamente para tener una primera visión de la relación entre las diversas variables del marco de datos. La forma de hacerlo es utilizando una matriz de diagramas de dispersión. Hay algunos paquetes que son especialmente buenos para esto. Uno de ellos es <code>GGally</code>, básicamente una extensión de <code>ggplot2</code>.</p>
+<p>Para no complicar demasiado las cosas, solo utilizaremos unas pocas variables del conjunto de datos <em>Boston</em>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Creo un nuevo marco de datos que solo contiene 4 variables incluidas en el conjunto de datos Boston y llamo a este nuevo objeto de marco de datos Boston_spm</span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>Boston_spm <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">select</span>(Boston, crim, medv, lstat)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>A continuación, cargamos <code>ggpairs</code> y ejecutamos la matriz de diagramas de dispersión utilizando la función <code>ggpairs</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpairs</span>(Boston_spm)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-55-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>El conjunto diagonal de cuadros que va desde la parte superior izquierda a la parte inferior derecha le ofrece el gráfico de densidad univariante para cada una de las variables. Así, por ejemplo, en la parte superior izquierda, tenemos el gráfico de densidad de la variable <em>crim</em>. Si miramos debajo de este, vemos un gráfico de dispersión entre <em>crim</em> y <em>medv</em>. En este caso, <em>crim</em> define el eje X y <em>medv</em> el eje Y, por lo que se ve un poco diferente al que vimos anteriormente. Las etiquetas de la parte superior e izquierda indican qué variables se representan en cada rectángulo facetado. En la parte superior derecha de esta matriz, verá que los rectángulos dicen «corr» y luego le dan un número. Estos números son <strong>coeficientes de correlación</strong>, que son una métrica que utilizamos para indicar la fuerza de una relación entre dos variables cuantitativas o numéricas. Cuanto más se acerque este valor a 1,000 (ya sea positivo o negativo), más fuerte será la relación. Cuanto más se acerque a cero, más débil será la relación. La relación más fuerte aquí es entre <em>medv</em> e <em>istat</em> (valor del coeficiente de correlación: -0,738). El hecho de que sea negativo indica que, a medida que aumentan los valores de uno, los valores del otro tienden a disminuir. Así, los valores altos de delincuencia se corresponden con valores bajos de los precios inmobiliarios, como hemos visto anteriormente. Este coeficiente es un número resumen de esta relación. Volveremos sobre él más adelante. Por ahora, ten en cuenta que esta métrica solo funciona bien si la relación que se muestra en el diagrama de dispersión está bien representada por una línea recta. Si la relación es curvilínea, será una métrica muy mala en la que no debes confiar.</p>
+<p><img src="imgs/ggpairs.png" class="img-fluid" style="width:80.0%"></p>
+<p>R te ofrece mucha flexibilidad y, a menudo, hay paquetes que compiten entre sí y que tienen como objetivo hacer cosas similares. Así, por ejemplo, para una matriz de diagramas de dispersión, también podrías utilizar la función <code>spm</code> del paquete <code>car</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="co">#El argumento regLine se utiliza para evitar mostrar algo que trataremos en la semana 8, el análisis de regresión.</span></span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a><span class="fu">spm</span>(Boston_spm, <span class="at">regLine=</span><span class="cn">FALSE</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-56-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Esto es un poco diferente de lo anterior porque, en lugar de mostrar los valores del coeficiente de correlación, lo que se obtiene es otro conjunto de diagramas de dispersión, pero con los ejes Y y X girados. Se puede ver que la matriz es simétrica. Así, el primer diagrama de dispersión que se ve en la fila superior (segunda columna desde la izquierda) muestra la relación entre <em>medv</em> (en el eje X) y <em>crim</em> (en el eje Y). Es la misma relación que se muestra en el primer diagrama de dispersión de la segunda fila (primera columna), solo que aquí <em>crim</em> define el eje X y <em>medv</em> el eje Y. En este diagrama de dispersión se puede ver, aunque no muy bien, que se han añadido líneas suavizadas que representan la relación.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="fu">spm</span>(Boston_spm, <span class="at">smooth=</span><span class="fu">list</span>(<span class="at">col.smooth=</span><span class="st">"red"</span>), <span class="at">regLine=</span><span class="cn">FALSE</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-57-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Y también se puede condicionar en una tercera variable. Por ejemplo, podríamos condicionar si las áreas bordean el río Charles (variable <em>chas</em>).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>Boston_spm <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">select</span>(Boston, crim, medv, lstat, chas)</span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="fu">spm</span>(<span class="sc">~</span>crim<span class="sc">+</span>medv<span class="sc">+</span>lstat, <span class="at">data=</span>Boston_spm, <span class="at">groups=</span>Boston_spm<span class="sc">$</span>chas, <span class="at">by.groups=</span><span class="cn">TRUE</span>, <span class="at">smooth=</span><span class="cn">FALSE</span>, <span class="at">regLine=</span><span class="cn">FALSE</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-58-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Una vez que se le coge el truco, obtener resultados es solo la mitad del camino. La otra mitad, y la más importante, es intentar dar sentido a los resultados. ¿Qué nos cuentan estos datos? R no puede hacerlo por usted. Para ello, necesitas utilizar una herramienta mejor: <strong>tu cerebro</strong> (escepticismo, curiosidad, creatividad, los conocimientos adquiridos a lo largo de toda una vida) y lo que Kaiser Fung denomina «sentido numérico» (http://www.amazon.co.uk/Numbersense-How-Data-Your-Advantage/dp/0071799664).</p>
+</section>
+<section id="títulos-leyendas-y-temas-en-ggplot2" class="level2" data-number="3.10">
+<h2 data-number="3.10" class="anchored" data-anchor-id="títulos-leyendas-y-temas-en-ggplot2"><span class="header-section-number">3.10</span> Títulos, leyendas y temas en ggplot2</h2>
+<p>Hemos presentado varias herramientas gráficas, pero ¿qué pasa si quieres personalizar el aspecto del gráfico resultante? Aquí te voy a dar un código para modificar los títulos y leyendas que usas. Para añadir un título a un gráfico <code>ggplot</code>, usa <code>ggtitle()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Observe cómo aquí estamos utilizando una función adicional para pedir a R que trate la variable chas, que es numérica en nuestro conjunto de datos, como si fuera un factor (as.factor()). Debe hacer esto si su variable es categórica pero está codificada como numérica en su marco de datos.</span></span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Boston, <span class="fu">aes</span>(<span class="at">x =</span> medv, <span class="at">y =</span> crim, <span class="at">colour =</span> <span class="fu">as.factor</span>(chas))) <span class="sc">+</span></span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtitle</span>(<span class="st">"Fig. 1. Delincuencia, valor de la propiedad y proximidad al río en Boston"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-59-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Si no le gusta el tema de fondo predeterminado para <code>ggplot</code>, puede utilizar un tema como se ha comentado al principio, por ejemplo, creando un fondo en blanco y negro añadiendo <code>theme_bw()</code> como capa:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Boston, <span class="fu">aes</span>(<span class="at">x =</span> medv, <span class="at">y =</span> crim, <span class="at">colour =</span> <span class="fu">as.factor</span>(chas))) <span class="sc">+</span></span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtitle</span>(<span class="st">"Fig. 1. Delincuencia, valor de las propiedades y proximidad al río en Boston"</span>) <span class="sc">+</span></span>
+<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_bw</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-60-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Si no te gusta como queda el título puedes hacer que aparezca en dos lineas</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Boston, <span class="fu">aes</span>(<span class="at">x =</span> medv, <span class="at">y =</span> crim, <span class="at">colour =</span> <span class="fu">as.factor</span>(chas))) <span class="sc">+</span></span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtitle</span>(<span class="st">"Fig. 1. Delincuencia, valor de las propiedades</span><span class="sc">\n</span><span class="st">y proximidad al río en Boston"</span>) <span class="sc">+</span></span>
+<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_bw</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-61-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Observa como hemos “roto” el título usando “”.</p>
+<p>Como dijimos anteriormente, <code>ggthemes</code> te ofrece temas adicionales que puedes utilizar. Así, por ejemplo, puedes utilizar el estilo inspirado en la revista <em>The Economist</em>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggthemes)</span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Boston, <span class="fu">aes</span>(<span class="at">x =</span> medv, <span class="at">y =</span> crim, <span class="at">colour =</span> <span class="fu">as.factor</span>(chas))) <span class="sc">+</span></span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtitle</span>(<span class="st">"Fig. 1. Delincuencia, valor inmobiliario </span><span class="sc">\n</span><span class="st">y proximidad al río en Boston"</span>) <span class="sc">+</span></span>
+<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_economist</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-62-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Con <code>labs()</code> puedes cambiar el texto de las etiquetas de los ejes (y el título de la leyenda), lo que puede resultar útil si tus variables tienen nombres crípticos. Del mismo modo, puedes nombrar manualmente las etiquetas de una leyenda. Los valores de <em>chas</em> son 0 y 1. Esto no es informativo. Podemos cambiarlo.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Boston, <span class="fu">aes</span>(<span class="at">x =</span> medv, <span class="at">y =</span> crim, <span class="at">colour =</span> <span class="fu">as.factor</span>(chas))) <span class="sc">+</span></span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtitle</span>(<span class="st">"Fig. 1. Delincuencia, valor de las propiedades </span><span class="sc">\n</span><span class="st">y proximidad al río en Boston"</span>) <span class="sc">+</span></span>
+<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a><span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Valor medio de las propiedades (en dólares estadounidenses x 1000)"</span>,</span>
+<span id="cb71-5"><a href="#cb71-5" aria-hidden="true" tabindex="-1"></a><span class="at">y =</span> <span class="st">"Tasa de delincuencia per cápita"</span>,</span>
+<span id="cb71-6"><a href="#cb71-6" aria-hidden="true" tabindex="-1"></a><span class="at">color =</span> <span class="st">"Bordea el río"</span>) <span class="sc">+</span></span>
+<span id="cb71-7"><a href="#cb71-7" aria-hidden="true" tabindex="-1"></a><span class="fu">scale_colour_discrete</span>(<span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Sí"</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-63-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>A veces es posible que desee presentar varios gráficos juntos. Para ello, el paquete <code>gridExtra</code> es muy útil. Primero deberá instalarlo y luego cargarlo. A continuación, podrá crear varios gráficos y colocarlos todos en la misma imagen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Es posible que primero deba instalarlo con install.packages(«gridExtra»)</span></span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span>
+<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Guarde sus gráficos en varios objetos</span></span>
+<span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">qplot</span>(<span class="at">x=</span>crim, <span class="at">data=</span>Boston)</span>
+<span id="cb72-5"><a href="#cb72-5" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">qplot</span>(<span class="at">x=</span>indus, <span class="at">data=</span>Boston)</span>
+<span id="cb72-6"><a href="#cb72-6" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> <span class="fu">qplot</span>(<span class="at">x=</span>medv, <span class="at">data=</span>Boston)</span>
+<span id="cb72-7"><a href="#cb72-7" aria-hidden="true" tabindex="-1"></a><span class="co">#A continuación, júntelos todos utilizando grid.arrange()</span></span>
+<span id="cb72-8"><a href="#cb72-8" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(p1, p2, p3, <span class="at">ncol=</span><span class="dv">3</span>) <span class="co">#ncol le indica a R que queremos que estén uno al lado del otro; si desea que estén uno encima del otro, pruebe con ncol=1; sin embargo, en este caso, ncol=2 sería posiblemente la mejor solución. ¡Pruébelo!</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-64-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>No tenemos tiempo para entrar en detalles sobre todas las funciones de personalización disponibles para <code>ggplot2</code>. Puedes encontrar algunas <a href="https://bbc.github.io/rcookbook/">soluciones adicionales</a> en el libro de recetas elaborado por los periodistas de datos de la BBC o en el <a href="https://socviz.co/">libro</a> gratuito en línea de Kieran Healy.</p>
+</section>
+<section id="representación-de-datos-categóricos-gráficos-de-barras" class="level2" data-number="3.11">
+<h2 data-number="3.11" class="anchored" data-anchor-id="representación-de-datos-categóricos-gráficos-de-barras"><span class="header-section-number">3.11</span> Representación de datos categóricos: gráficos de barras</h2>
+<p>Quizás se pregunte qué ocurre con los datos categóricos. Hasta ahora solo hemos hablado de diversas visualizaciones en las que al menos una de las variables es cuantitativa. Cuando la variable es categórica, se pueden utilizar gráficos de barras (similares a los histogramas). Asignamos la variable factorial en la estética y, a continuación, utilizamos la función <code>geom_bar()</code> para solicitar un gráfico de barras.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(BCS0708, <span class="fu">aes</span>(<span class="at">x=</span>walkday)) <span class="sc">+</span></span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_bar</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-65-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>En el eje Y puede ver la etiqueta <em>count</em>. Esta no es una variable de sus datos. Cuando ejecuta un <code>geom_bar</code> como este, está invocando como valor predeterminado oculto una llamada a la función <code>stat_</code>. En este caso, lo que ocurre es que esta función está <em>contando</em> el número de casos en cada uno de los niveles de <em>walkday</em> y este recuento es el que se utiliza para asignar la altura de cada una de las barras.</p>
+<p>La función <code>stat_</code>, además de contar los casos en cada nivel, calcula su frecuencia relativa, su proporción, y almacena esta información en una variable temporal llamada <em>after_stat(prop)</em>. Si queremos que esta variable se represente en el eje Y, podemos cambiar el código como se muestra a continuación:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(BCS0708, <span class="fu">aes</span>(<span class="at">x =</span> walkday)) <span class="sc">+</span></span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(prop)))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-66-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Como indica Kieran Helay (2018):</p>
+<p><em>«El gráfico resultante sigue sin ser correcto. Ya no tenemos un recuento en el eje y, pero las proporciones de las barras tienen todas un valor de 1, por lo que todas las barras tienen la misma altura. Queremos que sumen 1, para obtener el número de observaciones por «nivel» como proporción del número total de observaciones. Se trata de nuevo de un problema de agrupación… tenemos que indicar a ggplot que ignore las categorías x al calcular el denominador de la proporción y que utilice en su lugar el número total de observaciones. Para ello, especificamos group = 1 dentro de la llamada <code>aes()</code>. El valor 1 es solo una especie de «grupo ficticio» que indica a ggplot que utilice todo el conjunto de datos al establecer el denominador para sus cálculos de proporción».</em></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(BCS0708, <span class="fu">aes</span>(<span class="at">x=</span>walkday)) <span class="sc">+</span></span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_bar</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(prop), <span class="at">group =</span> <span class="dv">1</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-67-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Desafortunadamente, los niveles de este factor están ordenados alfabéticamente, lo que resulta confuso. Podemos modificar esto reordenando primero los niveles de los factores. Haga clic <a href="http://www.cookbook-r.com/Manipulating_data/Changing_the_order_of_levels_of_a_factor/">aquí</a> para obtener más detalles. Podría hacerlo dentro de la función <code>ggplot</code> (solo para la visualización), pero en la vida real, lo ideal sería ordenar los niveles de los factores de forma más permanente. Como se comentó la semana pasada, esto es algo que se hace como parte del preprocesamiento de los datos. Y luego se traza el gráfico.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Imprimir el orden original</span></span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">levels</span>(BCS0708<span class="sc">$</span>walkday))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>NULL</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Reordenar los niveles de los factores de muy seguro a muy inseguro (en lugar de por orden alfabético). Tenga en cuenta que estoy creando una nueva variable, lo cual suele ser aconsejable para evitar alterar los datos originales.</span></span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>BCS0708<span class="sc">$</span>walkdayR <span class="ot">&lt;-</span> <span class="fu">factor</span>(BCS0708<span class="sc">$</span>walkday, <span class="at">levels=</span><span class="fu">c</span>(<span class="st">"very safe"</span>,</span>
+<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a><span class="st">"fairly safe"</span>,<span class="st">"a bit unsafe"</span>,<span class="st">"or very unsafe"</span>))</span>
+<span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Trazando la variable de nuevo (y excluyendo los datos NA)</span></span>
+<span id="cb78-5"><a href="#cb78-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">subset</span>(BCS0708, <span class="sc">!</span><span class="fu">is.na</span>(walkdayR)), <span class="fu">aes</span>(<span class="at">x=</span>walkdayR)) <span class="sc">+</span></span>
+<span id="cb78-6"><a href="#cb78-6" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_bar</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(prop), <span class="at">group =</span> <span class="dv">1</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-69-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>También podemos asignar una segunda variable a la estética. Por ejemplo, veamos la etnia en relación con la sensación de seguridad. Para ello, creamos un <strong>gráfico de barras apiladas</strong>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>bcs_bar <span class="ot">&lt;-</span><span class="fu">filter</span>(BCS0708, <span class="sc">!</span><span class="fu">is.na</span>(walkdayR), <span class="sc">!</span><span class="fu">is.na</span>(ethgrp2))</span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>bcs_bar, <span class="fu">aes</span>(<span class="at">x=</span>walkdayR, <span class="at">fill=</span>ethgrp2)) <span class="sc">+</span></span>
+<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_bar</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-70-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Este tipo de gráficos de barras apiladas no son muy útiles si lo que te interesa es comprender la relación entre estas dos variables. Es difícil ver si algún grupo es proporcionalmente más propenso a sentirse seguro o no.</p>
+<p>En cambio, lo que quieres es un tipo diferente de gráfico de barras apiladas, que te dé la proporción de tu «variable explicativa» (etnia) dentro de cada uno de los niveles de tu «variable de respuesta» (en este caso, la sensación de seguridad).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>bcs_bar, <span class="fu">aes</span>(<span class="at">x=</span>walkdayR, <span class="at">fill=</span>ethgrp2)) <span class="sc">+</span></span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-71-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Ahora podemos comparar más fácilmente las proporciones entre los grupos, ya que todas las barras tienen la misma altura. Sin embargo, es más difícil ver cuántas personas hay dentro de cada nivel de la variable X.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>bcs_bar, <span class="fu">aes</span>(<span class="at">x=</span>walkdayR, <span class="at">fill=</span>ethgrp2)) <span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>,</span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a><span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(prop), <span class="at">group =</span> ethgrp2))</span>
+<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-72-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Ahora tenemos un gráfico de barras en el que los valores de origen étnico se desglosan por niveles de temor a la delincuencia, con una proporción que se muestra en el eje Y. Si observamos las barras, veremos que no suman uno dentro de cada nivel de temor. En cambio, las barras de cualquier origen étnico concreto suman uno en todos los niveles de temor. Se puede ver, por ejemplo, que casi el 75 % de los encuestados blancos se encuentran en el nivel «Muy seguro», mientras que, por ejemplo, menos del 60 % de los encuestados negros se sienten «Muy seguros».</p>
+<p>A veces, es posible que desee invertir el eje, de modo que las barras se muestren horizontalmente. Para ello, puede utilizar la función <code>coord_flip()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Primero invocamos el gráfico que creamos y almacenamos anteriormente y luego añadimos una especificación adicional con coord_flip()</span></span>
+<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">coord_flip</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualisation_files/figure-html/unnamed-chunk-73-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>También puede utilizar <code>coord_flip()</code> con otros gráficos <code>ggplot</code> (por ejemplo, diagramas de caja).</p>
+<p>Un tipo particular de gráfico de barras es el gráfico de barras apiladas divergentes, que se utiliza a menudo para visualizar <a href="http://en.wikipedia.org/wiki/Likert_scale"><strong>escalas Likert</strong></a>. Es posible que desee consultar algunas de las opciones disponibles para ello a través del <a href="http://www.jstatsoft.org/v57/i05/paper">paquete HH</a> o <a href="http://strengejacke.wordpress.com/%202013/07/17/plotting-likert-scales-net-stacked-distributions-with-ggplot-rstats/">sjPlot</a>. Pero no las trataremos aquí en detalle.</p>
+<p>Ten en cuenta que saber <em>cómo</em> conseguir que R genere una visualización concreta es solo la mitad del trabajo. La otra mitad es saber <em>cuándo</em> generar un tipo concreto de visualización. <a href="https://solomonmg.github.io/post/when-to-use-stacked-barcharts/">Este blog</a>, por ejemplo, analiza algunos de los problemas de los gráficos de barras apiladas y las circunstancias excepcionales en las que puede ser conveniente utilizarlos.</p>
+<p>Existen otras herramientas que a veces se utilizan para visualizar datos categóricos. Los gráficos circulares son una de ellas. Sin embargo, como se mencionó al principio, muchas personas se oponen firmemente al uso de gráficos circulares y, por lo tanto, este es el único gráfico circular que verá en este curso:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="imgs/piechart.jpg" class="img-fluid figure-img"></p>
+<figcaption>bonito gráfico circular</figcaption>
+</figure>
+</div>
+<p>Lo que yo utilizaría en su lugar son <strong>gráficos waffle</strong>. Son muy fáciles de crear con el paquete «waffle», pero no creo que haya tiempo para ello en este momento. No obstante, puedes echarles un vistazo <a href="https://www.r-bloggers.com/making-waffle-charts-in-r-with-the-new-waffle-package/">aquí</a>.</p>
+</section>
+<section id="recursos-adicionales" class="level2" data-number="3.12">
+<h2 data-number="3.12" class="anchored" data-anchor-id="recursos-adicionales"><span class="header-section-number">3.12</span> Recursos adicionales</h2>
+<p>A estas alturas ya deberías saber que el camino hacia el dominio del análisis de datos lleva tiempo. La buena noticia es que vivimos en una época en la que hay múltiples recursos (a menudo gratuitos) que te pueden ayudar en el proceso. Los tiempos en los que este conocimiento era privilegio de unos pocos han quedado muy lejos. Si eres una persona motivada y disciplinada, hay muchas cosas que puedes hacer para consolidar y ampliar tus habilidades de visualización de datos sin gastar dinero. Ya te he recomendado la excelente documentación en línea de <code>ggplot2</code>. Aquí solo queremos indicarte algunos recursos útiles que puedes consultar en el futuro.</p>
+<p>En primer lugar, los <strong>MOOCS (cursos online masivos y abiertos)</strong>. Hay muchos MOOCS útiles que ofrecen formación gratuita en visualización de datos (bueno, puedes pagar si quieres un certificado, pero también puedes utilizar los recursos y aprender de forma gratuita).</p>
+<ul>
+<li><a href="https://www.coursera.org/specializations/information-visualization">Visualización de información</a>. Este curso ofrece una introducción a algunos conceptos más avanzados que los presentados en nuestro tutorial. También cubre software más avanzado para visualizaciones en la web.</li>
+</ul>
+<p>En segundo lugar, <strong>tutoriales en línea</strong>. Una de las cosas que pronto descubrirás es que los usuarios de R están muy interesados en escribir guías prácticas en algunos de los <a href="http://www.r-bloggers.com/">750 blogs dedicados a R</a> o como parte de <a href="https://rpubs.com/">Rpubs</a>. Utilizando Google o similares, a menudo encontrarás soluciones a casi cualquier problema que te encuentres al usar R. Por ejemplo, en este blog hay algunos tutoriales que quizá te interese consultar para complementar los míos:</p>
+<ul>
+<li><a href="http://rforpublichealth.blogspot.co.uk/2013/11/ggplot2-cheatsheet-for-scatterplots.html">Hoja de referencia para visualizar diagramas de dispersión</a><br>
+</li>
+<li><a href="http://rforpublichealth.blogspot.co.uk/2014/02/ggplot2-cheatsheet-for-visualizing.html">Hoja de referencia para visualizar distribuciones</a><br>
+</li>
+<li><a href="http://rforpublichealth.blogspot.co.uk/2014_01_01_archive.html">Hoja de referencia para gráficos de barras</a></li>
+</ul>
+<p>En tercer lugar, <em>blogs sobre visualización de datos</em>. Si utilizas <a href="https://feedly.com/index.html#discover">Feedly</a> o un agregador de blogs similar, deberías añadir los siguientes blogs a tu lista de lectura. Están escritos por personas destacadas en este campo y están llenos de consejos útiles: + <a href="http://flowingdata.com/">Flowing Data</a> + <a href="http://www.thefunctionalart.com/">The Functional Art</a> + <a href="http://www.perceptualedge.com/blog/">Visual Business Intelligence</a> + <a href="https://kpq.github.io/chartsnthings/">chartsnthings</a> + <a href="http://www.datarevelations.com/category/blog">Data Revelations</a></p>
+<p>En cuarto lugar, <strong>recursos para visualizaciones que no tenemos tiempo de cubrir</strong>. R está muy por delante de algunos de los programas de análisis de datos más populares con los que quizá estés más familiarizado (por ejemplo, SPSS o Excel). Hay muchas cosas que puedes hacer.</p>
+<p><strong>Tarea:</strong></p>
+<p><em>Descargue el conjunto de datos NCOVR de Blackboard. Puede consultar el archivo PDF que se proporciona allí para comprender mejor las variables del conjunto de datos. A continuación, lea los datos en R. Para ello, puede utilizar la función read.csv. Por lo tanto, siempre que tenga el conjunto de datos en su directorio de trabajo, puede utilizar el siguiente código para leer los datos en R:</em></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a>ncovr <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"NAT.csv"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><em>Crea una visualización adecuada para comparar la distribución de la tasa de homicidios en la década de 1990 entre los condados del sur y del norte. Comenta los resultados.</em></p>
+<p><em>Elabora un diagrama de dispersión para explorar la relación entre la tasa de homicidios en la década de 1970 y el nivel de desempleo. Asegúrate de utilizar geom_smooth para trazar una línea que resuma la relación. Comenta los resultados.</em></p>
+<p><em>¿Es diferente la relación entre los homicidios en 1970 y el desempleo en los condados del sur y del norte? Crea una visualización para explorar esta cuestión. Recuerda el código que utilizamos anteriormente para examinar el condicionamiento de una tercera variable.</em></p>
+
+
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>Tufte, Edward (2001) <em>The visual display of quantitative information.</em> 2.ª edición. Graphic Press.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p><a href="http://tomhopper.me/2010/08/30/graphing-highly-skewed-data/">Esta</a> es una entrada de blog interesante sobre soluciones cuando se tienen datos muy sesgados.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./causality.html" class="pagination-link" aria-label="Exploración y carpinteria de datos">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Exploración y carpinteria de datos</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
