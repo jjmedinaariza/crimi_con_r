@@ -11,7 +11,7 @@ Recomendamos que utilicéis vuestro propio ordenador portátil para este curso. 
 
 ## Abre y explora RStudio
 
-En esta sesión, nos centraremos en familiarizarnos con RStudio. Se puede utilizar R sin RStudio, pero RStudio es una aplicación que facilita el trabajo con R. RStudio ejecuta automáticamente R en segundo plano. En este  curso siempre interactuaremos con R a través de RStudio.
+En esta sesión, nos centraremos en familiarizarnos con RStudio. Se puede utilizar R sin RStudio, pero RStudio es una aplicación que facilita el trabajo con R. RStudio ejecuta automáticamente R en segundo plano. En este curso siempre interactuaremos con R a través de RStudio.
 
 ![](imgs/rstudio.PNG){width="80%"}
 
@@ -457,7 +457,7 @@ HarryPotter <- data.frame(name = c("Potter", "Malfoy", "Lovegood", "Chang", "Hag
 HarryPotter
 ```
 
-Utiliza `str(HarryPotter\$house)` y observa lo que dice R. R mostrará todas las observaciones de la variable y dirá que es una variable de caracteres, ¿verdad? Ahora vamos a convertir "house", una variable de caracteres, en una variable factorial "house_f".
+Utiliza `str(HarryPotter$house)` y observa lo que dice R. R mostrará todas las observaciones de la variable y dirá que es una variable de caracteres, ¿verdad? Ahora vamos a convertir "house", una variable de caracteres, en una variable factorial "house_f".
 
 ```{r}
 HarryPotter$house_f <- as.factor(HarryPotter$house)
