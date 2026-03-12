@@ -167,43 +167,43 @@ Para ver qué paquetes tienes actualmente **cargados** en tu sesión, utiliza la
 search()
 ```
 
-Si ejecutas este código, verás que `cowsay` no está en la lista de paquetes cargados. Por lo tanto, tu ordenador no puede utilizar ninguna de las funciones asociadas a él hasta que lo cargues. Para cargar un paquete utilizamos la función **library**. Así que si queremos cargar el nuevo paquete que hemos instalado en nuestra máquina, tendríamos que utilizar el siguiente código:
+Si ejecutas este código, verás que `cowsay` no está en la lista de paquetes cargados. Por lo tanto, tu ordenador no puede utilizar ninguna de las funciones asociadas a este él hasta que lo cargues. Para cargar un paquete utilizamos la función **library**. Así que si queremos cargar el nuevo paquete que hemos instalado en nuestra máquina, tendríamos que utilizar el siguiente código:
 
 ```{r}
 library("cowsay")
 ```
 
-Vuelve a ejecutar la función «search». Ahora verás que este paquete aparece en la lista. Así que ahora podemos volver a probar la función «say».
+Vuelve a ejecutar la función "search". Ahora verás que este paquete aparece en la lista. Así que ahora podemos volver a probar la función `say`.
 
 ```{r}
 say("Me encanta programar")
 ```
 
-Obtienes un animal aleatorio en la consola que repite el texto que pasamos como argumento. Si nos gusta otro animal, podemos pasar un argumento para seleccionarlo de forma explícita. Por ejemplo, si queremos un mono en lugar de un animal aleatorio, pasaríamos los siguientes argumentos a nuestra función.
+Obtendrás un animal aleatorio en la consola que repite el texto que pasamos como argumento. Si nos gusta otro animal, podemos pasar un argumento para seleccionarlo de forma explícita. Por ejemplo, si queremos un mono en lugar de un animal aleatorio, pasaríamos los siguientes argumentos a nuestra función.
 
 ```{r}
 say("Me encanta programar", "monkey")
 ```
 
-Esta es una característica importante de los argumentos en las funciones. Hemos dicho que diferentes funciones admiten diferentes argumentos. Aquí, al especificar «monkey», la función imprime ese animal en concreto. Pero, ¿por qué obtenemos un resultado aunque no hayamos especificado un tipo de animal concreto? Esto ocurre porque las funciones siempre tienen argumentos predeterminados que son necesarios para su ejecución y que no es necesario especificar explícitamente. Los argumentos predeterminados son implícitos y no es necesario escribirlos. La función «say» tiene un argumento predeterminado que imprimirá un carácter o animal aleatorio. Solo cuando se desea cambiar el valor predeterminado es necesario especificar explícitamente un animal alternativo.
+Esta es una característica importante de los argumentos en las funciones. Hemos dicho que diferentes funciones admiten diferentes argumentos. Aquí, al especificar "monkey", la función imprime ese animal en concreto. Pero, ¿por qué obtenemos un resultado aunque no hayamos especificado un tipo de animal concreto? Esto ocurre porque las funciones siempre tienen *argumentos predeterminados* que son necesarios para su ejecución y que no es necesario especificar explícitamente. Los argumentos predeterminados son implícitos y no es necesario escribirlos. La función `say` tiene un argumento predeterminado que imprimirá un carácter o animal aleatorio. Solo cuando se desea cambiar el valor predeterminado es necesario especificar explícitamente un animal alternativo.
 
-Recuerda que solo tienes que instalar una vez los paquetes que aún no estén instalados. Pero si quieres utilizarlos en una sesión determinada, tendrás que cargarlos dentro de esa sesión utilizando la función «library». Una vez que los cargues dentro de una sesión, los paquetes permanecerán cargados hasta que termines la sesión (por ejemplo, cerrando RStudio). No lo olvides.
+Recuerda que solo tienes que instalar una vez los paquetes que aún no estén instalados. Pero si quieres utilizarlos en una sesión determinada, tendrás que cargarlos dentro de esa sesión utilizando la función `library`. Una vez que los cargues dentro de una sesión, los paquetes permanecerán cargados hasta que termines la sesión (por ejemplo, cerrando RStudio). No lo olvides.
 
 ## Objetos: creación de un objeto
 
-Hemos visto cómo el primer argumento que toma la función «say» es el texto que queremos convertir en voz para nuestro animal determinado. Podríamos escribir el texto directamente en la función (como hicimos anteriormente), pero ahora vamos a hacer algo diferente. Vamos a crear un objeto para almacenar el texto.
+Hemos visto cómo el primer argumento que toma la función `say` es el texto que queremos convertir en voz para nuestro animal determinado. Podríamos escribir el texto directamente en la función (como hicimos anteriormente), pero ahora vamos a hacer algo diferente. Vamos a crear un objeto para almacenar el texto.
 
-¿Un **objeto**? ¿Qué quiero decir con eso? Del mismo modo que todo lo que haces en R lo haces con funciones (tus verbos), todo lo que existe en R es un objeto. Puedes pensar en los objetos como cajas en las que guardas cosas. En este caso, vamos a crear un objeto llamado *my_text* y dentro de este objeto vamos a almacenar el texto «Me encanta programar». ¿Cómo se hace esto? Utilizaremos el siguiente código:
+¿Un **objeto**? ¿Qué quiero decir con eso? Del mismo modo que todo lo que haces en R lo haces con funciones (tus verbos), **todo** lo que existe en R es un objeto. Puedes pensar en los objetos como cajas en las que guardas cosas. En este caso, vamos a crear un objeto llamado *my_text* y dentro de este objeto vamos a almacenar el texto "Me encanta programar". ¿Cómo se hace esto? Utilizaremos el siguiente código:
 
 ```{r}
 my_text <- "Me encanta programar"
 ```
 
-Este fragmento de código simplemente le indica a R que estamos creando un nuevo objeto con el nombre asignado («my_text»). Estamos creando un cajón con ese nombre y dentro de él colocamos un fragmento de texto («Me encanta programar»). La flecha `<-` que ves es el **operador de asignación**. Se trata de una parte importante del lenguaje R que le indica a R lo que estamos incluyendo dentro del objeto en cuestión.
+Este fragmento de código simplemente le indica a R que estamos creando un nuevo objeto con el nombre asignado ("my_text"). Estamos creando un cajón con ese nombre y dentro de él colocamos un fragmento de texto («Me encanta programar»). La flecha `<-` que ves es el **operador de asignación**. Se trata de una parte importante del lenguaje R que le indica a R lo que estamos incluyendo dentro del objeto en cuestión.
 
-Ejecuta el código. Ahora mira la ventana *Environment* (Entorno) en la esquina superior derecha. Vemos que este objeto ahora aparece allí. Puedes pensar en el Entorno como un almacén donde guardas cosas, tus diferentes objetos. ¿Hay algún límite para este entorno? Sí, tu RAM. R funciona en tu RAM, por lo que debes tener en cuenta que si utilizas objetos muy grandes necesitarás mucha RAM. Pero eso no será un problema que encontrarás en esta unidad del curso.
+Ejecuta el código. Ahora mira la ventana *Environment* (Entorno) en la esquina superior derecha. Vemos que este objeto ahora aparece allí. Puedes pensar en el Entorno como un almacén donde guardas cosas, tus diferentes objetos. Todos los objetos que tu crees, todas las cajas que usas, acaban en este "almacén" y allí permanecen hasta que las borres. ¿Hay algún límite para este entorno? Sí, tu RAM. R funciona en tu RAM, por lo que debes tener en cuenta que si utilizas objetos muy grandes necesitarás mucha RAM. Pero eso no será un problema que encontrarás en esta unidad del curso.
 
-Una vez que colocamos elementos en estas cajas u objetos, podemos utilizarlos como argumentos en nuestras funciones. Vea el ejemplo siguiente:
+Una vez que colocamos elementos en estas cajas u objetos, podemos utilizarlos como argumentos en nuestras funciones. Observa el ejemplo siguiente:
 
 ```{r}
 say(my_text, "cow")
@@ -213,13 +213,13 @@ say(my_text, "cow")
 
 Ahora que hemos cubierto algunos de los aspectos preliminares, podemos pasar a hablar de los datos. En Excel, estás acostumbrado a ver tus datos en formato de hoja de cálculo. Si necesita un resumen, te recomendamos que revises algunos de los materiales diseñados para estudiantes universitarios de Criminología. Este [capítulo](https://maczokni.github.io/MSCD_labs/week1.html#data-variables-and-observations) te ayudará a comprender mejor los conceptos de conjunto de datos, niveles de medición y datos "ordenados".
 
-R es considerablemente más flexible que Excel. La mayor parte del trabajo que hacemos aquí utilizará ficheros o bases de datos, "dataframes" es como se denominan en R. Pero, como has visto anteriormente, en R puedes tener *objetos* distintos de las bases de datos. Estos objetos pueden estar relacionados con archivos externos o con información textual simple («Me encanta programar»). Esta flexibilidad es una gran ventaja porque, entre otras cosas, nos permite desglosar las bases de datos o los resultados de los análisis realizados sobre ellos en sus partes constitutivas (esto quedará más claro a medida que avancemos).
+R es considerablemente más flexible que Excel. La mayor parte del trabajo que hacemos aquí utilizará ficheros o conjuntos de datos, **"dataframes"** es como se denominan en R. Pero, como has visto anteriormente, en R puedes tener *objetos* distintos de los "dataframes" o conjuntos de datos. Estos objetos pueden estar relacionados con archivos externos, con información textual simple ("Me encanta programar"), resultados de tus análisis, o con gráficos que deseas preservar. Todo esto lo iremos viendo poco a poco. Esta flexibilidad es una gran ventaja porque, entre otras cosas, nos permite desglosar los conjuntos de datos o los resultados de los análisis realizados sobre ellos en sus partes constitutivas (esto quedará más claro a medida que avancemos).
 
-Técnicamente, R es un *lenguaje orientado a objetos*. La programación orientada a objetos (OOP) es un modelo de lenguaje de programación organizado en torno a objetos en lugar de «acciones» y datos en lugar de lógica.
+Técnicamente, R es un *lenguaje orientado a objetos*. La programación orientada a objetos (OOP) es un modelo de lenguaje de programación organizado en torno a objetos en lugar de "acciones" y datos en lugar de lógica.
 
 Como hemos visto anteriormente, para crear un objeto hay que darle un nombre y, a continuación, utilizar el operador de asignación (el símbolo `<-`) para asignarle algún valor.
 
-Por ejemplo, si queremos crear un objeto al que llamamos «x» y queremos que represente el valor 5, escribimos:
+Por ejemplo, si queremos crear un objeto al que llamamos "x" y queremos que represente el valor 5, escribimos:
 
 ```{r}
 x <- 5
@@ -227,23 +227,24 @@ x <- 5
 
 Simplemente le estamos diciendo a R que cree un **objeto numérico**, llamado `x`, con un elemento (5) o de longitud 1. Es numérico porque estamos poniendo un número dentro de este objeto. La longitud es 1 porque solo tiene un elemento, el número 5.
 
-Puedes ver el contenido del objeto `x` en la consola principal utilizando la función de impresión que hemos usado anteriormente ("print") o mediante la impresión automática, es decir, simplemente escribiendo el nombre del objeto y ejecutándolo como código:
+Puedes ver el contenido del objeto `x` en la consola principal utilizando la función de impresión que hemos usado anteriormente (`print`) o mediante la impresión automática, es decir, simplemente escribiendo el nombre del objeto y ejecutándolo como código:
 
 ```{r}
 x
 ```
 
-Al escribir expresiones en R, es muy importante que comprendas que **R distingue entre mayúsculas y minúsculas**. Esto puede volverte loco si no tienes cuidado. La mayoría de las veces, si escribes una expresión pidiendo a R que haga algo y R devuelve un mensaje de error, lo más probable es que hayas utilizado minúsculas cuando se necesitaban mayúsculas (o viceversa). Por lo tanto, comprueba siempre que la ortografía sea correcta. Por ejemplo, mira lo que ocurre si utilizo una «X» mayúscula:
+Al escribir expresiones en R, es muy importante que comprendas que **R distingue entre mayúsculas y minúsculas**. Esto puede volverte loco si no tienes cuidado. La mayoría de las veces, si escribes una expresión pidiendo a R que haga algo y R devuelve un mensaje de error, lo más probable es que hayas utilizado minúsculas cuando se necesitaban mayúsculas (o viceversa). Por lo tanto, comprueba siempre que la ortografía sea correcta. Por ejemplo, mira lo que ocurre si utilizo una "X" mayúscula:
 
-```{r, error = TRUE}
+```{r}
+#| error: true
 X
 ```
 
-Aparecerá el siguiente mensaje: «Error en eval(expr, envir, enclos): object “X” not found». R nos está indicando que X no existe. ¡Claro! No hay ningún objeto X (mayúscula), pero sí hay un objeto x (minúscula). Los mensajes de error en R son bastante precisos a la hora de indicar qué es lo que ha fallado exactamente. No obstante, algunos, sobre todo al principio de proceso de aprendizaje, te pueden resultar algo confusos.
+Aparecerá el siguiente mensaje: "Error en eval(expr, envir, enclos): object “X” not found". R nos está indicando que X no existe. ¡Claro! No hay ningún objeto X (mayúscula), pero sí hay un objeto x (minúscula). Los mensajes de error en R son bastante precisos a la hora de indicar qué es lo que ha fallado exactamente. No obstante, algunos, sobre todo al principio de proceso de aprendizaje, te pueden resultar algo confusos.
 
-Recuerda que los ordenadores son muy literales. Son como los perros. Puedes decirle a un perro «siéntate» y, si ha sido entrenado, se sentará. Pero si le dices a un perro «¿serías tan amable de relajarte un poco y tumbarte en el sofá?», no tendrá ni idea de lo que le estás diciendo y te mirará como si te hubieras vuelto loco. Los mensajes de error son la forma que tienen las computadoras de decirnos «Realmente quiero ayudarte, pero no entiendo lo que quieres decir» (nunca te lo tomes como algo personal, las computadoras no te odian).
+Recuerda que los ordenadores son muy literales. Son como los perros. Puedes decirle a un perro "siéntate" y, si ha sido entrenado, se sentará. Pero si le dices a un perro "¿serías tan amable de relajarte un poco y tumbarte en tu cesta?", no tendrá ni idea de lo que le estás diciendo y te mirará como si te hubieras vuelto loco. Los mensajes de error son la forma que tienen las computadoras de decirnos "Realmente quiero ayudarte, pero no entiendo lo que quieres decir" (nunca te lo tomes como algo personal, las computadoras no te odian).
 
-Cuando recibes un mensaje de error o resultados inverosímiles, debes revisar tu código para averiguar cuál es el problema. Este proceso se denomina **depuración**. Existen algunas formas sistemáticas adecuadas de escribir código que facilitan la depuración, pero no las abordaremos aquí. R es muy bueno con el manejo automático de errores en los niveles en los que lo utilizaremos. Muy a menudo, la solución consistirá simplemente en corregir la ortografía.
+Cuando recibes un mensaje de error o resultados inverosímiles, debes revisar tu código para averiguar cuál es el problema. Este proceso se denomina **depuración** (en inglés "debugging"). Existen algunas formas sistemáticas adecuadas de escribir código que facilitan la depuración, pero no las abordaremos aquí. R es muy bueno con el manejo automático de errores en los niveles en los que lo utilizaremos. Muy a menudo, la solución consistirá simplemente en corregir la ortografía o en cargar un paquete que se te ha olvidado cargar.
 
 Un consejo útil es copiar y pegar el mensaje de error en Google y buscar una solución. Si alguien me hubiera dado un centavo por cada vez que he tenido que hacer eso, ahora sería Bill Gates. Probablemente no seas la primera persona en cometer ese error y seguro que alguien en Internet ya ha encontrado una solución a tu problema. La gente comete errores constantemente. Así es como aprendemos. No te frustres, no te quedes atascado. En lugar de eso, busca una solución. Hoy en día tenemos Google (o alguna inteligencia artificial, que suelen ser útiles en materia de programación). Antes no lo teníamos. Ahora tienes la respuesta a tu frustración al alcance de la mano. Úsala en tu beneficio.
 
@@ -253,7 +254,7 @@ En R hay diferentes tipos de objetos. Comenzaremos con los **vectores**.
 
 ¿Qué es un vector? Un vector es simplemente un conjunto de elementos *de la misma clase* (normalmente estas clases son: carácter, numérico, número entero, o lógico, como en Verdadero/Falso). Los vectores son la estructura de datos básica en R.
 
-Normalmente, se utiliza la función `c()` (c significa *concatenar*) para crear vectores. El código siguiente muestra cómo crear vectores de diferentes clases (numéricos, lógicos, caracteres, etc.). Observe cómo los elementos enumerados (para simplificar, hay dos elementos en cada vector siguiente) están separados por comas `,`:
+Normalmente, se utiliza la función `c()` (c significa *concatenar*) para crear vectores. El código siguiente muestra cómo crear vectores de diferentes clases (numéricos, lógicos, caracteres, etc.). Observa cómo los elementos enumerados (para simplificar, hay dos elementos en cada vector siguiente) están separados por comas `,`:
 
 ```{r}
 my_1st_vector <- c(0.5, 0.6) #crea un vector numérico con dos elementos
@@ -276,13 +277,13 @@ my_7th_vector <- my_1st_vector + 1 #Crear un nuevo vector que contenga los eleme
 my_1st_vector + my_7th_vector #Suma los dos vectores e imprime automáticamente los resultados (fíjate en cómo se ha realizado la suma)
 ```
 
-Como se ha indicado anteriormente, cuando creas objetos, los colocas en tu memoria de trabajo o espacio de trabajo. Cada sesión de R estará asociada a un espacio de trabajo (denominado «entorno global» en R Studio). En R Studio, puede visualizar los objetos que ha creado durante una sesión en la pantalla **Global Environment**. Pero si desea generar una lista de lo que hay allí, puede utilizar la función `ls()` (los resultados que obtenga pueden diferir de los que se muestran a continuación, dependiendo de lo que tengas realmente en tu entorno global).
+Como se ha indicado anteriormente, cuando creas objetos, los colocas en tu memoria de trabajo o espacio de trabajo. Cada sesión de R estará asociada a un espacio de trabajo (denominado "entorno global" o "Environment" en RStudio). En RStudio, puedes visualizar los objetos que has creado durante una sesión en la pantalla **Environment**. Pero si deseas generar una lista de lo que hay allí, puedes utilizar la función `ls()` (los resultados que obtenga pueden diferir de los que se muestran a continuación, dependiendo de lo que tengas realmente en tu entorno global).
 
 ```{r}
 ls() #enumera todos los objetos presentes en el entorno global de esta sesión
 ```
 
-Si desea eliminar un objeto concreto, puedes hacerlo utilizando la función `rm()`.
+Si deseas eliminar un objeto concreto, puedes hacerlo utilizando la función `rm()`.
 
 ```{r}
 rm(x) #elimina x de su entorno global
@@ -303,9 +304,9 @@ class(my_8th_vector)
 
 ## Tipos de objetos R: Dataframes
 
-Bien, ahora que ya conoce algunos de los tipos básicos de objetos que puede utilizar en R, comencemos a hablar de los dataframes. Uno de los objetos más comunes con los que trabajará en este curso son los **dataframes**. Los dataframes se pueden crear con la función `data.frame()`.
+Bien, ahora que ya conoces algunos de los tipos básicos de objetos que puedes utilizar en R, comencemos a hablar de los "dataframes". Uno de los objetos más comunes con los que trabajarás en este curso son los **dataframes**. Los dataframes se pueden crear con la función `data.frame()`.
 
-Las bases o ficheros de datos son *vectores múltiples* de clases posiblemente diferentes (por ejemplo, numéricas, factores, caracteres), pero de la misma longitud (por ejemplo, todos los vectores o variables tienen el mismo número de filas). Esto puede sonar un poco técnico, pero es simplemente una forma de decir que un marco de datos es lo que en otros programas de análisis de datos se representa como conjuntos de datos, las hojas de cálculo tabulares que has visto al utilizar Excel.
+Las conjuntos de datos o dataframes son *vectores múltiples* de clases posiblemente diferentes (por ejemplo, numéricas, factores, caracteres), pero de la misma longitud (por ejemplo, todos los vectores o variables tienen el mismo número de filas). Esto puede sonar un poco técnico, pero es simplemente una forma de decir que un dataframe es lo que en otros programas de análisis de datos se representa como conjuntos de datos, las hojas de cálculo tabulares que has visto al utilizar Excel, donde vas a tener *generalmente* columnas que representan variables de distinta naturaleza (o vectores usando la terminologia de R) y filas que representaran casos.
 
 ![](imgs/df.PNG){width="80%"}
 
@@ -326,28 +327,30 @@ mydata_2 <- data.frame (foo = x, bar = y)
 mydata_2
 ```
 
-Como puedes ver en R, al igual que en cualquier otro lenguaje, hay múltiples formas de decir lo mismo. Los programadores buscan producir código optimizado: que sea breve y rápido. Es probable que, a medida que desarrolles tus habilidades en R, encuentres formas cada vez más eficientes de pedirle a R que haga cosas. Esto también significa que, cuando pidas ayuda, ya sea a tus compañeros o a nosotros, es posible que te enseñemos formas ligeramente diferentes de obtener el resultado correcto. Lo importante en este momento es que obtengas el resultado correcto.
+Como puedes ver en R, al igual que en cualquier otro lenguaje, hay múltiples formas de decir lo mismo. Los programadores buscan producir código optimizado: que sea breve y rápido. Es probable que, a medida que desarrolles tus habilidades en R, encuentres formas cada vez más eficientes de pedirle a R que haga cosas. Esto también significa que, cuando pidas ayuda, ya sea a tus compañeros o a nosotros, es posible que te enseñemos formas ligeramente diferentes de obtener el resultado correcto. Lo importante, para principiantes, es que obtengas el resultado correcto y no tanto el cómo.
 
-Estos son ejemplos sencillos de marcos de datos. En este curso, utilizaremos datos reales. La semana que viene aprenderemos con más detalle cómo leer datos en R. Pero también debes saber que R viene con conjuntos de datos preinstalados. De hecho, algunos paquetes no son más que colecciones de dataframes.
+Estos son ejemplos sencillos de conjuntos de datos. En este curso, utilizaremos datos reales, en lugar de datos inventados. La semana que viene aprenderemos con más detalle cómo leer datos en R. Pero también debes saber que R viene con conjuntos de datos preinstalados. De hecho, algunos paquetes no son más que colecciones de dataframes.
 
 Echemos un vistazo a algunos de ellos. Vamos a ver algunos datos que forman parte del paquete *fivethirtyeight*. Este paquete contiene conjuntos de datos y código detrás de las historias de [este periódico online en particular](http://fivethirtyeight.com/). Este paquete no forma parte de la instalación básica de R, por lo que primero tendrás que instalarlo. No te daré el código para ello. A ver si puedes averiguarlo mirando los ejemplos anteriores.
 
 ¿Listo? Bien, ahora vamos a ver los conjuntos de datos que se incluyen en este paquete. Recuerda que primero tenemos que **instalar** y **cargar** el paquete si queremos utilizarlo:
 
 ```{r}
+#| message: false
+#| warning: false
 library(fivethirtyeight)
 data(package="fivethirtyeight") #Esta función devolverá todos los dataframes disponibles en el paquete indicado.
 ```
 
-Observa que este paquete contiene algunos conjuntos de datos relacionados con historias tratadas en esta revista que tenían un enfoque criminológico. Veamos, por ejemplo, el conjunto de datos hate_crimes. ¿Cómo se hace eso? Primero tenemos que cargar el marco de datos en nuestro entorno global. Para ello, utiliza el siguiente código:
+Observa que este paquete contiene algunos conjuntos de datos relacionados con historias tratadas en esta revista que tenían un enfoque criminológico. Veamos, por ejemplo, el conjunto de datos *hate_crimes*. ¿Cómo se hace eso? Primero tenemos que cargar el marco de datos en nuestro entorno global. Para ello, utiliza el siguiente código:
 
 ```{r}
 data("hate_crimes")
 ```
 
-Esta función buscará entre todos los paquetes *cargados* y localizará el conjunto de datos «hate_crimes». Observe que ahora aparece en el entorno global, aunque también dice «promesa» junto a él. Para ver los datos completos, primero hay que hacer algo con ellos. Así que hagámoslo.
+Esta función buscará entre todos los paquetes *cargados* y localizará el conjunto de datos "hate_crimes". Observe que ahora aparece en el entorno global, aunque también dice "promesa" junto a él. Para ver los datos completos, primero hay que hacer algo con ellos. Así que hagámoslo.
 
-Todos los objetos en R pueden tener **atributos**. Estos son: nombres; dimensiones (para matrices y matrices: número de filas y columnas) y nombres de dimensiones; clase de objeto (numérico, carácter, etc.); longitud (para un vector, será el número de elementos del vector); y otros definidos por el usuario. Puede acceder a los atributos de un objeto utilizando la función `attributes()`. Consultemos a R los atributos de este conjunto de datos.
+Todos los objetos en R pueden tener **atributos**. Estos son: nombres; dimensiones (para matrices: número de filas y columnas) y nombres de dimensiones; clase de objeto (numérico, carácter, etc.); longitud (para un vector, será el número de elementos del vector); y otros definidos por el usuario. Puedes acceder a los atributos de un objeto utilizando la función `attributes()`. Consultemos a R los atributos de este conjunto de datos.
 
 ```{r}
 
@@ -356,7 +359,7 @@ attributes(hate_crimes)
 
 Es posible que estos resultados impresos en la consola no tengan mucho sentido para ti en este momento. Volveremos a ello la semana que viene, así que no te preocupes.
 
-Ahora ve al panel de entorno global y haz clic con el botón izquierdo del ratón en el marco de datos «hate_crimes». Se abrirá el visor de datos en la sección superior izquierda de RStudio. Lo que verás allí es una hoja de cálculo con 13 variables y 51 observaciones. En este caso, cada variable te proporciona información (datos demográficos, patrones de voto y delitos de odio) sobre cada uno de los estados de EE. UU.
+Ahora ve al panel de entorno global y haz clic con el botón izquierdo del ratón en el marco de datos "hate_crimes". Se abrirá el visor de datos en la sección superior izquierda de RStudio. Lo que verás allí es una hoja de cálculo con 13 variables y 51 observaciones. En este caso, cada variable te proporciona información (datos demográficos, patrones de voto y delitos de odio) sobre cada uno de los estados de EE. UU.
 
 ![](imgs/dataview.PNG){width="80%"}
 
@@ -366,13 +369,13 @@ Bien, ahora echemos un vistazo rápido a los datos. Hay tantas formas diferentes
 
 ![](imgs/codebook.PNG){width="80%"}
 
-Empecemos con la *media*. Esta función toma como argumento la variable numérica para la que se desea obtener la media. Debido al funcionamiento de R, no basta con introducir el nombre de la variable, sino que también hay que indicar a R en qué dataframe se encuentra dicha variable. Para ello, se escribe el nombre del dataframe, el signo del dólar (`$`) y, a continuación, el nombre de la variable que se desea resumir. Si desea obtener la media de la variable que nos da la proporción de personas que votaron por Donald Trump (que es una variable en el fichero), puedes utilizar la siguiente expresión:
+Empecemos con la *media*. Esta función toma como argumento la variable numérica para la que se desea obtener la media. Debido al funcionamiento de R, no basta con introducir el nombre de la variable, sino que también hay que indicar a R en qué dataframe se encuentra dicha variable. Para ello, se escribe el nombre del dataframe, el signo del dólar (`$`) y, a continuación, el nombre de la variable que se desea resumir. Si deseas obtener la media de la variable que nos da la proporción de personas que votaron por Donald Trump (que es una variable en el fichero), puedes utilizar la siguiente expresión:
 
 ```{r}
 mean(hate_crimes$share_vote_trump)
 ```
 
-Este código indica que hay que buscar dentro del objeto del conjunto de datos «hate_crimes» la variable «share_vote_trump» y, a continuación, imprimir la media. El símbolo «\$» se utiliza cuando se desea buscar un componente concreto de un objeto. En el caso de los dataframes, ese componente suele ser uno de los vectores (variables). Sin embargo, a medida que avancemos en el curso, veremos otros usos para otros tipos de objetos.
+Este código indica que hay que buscar dentro del objeto del conjunto de datos "hate_crimes" la variable "share_vote_trump" y, a continuación, imprimir la media. El símbolo `$` se utiliza cuando se desea buscar un componente concreto de un objeto. En el caso de los dataframes, ese componente suele ser uno de los vectores (variables). Sin embargo, a medida que avancemos en el curso, veremos otros usos para otros tipos de objetos.
 
 Otra función que puede resultar útil con variables numéricas es `summary()`:
 
@@ -396,17 +399,24 @@ Aquí solo voy a presentar uno de ellos: *skimr*. Es muy completo y lo mantiene 
 
 Deberás instalarlo antes de nada. Utiliza el código que has aprendido para hacerlo y, a continuación, cárgualo. No te proporcionaré el código para ello, ya que a estas alturas ya deberías saber cómo hacerlo.
 
-```{r, echo=FALSE}
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
 library(skimr)
 ```
 
-Una vez que hayas cargado el paquete *skimr*, podrás utilizarlo. Su función principal es *skim*. Al igual que *summary* para los dataframes, skim presenta los resultados de todas las columnas y las estadísticas que usara para resumir cada variable dependerán de la clase de la variable, de su escala de medición (nominal, ordinal, numérica). Sin embargo, los resultados se muestran y almacenan de una forma más agradable, aunque no entraremos en detalles al respecto por ahora.
+Una vez que hayas cargado el paquete *skimr*, podrás utilizarlo. Su función principal es `skim`. Al igual que *summary* para los dataframes, skim presenta los resultados de todas las columnas y las estadísticas que usara para resumir cada variable dependerán de la clase de la variable, de su escala de medición (nominal, ordinal, numérica). Sin embargo, los resultados se muestran y almacenan de una forma más agradable, aunque no entraremos en detalles al respecto por ahora.
 
-```{r, eval = FALSE}
+```{r}
+#| eval: false
+
 skim(hate_crimes)
 ```
 
-```{r, echo=FALSE}
+```{r}
+#| echo: false
+
 knitr::kable(skim(hate_crimes))
 ```
 
@@ -414,7 +424,7 @@ knitr::kable(skim(hate_crimes))
 
 Una cosa importante que hay que entender en R es que los datos categóricos (ordenados, también llamados ordinales, o no ordenados, también llamados nominales) se codifican *normalmente* como **factores**, que son simplemente un tipo especial de vector. Un factor es simplemente un vector que solo puede contener *valores predefinidos* (esto es muy importante) y se utiliza para almacenar datos categóricos. Muchas funciones de análisis y visualización de datos tratan los factores de forma especial. Esto tiene sentido, ya que son esencialmente diferentes de las variables cuantitativas.
 
-Aunque se pueden utilizar números para representar categorías, *es mejor utilizar factores con etiquetas que números enteros para representar categorías*, ya que los factores son autodescriptivos (es mejor tener una variable con los valores «Masculino» y «Femenino» que una variable con los valores «1» y «2» para representar a hombres y mujeres). Cuando R lee datos en otros formatos (por ejemplo, separados por comas), por defecto convierte automáticamente todas las variables de caracteres en factores. Si prefieres mantener estas variables como vectores de caracteres simples, debes solicitarlo explícitamente a R. Volveremos sobre este tema en el proximo tema con algunos ejemplos.
+Aunque se pueden utilizar números para representar categorías, *es mejor utilizar factores con etiquetas que números enteros para representar categorías*, ya que los factores son autodescriptivos (es mejor tener una variable con los valores "Masculino" y "Femenino" que una variable con los valores "1" y "2" para representar a hombres y mujeres). Cuando R lee datos en otros formatos (por ejemplo, separados por comas), por defecto convierte automáticamente todas las variables de caracteres en factores. Si prefieres mantener estas variables como vectores de caracteres simples, debes solicitarlo explícitamente a R. Volveremos sobre este tema en el proximo tema con algunos ejemplos.
 
 Los factores también se pueden crear con la función `factor()` concatenando una serie de elementos *caracteres*. Observarás que se imprime de forma diferente a un vector de caracteres simple y que nos indica los niveles del factor (fíjate en la segunda línea impresa).
 
@@ -423,7 +433,7 @@ the_smiths <- factor(c("Morrisey", "Marr", "Rourke", "Joyce")) #crea un nuevo fa
 the_smiths #Imprime el factor
 ```
 
-Alternativamente, para obtener un resultado similar utilizando la función as.factor(). Aquí creará el objeto `the_smiths_char` y luego lo transformará en una variable factorial, `the_smiths_f`.
+Alternativamente, para obtener un resultado similar utilizando la función `as.factor()`. Aquí creará el objeto `the_smiths_char` y luego lo transformará en una variable factorial, `the_smiths_f`.
 
 ```{r}
 the_smiths_char <- c("Morrisey", "Marr", "Rourke", "Joyce") #crea un vector de caracteres
@@ -431,15 +441,15 @@ the_smiths_f <- as.factor(the_smiths_char) #crea un factor a partir de un vector
 the_smiths_f #Imprime el factor
 ```
 
-Los factores en R pueden considerarse vectores con información adicional. Esta información adicional consiste en un registro de los valores distintos de ese vector, denominados **niveles**. Si deseas conocer los niveles de un factor determinado, puede utilizar la función `levels()`:
+Los factores en R pueden considerarse vectores con información adicional. Esta información adicional consiste en un registro de los valores distintos de ese vector, denominados **niveles**. Si deseas conocer los niveles de un factor determinado, puedes utilizar la función `levels()`:
 
 ```{r}
 levels(the_smiths_f)
 ```
 
-Observa que los niveles aparecen impresos por orden alfabético (prueba con «levels(the_smiths_char)» y vea lo que dice R. Sí, `the_smiths_char` y `the_smiths_f` son diferentes). Habrá situaciones en las que este no sea el orden más conveniente (por ejemplo, *dic, ene, mar (orden alfabético)* en lugar de *ene, mar, dic*). Más adelante, en estos tutoriales, veremos cómo reordenar los niveles de los factores cuando sea necesario.
+Observa que los niveles aparecen impresos por orden alfabético (prueba con `levels(the_smiths_char)` y vea lo que dice R. Sí, `the_smiths_char` y `the_smiths_f` son diferentes). Habrá situaciones en las que este no sea el orden más conveniente (por ejemplo, *dic, ene, mar (orden alfabético)* en lugar de *ene, mar, dic*). Más adelante, en estos tutoriales, veremos cómo reordenar los niveles de los factores cuando sea necesario.
 
-Veamos otro ejemplo más. Supongamos que estamos recopilando datos sobre las casas de Hogwarts, que se dividen en cuatro: Gryffindor, Hufflepuff, Ravenclaw y Slytherin.
+Veamos otro ejemplo más. Supongamos que estamos recopilando datos sobre las casas de Hogwarts (de la serie de novelas y peliculas sobre Harry Potter), que se dividen en cuatro: Gryffindor, Hufflepuff, Ravenclaw y Slytherin.
 
 ```{r}
 #Creamos un dataframe llamado HarryPotter con dos variables, un vector de caracteres llamado nombre y un vector de caracteres llamado casa
@@ -447,7 +457,7 @@ HarryPotter <- data.frame(name = c("Potter", "Malfoy", "Lovegood", "Chang", "Hag
 HarryPotter
 ```
 
-Utiliza «str(HarryPotter\$house)» y observa lo que dice R. R mostrará todas las observaciones de la variable y dirá que es una variable de caracteres, ¿verdad? Ahora vamos a convertir «house», una variable de caracteres, en una variable factorial «house_f.
+Utiliza `str(HarryPotter\$house)` y observa lo que dice R. R mostrará todas las observaciones de la variable y dirá que es una variable de caracteres, ¿verdad? Ahora vamos a convertir "house", una variable de caracteres, en una variable factorial "house_f".
 
 ```{r}
 HarryPotter$house_f <- as.factor(HarryPotter$house)
@@ -455,29 +465,31 @@ str(HarryPotter$house_f)
 levels(HarryPotter$house_f) ##prueba con «levels(HarryPotter$house)» y observa la diferencia
 ```
 
-¿Ahora entiendes claramente qué significa **factor** en R? Los factores se utilizan para representar datos categóricos. Una vez creados, los factores pueden contener valores predefinidos, conocidos como «niveles».
+¿Ahora entiendes claramente qué significa **factor** en R? Los factores se utilizan para representar datos categóricos. Una vez creados, los factores pueden contener valores predefinidos, conocidos como "niveles".
 
 ![](imgs/as_factor.png){width="80%"}
 
 ## Convenciones para nombrar objetos en R
 
-Quizás hayas notado los distintos nombres que he utilizado para designar objetos, sean vectores o dataframes, en los ejemplos que hemos usado hasta ahora (`my_1st_vector`, `the_smiths`, etc.). Puedes utilizar casi cualquier nombre que desees para tus objetos. Los objetos en R pueden tener nombres de cualquier longitud compuestos por letras, números, guiones bajos («\_») o puntos («.») y deben comenzar con una letra. Además, al nombrar objetos, debes recordar lo siguiente:
+Quizás hayas notado los distintos nombres que hemos utilizado para designar objetos, sean vectores o dataframes, en los ejemplos que hemos usado hasta ahora (`my_1st_vector`, `the_smiths`, etc.). Puedes utilizar casi cualquier nombre que desees para tus objetos. Los objetos en R pueden tener nombres de cualquier longitud compuestos por letras, números, guiones bajos («\_») o puntos («.») y deben comenzar con una letra. Además, al nombrar objetos, debes recordar lo siguiente:
 
 -   *Algunos nombres están prohibidos*. Entre ellos se incluyen palabras como FALSE y TRUE, operadores lógicos y palabras de programación como Inf, for, else, break, function, y palabras para entidades especiales como NA y NaN.
 
--   *Es recomendable utilizar nombres que no correspondan a una función específica.* Hemos visto, por ejemplo, que hay una función llamada `print()`, por lo que no conviene llamar a un objeto «print» para evitar conflictos. Para evitarlo, utiliza sustantivos en lugar de verbos para nombrar tus variables y datos.
+-   *Es recomendable utilizar nombres que no correspondan a una función específica.* Hemos visto, por ejemplo, que hay una función llamada `print()`, por lo que no conviene llamar a un objeto "print" para evitar conflictos. Para evitarlo, utiliza sustantivos en lugar de verbos para nombrar tus variables y datos.
 
 -   *No conviene que sean demasiado largos* (o te arrepentirás cada vez que necesites utilizar ese objeto en tu análisis: te sangrarán los dedos de tanto teclear).
 
 -   *Es mejor que sean lo más intuitivas posible.*
 
--   *Es mejor seguir convenciones de nomenclatura coherentes.* [Los usuarios de R son muy malos en esto](http://journal.r-project.org/archive/2012-2/RJournal_2012-2_Baaaath.pdf). Pero podríamos mejorar si todos nos propusiéramos seguir convenciones similares. En estos folletos verás que sigo la convención «underscore_separated»; consulta [aquí](https://style.tidyverse.org/syntax.html) para obtener más detalles.
+-   *Es mejor seguir convenciones de nomenclatura coherentes.* [Los usuarios de R son muy malos en esto](http://journal.r-project.org/archive/2012-2/RJournal_2012-2_Baaaath.pdf). Pero podríamos mejorar si todos nos propusiéramos seguir convenciones similares. En estos folletos verás que sigo la convención "underscore_separated"; consulta [aquí](https://style.tidyverse.org/syntax.html) para obtener más detalles.
 
 También es importante recordar que R siempre tratará los números como números. Esto parece sencillo, pero en realidad es importante tenerlo en cuenta. Podemos nombrar nuestras variables casi como queramos. EXCEPTO que no pueden ser números. Los números están **protegidos** por R. 1 siempre significará 1.
 
-Si lo desea, pruébalo. Intenta crear una variable llamada 12 y asígnale el valor «doce». Podemos asignar un significado a algo utilizando los caracteres «\<-».
+Si lo desea, pruébalo. Intenta crear una variable llamada 12 y asígnale el valor "doce". Podemos asignar un significado a algo utilizando los caracteres `<-`.
 
 ```{r, error=TRUE}
+#| error: true
+
 12 <- «twelve»
 ```
 
@@ -487,37 +499,41 @@ Si lo desea, pruébalo. Intenta crear una variable llamada 12 y asígnale el val
 
 Los programadores somos perezosos, y el objetivo de utilizar interfaces basadas en código es evitar trabajos innecesarios, como descargar archivos con solo apuntar y hacer clic. Y cuando los datos están disponibles en línea en un formato adecuado, podemos indicarle a R que los lea directamente desde la web y eliminar así al intermediario (es decir, a nosotros mismos, con nuestra actividad de apuntar y hacer clic).
 
-¿Cómo podemos hacerlo? Piensa en lo que hacemos cuando leemos un archivo. Decimos: «Querido R, me gustaría crear un nuevo objeto y lo llamaré `my_dataframe`». Para ello, escribimos el nombre que le damos al objeto y la función de asignación `<-` (operador de asignación). A continuación, a la derecha de la función de asignación, se encuentra el valor que estamos asignando a la variable. Por lo tanto, podría ser un fragmento de texto (como cuando se crea un objeto «my_text» y se le pasa el argumento «Me encanta programar»), o podría ser alguna función, por ejemplo, cuando se lee un archivo csv con la función «read_csv()».
+¿Cómo podemos hacerlo? Piensa en lo que hacemos cuando leemos un archivo. Decimos: "Querido R, me gustaría crear un nuevo objeto y lo llamaré `my_dataframe`". Para ello, escribimos el nombre que le damos al objeto y la función de asignación `<-` (operador de asignación). A continuación, a la derecha de la función de asignación, se encuentra el valor que estamos asignando al objeto. Por lo tanto, podría ser un fragmento de texto (como cuando se crea un objeto "my_text" y se le pasa el argumento "Me encanta programar"), o podría ser alguna función, por ejemplo, cuando se lee un archivo csv con la función `read_csv()`.
 
 Por lo tanto, si estamos leyendo un archivo CSV, también debemos especificar *dónde* leerlo. ¿Dónde debe buscar R para encontrar estos datos? Aquí es donde normalmente se introduce la ruta al archivo, ¿verdad?
 
 Algo así como:
 
-```{r, eval=FALSE}
+```{r}
+#| eval: false
+
 my_dataframe <- read.csv('PATH_O_URL_AL_ARCHIVO_CSV')
 ```
 
 ¿Y qué pasa si tus datos no están en tu ordenador portátil o PC? Bueno, si hay alguna forma de que R pueda acceder a estos datos simplemente siguiendo una ruta, ¡entonces este método seguirá funcionando!
 
-```{r, eval=FALSE}
+```{r}
+#| eval: false
+
 #Ejemplo de cómo bajarías una base de datos de un sitio web
 my_dataframe <- read.csv("www.data.com/data you want to import.csv")
 
 ```
 
-En este ejemplo, al objeto my_dataframe se le asignaría el valor devuelto por la función read.csv() al leer el archivo desde el enlace «url» que proporcionaste. La ruta del archivo no es nada misterioso, la ruta del archivo es simplemente la *ruta* al *archivo* que deseas leer. Si se trata de un sitio web, entonces que así sea.
+En este ejemplo, al objeto "my_dataframe" se le asignaría el valor devuelto por la función `read.csv()` al leer el archivo desde el enlace "url" que proporcionaste. La ruta del archivo no es nada misterioso, la ruta del archivo es simplemente la *ruta* al *archivo* que deseas leer. Si se trata de un sitio web, entonces que así sea.
 
-R también puede leer archivos de datos en otros formatos que son comunes en las ciencias sociales. Por ejemplo, Stata (.dta) utilizando la función `read_dta()` del paquete Haven, y archivos SPSS (.sav) utilizando la función `read_spss()`, también del paquete Haven. Hay muchas formas y códigos diferentes que podemos utilizar para importar datos a R. En este curso, ¡aprenderás uno por uno!
+R también puede leer archivos de datos en otros formatos que son comunes en las ciencias sociales. Por ejemplo, Stata (.dta) utilizando la función `read_dta()` del paquete "Haven", y archivos SPSS (.sav) utilizando la función `read_spss()`, también del paquete "Haven". Hay muchas formas y códigos diferentes que podemos utilizar para importar datos a R. En este curso, ¡aprenderás uno por uno!
 
-## Cómo usar «comentarios»
+## Cómo usar "comentarios"
 
-En los fragmentos de código anteriores, habrás notado que hay partes que aparecen en gris. Fíjate, por ejemplo, en el último ejemplo proporcionado. Verás que, después del hashtag, todo el texto aparece en gris. ¿Qué es esto? ¿Qué está pasando?
+En los fragmentos de código anteriores, habrás notado que hay partes que aparecen en gris. Fíjate, por ejemplo, en el último ejemplo proporcionado. Verás que, después del `#` (el símbolo almohadilla), todo el texto aparece en gris. ¿Qué es esto? ¿Qué está pasando?
 
 Son **comentarios**. Los comentarios son simplemente anotaciones que R sabe que no son código (y, por lo tanto, no intenta comprender ni ejecutar). Utilizamos el símbolo de la almohadilla para indicar a R que lo que viene a continuación no es código de programación, sino simplemente notas que escribimos para recordar lo que realmente hace el código. Incluir estos comentarios te ayudará a comprender tu código cuando vuelvas a él.
 
-Para crear un comentario, utiliza el símbolo de almohadilla/número `#` seguido de algún texto. Cada vez que el motor R ve el símbolo de número, sabe que lo que sigue no es código que se debe ejecutar. Puedes utilizar este símbolo para incluir *anotaciones* cuando estés programando. Estas anotaciones son un recordatorio útil para ti (y para otras personas que lean tu código) de **qué** hace el código y (lo que es aún más importante) **por qué** lo estás haciendo.
+Para crear un comentario, utiliza el símbolo de almohadilla/número `#` seguido de algún texto. Cada vez que el motor de R ve el símbolo de número, sabe que lo que sigue no es código que se debe ejecutar. Puedes utilizar este símbolo para incluir *anotaciones* cuando estés programando. Estas anotaciones son un recordatorio útil para ti (y para otras personas que lean tu código) de **qué** hace el código y (lo que es aún más importante) **por qué** lo estás haciendo.
 
-Es recomendable utilizar anotaciones con frecuencia. Puedes usar estas anotaciones en tu código para explicar tu razonamiento y crear encabezados «escaneables» en tu código. De esta manera, después de guardar tu script, podrás compartirlo con otras personas o volver a él más adelante y comprender lo que estabas haciendo cuando lo creaste por primera vez. Consulta [aquí para obtener más detalles sobre las anotaciones y cómo guardar un script cuando se trabaja con la interfaz básica de R](http://mercury.webster.edu/aleshunas/R_learning_infrastructure/R%20scripts.html).
+Es recomendable utilizar anotaciones con frecuencia. Puedes usar estas anotaciones en tu código para explicar tu razonamiento y crear encabezados "escaneables" en tu código. De esta manera, después de guardar tu script, podrás compartirlo con otras personas o volver a él más adelante y comprender lo que estabas haciendo cuando lo creaste por primera vez. Consulta [aquí para obtener más detalles sobre las anotaciones y cómo guardar un script cuando se trabaja con la interfaz básica de R](http://mercury.webster.edu/aleshunas/R_learning_infrastructure/R%20scripts.html).
 
 Solo ten en cuenta lo siguiente:
 
@@ -527,12 +543,12 @@ Solo ten en cuenta lo siguiente:
 
 ## Cómo salir de RStudio
 
-En algún momento, saldrás de tu sesión de R/RStudio. Lo sé, es difícil de imaginar, ¿verdad? ¿Por qué querrías hacer eso? De todos modos, cuando eso suceda, RStudio te hará una pregunta difícil: «¿Guardar la imagen del espacio de trabajo en bla bla bla/.RData?». ¿Qué hacer? ¿Qué significa eso?
+En algún momento, saldrás de tu sesión de R/RStudio. Lo sé, es difícil de imaginar, ¿verdad? ¿¡Por qué querrías hacer eso!? De todos modos, cuando eso suceda, RStudio te hará una pregunta difícil: "¿Guardar la imagen del espacio de trabajo en bla bla bla/.RData?". ¿Qué hacer? ¿Qué significa eso?
 
-Si respondes «sí», lo que sucederá es que se conservarán todos los objetos que tengas en tu entorno, junto con el *Historial* (al que puedes acceder en el conjunto de ventanas de la parte superior derecha), que enumera todas las funciones que has ejecutado dentro de tu sesión. Así, la próxima vez que abras este proyecto, todo estará allí. Si crees que lo *real* son esos objetos y ese historial, entonces quizá pienses que eso es lo que quieres hacer.
+Si respondes "sí", lo que sucederá es que se conservarán todos los objetos que tengas en tu entorno, junto con el *Historial* (al que puedes acceder en el conjunto de ventanas de la parte superior derecha), que enumera todas las funciones que has ejecutado dentro de tu sesión. Así, la próxima vez que abras este proyecto, todo estará allí. Si crees que lo *real* son esos objetos y ese historial, entonces quizá pienses que eso es lo que quieres hacer.
 
-La verdad es que lo que es real son tus scripts y los datos que estos utilizan como entradas. No necesitas nada de lo que hay en tu entorno, porque puedes recrear esas cosas volviendo a ejecutar tus scripts. Me gusta mantener las cosas ordenadas, así que cuando me preguntan si quiero guardar la imagen, mi respuesta es siempre no. La mayoría de los usuarios veteranos de R nunca guardan el espacio de trabajo, ni se preocupan por guardar el historial. Recuerda que lo que es real son tus scripts y los datos.
+La verdad es que lo que es real son tus scripts y los datos que estos utilizan como entradas. No necesitas nada de lo que hay en tu entorno, porque puedes recrear esas cosas volviendo a ejecutar tus scripts. Me gusta mantener las cosas ordenadas, así que cuando me preguntan si quiero guardar la imagen, mi respuesta es siempre no. La mayoría de los usuarios veteranos de R nunca guardan el espacio de trabajo, ni se preocupan por guardar el historial. *Recuerda que lo que es real son tus scripts y los datos*. En realidad no pierdes nada importante si no grabas la imagen. Al contrario, te sirve para mantener todo más limpio y organizado.
 
-Sin embargo, ten en cuenta que no debes asustarte si abres tu próxima sesión de RStudio y no ves ningún objeto en tu entorno. La buena noticia es que puedes generarlos rápidamente (si realmente los necesitas) volviendo a ejecutar tus scripts. Te sugiero que, en este punto, también te resulte útil adquirir este hábito. Sospecho que, de lo contrario, llegarás al final del semestre y tendrás un entorno lleno de basura que realmente no necesitas.
+Sin embargo, ten en cuenta que no debes asustarte si abres tu próxima sesión de RStudio y no ves ningún objeto en tu entorno. La buena noticia es que puedes generarlos rápidamente (si realmente los necesitas) volviendo a ejecutar tus scripts. Te sugiero que, en este punto, también te resulte útil adquirir este hábito. Sospecho que, de lo contrario, llegarás al final del curso y tendrás un entorno lleno de basura que realmente no necesitas.
 
-Además, te sugiero que vayas al menú desplegable Herramientas (Tools), seleccione Opciones globales (Global Options) y se asegure de seleccionar «Nunca» en «Guardar espacio de trabajo». A continuación, haga clic en «Aplicar». De esta forma, nunca te pedirá de nuevo que guardes lo que hay en su entorno global cuando finalice una sesión.
+Además, te sugiero que vayas al menú desplegable Herramientas (Tools), selecciones Opciones globales (Global Options) y se asegure de seleccionar "Nunca" en "Guardar espacio de trabajo". A continuación, haz clic en "Aplicar". De esta forma, RStudio nunca te pedirá de nuevo que guardes lo que hay en su entorno global cuando finalices una sesión.
