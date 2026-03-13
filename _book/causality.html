@@ -574,7 +574,20 @@ Attaching package: 'dplyr'</code></pre>
 </div>
 <p>Veamos el código de la función <code>summarise</code> anterior. Primero le pedimos a R que coloque los resultados en un objeto al que llamamos “results”. A continuación, especificamos que queremos agrupar los datos tal y como lo indicamos anteriormente en nuestra función <code>group_by()</code>, es decir, por antecedentes penales. Después pasamos dos argumentos. Cada uno de estos argumentos crea una nueva variable en el objeto resultante llamado «results». La primera variable que creamos se llama <em>count</em> y, al decir que es igual a <code>n()</code>, le indicamos a R que esta nueva variable simplemente cuenta el número de casos en cada una de las categorías de agrupación. La segunda variable que creamos se llama <em>outcome</em> y, para calcularla, le pedimos a R que calcule la media de la variable <em>response</em> para cada uno de los dos grupos de solicitantes definidos en <em>by_antecedents</em> (los que tienen antecedentes y los que no). Recuerde que la variable response en el marco de datos “aer2017” se codificó como variable numérica, aunque en realidad es de naturaleza categórica (hubo una respuesta, o no, por parte de los empleadores). En realidad, eso no importa. Tomar la media de una variable binaria en este caso es matemáticamente equivalente a calcular una proporción, como hemos comentado anteriormente.</p>
 <p>Por lo tanto, lo que vemos aquí es que alrededor del 13,6 % de los solicitantes sin antecedentes penales recibieron una respuesta positiva de los empleadores, mientras que solo el 8 % de los que tenían antecedentes penales recibieron dicha respuesta. Dado que la asignación de antecedentes penales a los solicitantes fue aleatoria, es muy probable que ningún otro “confounder” (en inglés) o <a href="https://en.wikipedia.org/wiki/Confounding"><strong>factor de confusión</strong></a> haya influido en este resultado. Y esa es la belleza de los experimentos aleatorios. Es posible que estés en condiciones de hacer afirmaciones más sólidas sobre tus resultados.</p>
-<p><strong>TAREA 1:</strong> <em>Utiliza lo que hemos aprendido hasta ahora para ver si existe un efecto de interacción entre la raza y los antecedentes penales. Es decir, ¿qué pasaría si comparáramos cuatro grupos: blancos sin antecedentes, blancos con antecedentes, negros sin antecedentes y negros con antecedentes? ¿Qué opinas? ¿Existe un efecto de interacción? En otras palabras, ¿el impacto de tener antecedentes penales es más acusado para alguno de los dos grupos raciales?</em></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>TAREA 1:</strong></p>
+<p><em>Utiliza lo que hemos aprendido hasta ahora para ver si existe un efecto de interacción entre la raza y los antecedentes penales. Es decir, ¿qué pasaría si comparáramos cuatro grupos: blancos sin antecedentes, blancos con antecedentes, negros sin antecedentes y negros con antecedentes? ¿Qué opinas? ¿Existe un efecto de interacción? En otras palabras, ¿el impacto de tener antecedentes penales es más acusado para alguno de los dos grupos raciales?</em></p>
+</div>
+</div>
 </section>
 <section id="realizar-comparaciones-con-resultados-numéricos" class="level2" data-number="2.7">
 <h2 data-number="2.7" class="anchored" data-anchor-id="realizar-comparaciones-con-resultados-numéricos"><span class="header-section-number">2.7</span> Realizar comparaciones con resultados numéricos</h2>
@@ -627,7 +640,17 @@ Attaching package: 'dplyr'</code></pre>
 <span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(banbox, <span class="st">"data/banbox.csv"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Estas instrucciones están pidiendole a R que guarde el objeto “banbox” en un nuevo archivo “banbox.csv” que va a estar en mi carpeta “data” dentro del directorio de mi proyecto. Si no teneis esa carpeta en vuestro directorio R generará un error. Si queréis grabar el archivo en otro sitio simplemente cambiard la ruta que pasais como argumento dentro de la función.</p>
-<p><strong>Tarea 2:</strong></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>TAREA 2:</strong></p>
 <p><em>Responde a las siguientes preguntas</em>:</p>
 <ul>
 <li><p><em>2.1 ¿Qué es un tibble?</em></p></li>
@@ -635,6 +658,8 @@ Attaching package: 'dplyr'</code></pre>
 <li><p><em>2.3 ¿Qué es un vector etiquetado?</em></p></li>
 <li><p><em>2.4.¿En qué se diferencia la función <code>filter()</code> de la función <code>select()</code>?</em></p></li>
 </ul>
+</div>
+</div>
 
 
 </section>
