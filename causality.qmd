@@ -73,6 +73,17 @@ Deberás prestar atención a la extensión del archivo para encontrar la funció
 
 Otros tipos de archivos necesitan otros paquetes. Por ejemplo, para leer valores separados por comas o archivos `.csv`, puedes utilizar la función `read_csv()` del paquete `readr`. Para leer archivos de Excel, debes utilizar la función adecuada del paquete `readxl`, que puede ser `read_xls()` o `read_xlsx()`, dependiendo de la extensión del archivo.
 
+## Guardando una copia de estos datos en vuestro ordenador
+
+Imaginad, por la razón que sea, que no queréis bajaros esta base de datos de internet cada vez que queréis usarlo y queréis en cambio tenerlo en vuestro ordenador. En ese caso podéis grabar en vuestro ordenador una copia del objeto que habéis depositado en vuestro entorno. Para ello quizás lo más recomendable sería guardarlo en formato .csv que es el estandard más universal. Hay varias formas de hacer esto la preferible es usar la función `write_csv()` del paquete `readr`.
+
+```{r}
+library(readr)
+write_csv(banbox, "data/banbox.csv")
+```
+
+Estas instrucciones están pidiendole a R que guarde el objeto "banbox" en un nuevo archivo "banbox.csv" que va a estar en mi carpeta "data" dentro del directorio de mi proyecto. Si no teneis esa carpeta en vuestro directorio R generará un error. Si queréis grabar el archivo en otro sitio simplemente cambiard la ruta que pasais como argumento dentro de la función.
+
 ## Familiarizarse con los datos
 
 ### Primeros pasos
