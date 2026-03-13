@@ -494,8 +494,8 @@ Non-Black     Black
 <p>El flujo de trabajo del análisis de datos consta de varias etapas. El siguiente diagrama (elaborado por Hadley Wickham) ilustra muy bien este proceso:</p>
 <p><img src="imgs/data-science-explore.png" class="img-fluid"></p>
 <p>Hemos comenzado a ver diferentes formas de introducir datos en R. Y también hemos comenzado a ver cómo podemos explorar nuestros datos. Ahora es el momento de empezar a hablar de una de las siguientes etapas, la <strong>transformación</strong>. Una gran parte del tiempo y el esfuerzo en el análisis de datos se dedica a esto, a veces es aquello que más trabajo requiere. Obtienes tus datos y luego tienes que realizar algunas transformaciones para poder responder a las preguntas que quieres abordar en tu investigación. Ya hemos visto, por ejemplo, cómo convertir variables en factores, pero hay otras cosas que quizá quieras hacer.</p>
-<p>R ofrece una gran flexibilidad a la hora de transformar tus datos. Aquí vamos a ilustrar algunas de las funcionalidades del paquete <em>dplyr</em> para la carpintería de datos (un término que se utiliza para referirse a este tipo de operaciones y que es menos, innecesariamente, peyorativo que el de la “manipulación” de datos). Este paquete forma parte de tydiverse y su objetivo es ofrecer una visión amigable y moderna de cómo trabajar con conjuntos de datos (o tibbles) en R. Ofrece, como dicen los autores del paquete, “una gramática flexible para la transformación de datos”.</p>
-<p>Dplyr tiene como objetivo proporcionar una función para cada verbo básico de manipulación de datos:</p>
+<p>R ofrece una gran flexibilidad a la hora de transformar tus datos. Aquí vamos a ilustrar algunas de las funcionalidades del paquete <em>dplyr</em> para la carpintería de datos (un término que se utiliza para referirse a este tipo de operaciones y que es menos, innecesariamente, peyorativo que el de la “manipulación” de datos). Este paquete forma parte de <code>tydiverse</code> y su objetivo es ofrecer una visión amigable y moderna de cómo trabajar con conjuntos de datos (o tibbles) en R. Ofrece, como dicen los autores del paquete, “una gramática flexible para la transformación de datos”.</p>
+<p>El paquete <code>dplyr</code> tiene como objetivo proporcionar una función para cada verbo básico de manipulación de datos:</p>
 <ul>
 <li><code>filter()</code> para seleccionar casos en función de sus valores.</li>
 <li><code>arrange()</code> para reordenar los casos.</li>
@@ -504,7 +504,7 @@ Non-Black     Black
 <li><code>summarise()</code> para condensar múltiples valores en un solo valor.</li>
 <li><code>sample_n()</code> y <code>sample_frac()</code> para tomar muestras aleatorias.</li>
 </ul>
-<p>En esta sesión presentaremos y practicaremos algunas de ellas. Pero no tendremos tiempo para cubrirlo todo. Sin embargo, hay un conjunto muy interesante de viñetas para este paquete en los archivos de ayuda, por lo que puede intentarlo si deseas obtener más detalles o practicar más.</p>
+<p>En esta sesión presentaremos y practicaremos algunas de ellas. Pero no tendremos tiempo para cubrirlo todo. Sin embargo, hay un conjunto muy interesante de viñetas para este paquete en los archivos de ayuda, por lo que podéis consultarlas si deseáis obtener más detalles o practicar más.</p>
 <p>Ahora carguemos el paquete:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
