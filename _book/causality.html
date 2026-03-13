@@ -523,20 +523,10 @@ Attaching package: 'dplyr'</code></pre>
     intersect, setdiff, setequal, union</code></pre>
 </div>
 </div>
-<p>Observas que al ejecutar este paquete, aparecerán una serie de advertencias en la consola. Nos indican que algunas funciones de ciertos paquetes están siendo “enmascaradas” (masked). Una de las características de un lenguaje como R es que, a veces, los paquetes introducen funciones que tienen el mismo nombre que otras que ya están cargadas en la sesión. ¡Con mas de 20000 paquetes es imposible de evitar! Cuando eso ocurre, las funciones recién cargadas “anulan” las anteriores con el mismo nombre. Aún puedes utilizarlas, pero tendrás que hacer referencia a ellas de forma explícita. De lo contrario, R asumirá que estás utilizando la función cargada más recientemente:</p>
+<p>Observas que al ejecutar este paquete, aparecerán una serie de advertencias en la consola. Nos indican que algunas funciones de ciertos paquetes están siendo “enmascaradas” (masked). Una de las características de un lenguaje como R es que, a veces, los paquetes introducen funciones que tienen el mismo nombre que otras que ya están cargadas en la sesión. ¡Con mas de 20000 paquetes es imposible de evitar! Cuando eso ocurre, las funciones recién cargadas “anulan” las anteriores con el mismo nombre. Aún puedes utilizarlas, pero tendrás que hacer referencia a ellas de forma explícita. De lo contrario, R asumirá que estás utilizando la función cargada más recientemente.</p>
+<p>Por ejemplo, si utilizas <code>dplyr</code> y luego invocas la función <code>filter()</code> R asumirá que estás utilizando la función filter de dplyr en lugar de la función <code>filter()</code> que existe en el paquete <code>stats</code>, que forma parte de la instalación básica de R. Si después de cargar <code>dplyr</code> deseas utilizar la función <code>filter</code> del paquete <code>stats</code>, tendrás que invocarla así. Fíjate en la gramática: primero se escribe el nombre del paquete, luego dos puntos (x2) y, a continuación, el nombre de la función. No ejecute este código. Tendría que pasar algunos argumentos válidos para que esto produjera resultados significativos.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Ejemplo:</span></span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Si utiliza load dplyr y luego invoca la función *filter()*</span></span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="co">#R asumirá que está utilizando la función filter de dplyr</span></span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="co">#en lugar de la función *filter()* que existe en el paquete *stats*</span></span>
-<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="co">#, que forma parte de la instalación básica de R. Si </span></span>
-<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a><span class="co">#después de cargar dplyr desea utilizar la función filter del</span></span>
-<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a><span class="co">#el paquete stats, tendrá que invocarla así:</span></span>
-<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>stats<span class="sc">::</span><span class="fu">filter</span>()</span>
-<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a><span class="co">#Fíjese en la gramática: primero se escribe el nombre del paquete,</span></span>
-<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a><span class="co">#luego dos puntos y, a continuación, el nombre de la función. No </span></span>
-<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a><span class="co">#ejecute este código. Tendría que pasar algunos argumentos válidos</span></span>
-<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a><span class="co">#para que esto produjera resultados significativos.</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>stats<span class="sc">::</span><span class="fu">filter</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="uso-de-verbos-simples-de-dplyr" class="level2" data-number="2.5">
@@ -638,7 +628,13 @@ Attaching package: 'dplyr'</code></pre>
 </div>
 <p>Estas instrucciones están pidiendole a R que guarde el objeto “banbox” en un nuevo archivo “banbox.csv” que va a estar en mi carpeta “data” dentro del directorio de mi proyecto. Si no teneis esa carpeta en vuestro directorio R generará un error. Si queréis grabar el archivo en otro sitio simplemente cambiard la ruta que pasais como argumento dentro de la función.</p>
 <p><strong>Tarea 2:</strong></p>
-<p><em>Responde a las siguientes preguntas</em>: + <em>2.1 ¿Qué es un tibble?</em> + <em>2.2 ¿En qué se diferencia un nombre de variable de una etiqueta de variable?</em> + <em>2.3 ¿Qué es un vector etiquetado?</em> + <em>2.4.¿En qué se diferencia la función <code>filter()</code> de la función <code>select()</code>?</em></p>
+<p><em>Responde a las siguientes preguntas</em>:</p>
+<ul>
+<li><p><em>2.1 ¿Qué es un tibble?</em></p></li>
+<li><p><em>2.2 ¿En qué se diferencia un nombre de variable de una etiqueta de variable?</em></p></li>
+<li><p><em>2.3 ¿Qué es un vector etiquetado?</em></p></li>
+<li><p><em>2.4.¿En qué se diferencia la función <code>filter()</code> de la función <code>select()</code>?</em></p></li>
+</ul>
 
 
 </section>

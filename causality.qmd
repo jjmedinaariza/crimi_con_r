@@ -291,22 +291,17 @@ Ahora carguemos el paquete:
 library(dplyr)
 ```
 
-Observas que al ejecutar este paquete, aparecerán una serie de advertencias en la consola. Nos indican que algunas funciones de ciertos paquetes están siendo "enmascaradas" (masked). Una de las características de un lenguaje como R es que, a veces, los paquetes introducen funciones que tienen el mismo nombre que otras que ya están cargadas en la sesión. ¡Con mas de 20000 paquetes es imposible de evitar! Cuando eso ocurre, las funciones recién cargadas "anulan" las anteriores con el mismo nombre. Aún puedes utilizarlas, pero tendrás que hacer referencia a ellas de forma explícita. De lo contrario, R asumirá que estás utilizando la función cargada más recientemente:
+Observas que al ejecutar este paquete, aparecerán una serie de advertencias en la consola. Nos indican que algunas funciones de ciertos paquetes están siendo "enmascaradas" (masked). Una de las características de un lenguaje como R es que, a veces, los paquetes introducen funciones que tienen el mismo nombre que otras que ya están cargadas en la sesión. ¡Con mas de 20000 paquetes es imposible de evitar! Cuando eso ocurre, las funciones recién cargadas "anulan" las anteriores con el mismo nombre. Aún puedes utilizarlas, pero tendrás que hacer referencia a ellas de forma explícita. De lo contrario, R asumirá que estás utilizando la función cargada más recientemente.
+
+Por ejemplo, si utilizas `dplyr` y luego invocas la función `filter()` R asumirá que estás utilizando la función filter de dplyr
+en lugar de la función `filter()` que existe en el paquete `stats`, que forma parte de la instalación básica de R. Si después de cargar `dplyr` deseas utilizar la función `filter` del paquete `stats`, tendrás que invocarla así. Fíjate en la gramática: primero se escribe el nombre del paquete,
+luego dos puntos (x2) y, a continuación, el nombre de la función. No ejecute este código. Tendría que pasar algunos argumentos válidos para que esto produjera resultados significativos.
 
 ```{r}
 #| eval: false
-#Ejemplo:
-#Si utiliza load dplyr y luego invoca la función *filter()*
-#R asumirá que está utilizando la función filter de dplyr
-#en lugar de la función *filter()* que existe en el paquete *stats*
-#, que forma parte de la instalación básica de R. Si 
-#después de cargar dplyr desea utilizar la función filter del
-#el paquete stats, tendrá que invocarla así:
+
 stats::filter()
-#Fíjese en la gramática: primero se escribe el nombre del paquete,
-#luego dos puntos y, a continuación, el nombre de la función. No 
-#ejecute este código. Tendría que pasar algunos argumentos válidos
-#para que esto produjera resultados significativos.
+
 ```
 
 ## Uso de verbos simples de dplyr
@@ -427,4 +422,12 @@ Estas instrucciones están pidiendole a R que guarde el objeto "banbox" en un nu
 
 **Tarea 2:**
 
-*Responde a las siguientes preguntas*: + *2.1 ¿Qué es un tibble?* + *2.2 ¿En qué se diferencia un nombre de variable de una etiqueta de variable?* + *2.3 ¿Qué es un vector etiquetado?* + *2.4.¿En qué se diferencia la función `filter()` de la función `select()`?*
+*Responde a las siguientes preguntas*: 
+
++ *2.1 ¿Qué es un tibble?* 
+
++ *2.2 ¿En qué se diferencia un nombre de variable de una etiqueta de variable?* 
+
++ *2.3 ¿Qué es un vector etiquetado?* 
+
++ *2.4.¿En qué se diferencia la función `filter()` de la función `select()`?*
