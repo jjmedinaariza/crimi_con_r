@@ -11,17 +11,13 @@ Una imagen vale más que mil palabras; esta idea básica también se aplica a la
 
 Unos buenos gráficos no solo ayudan a los investigadores a hacer que sus datos sean más fáciles de entender para el público en general, sino que también son una forma útil de comprender los datos nosotros mismos. En muchos sentidos, a menudo es una forma más intuitiva de comprender los patrones de nuestros datos que intentar examinar los resultados numéricos presentados en forma de tabla.
 
-Investigaciones recientes han revelado que los artículos con buenos gráficos se perciben en general como más claros e interesantes, y sus autores se perciben como más inteligentes (véase [esta presentación](https://vimeo.com/181771433)).
+Investigaciones recientes, de hecho, han revelado que los artículos con buenos gráficos se perciben en general como más claros e interesantes, y sus autores se perciben como más inteligentes (véase [esta presentación](https://vimeo.com/181771433)).
 
-La preparación para esta sesión incluye muchos recursos excelentes sobre la visualización de información cuantitativa, y si no ha tenido tiempo de revisarlos, le recomendamos que se tome un tiempo para hacerlo.
+Al igual que con otros aspectos de R, hay una serie de funciones que forman parte de la instalación básica que se pueden utilizar para producir gráficos. Sin embargo, estas ofrecen posibilidades limitadas para la creación de gráficos. De ahí, que haya habido varios paquetes desarrollados para potenciar el análisis visual de datos.
 
-Al igual que con otros aspectos de R, hay una serie de funciones básicas que se pueden utilizar para producir gráficos. Sin embargo, estas ofrecen posibilidades limitadas para la creación de gráficos.
+El paquete que utilizaremos a lo largo de este tutorial es probablemente el más conocido y popular para estos efectos: `ggplot2`. El objetivo de `ggplot2` es implementar la [gramática de los gráficos](http://www.springer.com/statistics/computational+statistics/book/978-0-387-24544-7). El paquete `ggplot2` cuenta con una excelente [documentación](http://ggplot2.org/) en línea y se está convirtiendo en un estándar del sector en algunas áreas. [Aquí](https://medium.com/bbc-visual-and-data-journalism/how-the-bbc-visual-and-data-journalism-team-works-with-graphics-in-r-ed0b35693535), por ejemplo, puedes leer cómo lo utiliza la BBC como parte de su servicio de noticias.
 
-El paquete que utilizaremos a lo largo de este tutorial es `ggplot2`. El objetivo de `ggplot2` es implementar la [gramática de los gráficos](http://www.springer.com/statistics/computational+statistics/book/978-0-387-24544-7). El paquete `ggplot2` cuenta con una excelente [documentación](http://ggplot2.org/) en línea y se está convirtiendo en un estándar del sector en algunas áreas. [Aquí](https://medium.com/bbc-visual-and-data-journalism/how-the-bbc-visual-and-data-journalism-team-works-with-graphics-in-r-ed0b35693535), por ejemplo, puede leer cómo lo utiliza la BBC como parte de su servicio de noticias.
-
-Si aún no tiene el paquete instalado (compruébelo), deberá hacerlo utilizando la función `install.packages()`.
-
-A continuación, deberá cargar el paquete
+Si aún no tienes el paquete instalado (compruébalo), deberás hacerlo utilizando la función `install.packages()`. A continuación, deberás cargar el paquete.
 
 ```{r}
 
@@ -41,7 +37,7 @@ La gramática de gráficos en la que se basa este paquete define varios componen
 
 \-**Estadísticas**: describen las transformaciones estadísticas que suelen resumir los datos.
 
-Vamos paso a paso.
+Vayamos paso a paso.
 
 ## Anatomía de un gráfico
 
@@ -65,7 +61,7 @@ Veamos cómo queda esto en un gráfico.
 
 Echemos un vistazo a algunos datos sobre las [prohibiciones de acceso a los estadios](https://www.gov.uk/government/publications/football-related-arrests-and-banning-orders-england-and-wales-season-2016-to-2017/football-related-arrests-and-banning-order-statistics-england-and-wales%20-2016-to-2017-season) de diferentes clubes de fútbol.
 
-Primero hay que leer los datos. Guardamos estos datos en un sitio web y se pueden descargar con el siguiente código:
+Primero hay que leer los datos. Estos datos los tenemos depositados en un sitio web y se pueden descargar con el siguiente código:
 
 ```{r}
 #| message: false
@@ -76,7 +72,7 @@ fbo <- read_csv("https://raw.githubusercontent.com/eonk/dar_book/main/datasets/F
 
 ```
 
-Una cosa que mencionamos en el primer laboratorio son las convenciones para nombrar objetos. Esto también se aplica a los nombres de las variables (es decir, los nombres de las columnas) dentro de los datos. Si observas el marco de datos fbo, ya sea con la función `View()` o imprimiendo los nombres de las columnas con la función `names()`, verás que este conjunto de datos incumple ese requisito:
+Una cosa que mencionamos en el primer capítulo son las convenciones para nombrar objetos. Esto también se aplica a los nombres de las variables (es decir, los nombres de las columnas) dentro de los datos. Si observas el marco de datos *fbo*, ya sea con la función `View()` o imprimiendo los nombres de las columnas con la función `names()`, verás que este conjunto de datos incumple ese requisito:
 
 ```{r}
 names(fbo)
@@ -105,9 +101,9 @@ geom_point() + #geometry
 theme_bw() #backgroud coordinate system
 ```
 
-La primera línea anterior inicia un gráfico llamando a la función `ggplot()` e introduciendo los datos en ella. Debe nombrar su conjunto de datos con el argumento `data` y, a continuación, dentro del comando `aes()`, pasar las variables específicas que desea representar gráficamente. En este caso, solo queremos ver la distribución de una variable, las órdenes de prohibición, en el eje y, y representaremos gráficamente el club apoyado en el eje x.
+La primera línea anterior inicia un gráfico llamando a la función `ggplot()` e introduciendo los datos en ella. Debe nombrar su conjunto de datos con el argumento `data` y, a continuación, dentro del comando `aes()`, pasar las variables específicas que deseas representar gráficamente. En este caso, solo queremos ver la distribución de una variable, las órdenes de prohibición, en el eje y, y representaremos gráficamente el club apoyado en el eje x.
 
-La segunda línea es donde añadimos la *geometría*. Aquí es donde le indicamos a R cómo queremos que sea el gráfico. En este caso, indicamos que queremos que sean puntos utilizando `geom_points`. Puede ver una lista de todas las geometrías posibles [aquí](https://ggplot2.tidyverse.org/reference/).
+La segunda línea es donde añadimos la *geometría*. Aquí es donde le indicamos a R cómo queremos que sea el gráfico. En este caso, indicamos que queremos que sean puntos utilizando `geom_points`. Puedes ver una lista de todas las geometrías posibles [aquí](https://ggplot2.tidyverse.org/reference/).
 
 La tercera línea es donde podemos ajustar la visualización del gráfico. Aquí he utilizado `theme_bw()`, que es un tema muy limpio y agradable. Puedes probar con otros temas. Para obtener una lista de temas, también puedes consultar el recurso [aquí](https://ggplot2.tidyverse.org/reference/ggtheme.html). Si quieres más variedad, puedes explorar el paquete [`ggthemes`](https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/).
 
@@ -133,7 +129,7 @@ geom_bar(stat = "identity") + #geometry
 theme(axis.text.x = element_text(angle = 90, hjust = 1)) #backgroud coordinate system
 ```
 
-Quizás hayas notado que aquí pasamos un argumento `stat = «identity»` a la función `geo_bar()`. Esto se debe a que puedes tener un gráfico de barras en el que la altura de la barra muestra la frecuencia (`stat = “count”`) o en el que la altura se toma de una variable de tu marco de datos (`stat = «identity»`). Aquí hemos especificado un valor y (altura) como la variable banning_orders.
+Quizás hayas notado que aquí pasamos un argumento `stat = "identity"` a la función `geo_bar()`. Esto se debe a que puedes tener un gráfico de barras en el que la altura de la barra muestra la frecuencia (`stat = "count"`) o en el que la altura se toma de una variable de tu marco de datos (`stat = "identity"`). Aquí hemos especificado un valor y (altura) como la variable *banning_orders*.
 
 ¡Esto es genial! Pero, ¿y si me gustan ambos?
 
@@ -162,19 +158,17 @@ theme(axis.text.x = element_text(angle = 90, hjust = 1)) #sistema de coordenadas
 
 Hay muchos aspectos que hay que tener en cuenta a la hora de elegir qué gráfico utilizar para representar visualmente los datos. Existen algunas pautas sobre buenas prácticas, pero al final hay que tener en cuenta qué es lo mejor para los datos. ¿Qué se quiere mostrar? ¿Qué gráfico comunicará mejor el mensaje? ¿Se trata de una comparación entre grupos? ¿Es la distribución de frecuencias de una variable?
 
-Como orientación, puede utilizar la siguiente [hoja de referencia, tomada del blog Flowingdata de Nathan Yau](https://flowingdata.com/2009/01/15/flow-chart-shows-you-what-chart-to-use/):
+Como orientación, puedes utilizar la siguiente [hoja de referencia, tomada del blog Flowingdata de Nathan Yau](https://flowingdata.com/2009/01/15/flow-chart-shows-you-what-chart-to-use/):
 
 ![](imgs/chart-chart.jpg)
 
 Sin embargo, ten en cuenta que esto es más bien una guía, destinada a orientarte en la dirección correcta. Hay muchas formas de visualizar los mismos datos y, a veces, es posible que quieras experimentar con algunas de ellas para ver cuáles son las diferencias.
 
-También hay una gran cantidad de investigaciones sobre lo que funciona a la hora de mostrar información cuantitativa. El libro clásico es el de Edward Tufte[^visualisation-1], pero desde entonces hay muchos otros investigadores que se centran en los enfoques para mostrar datos. Dos libros útiles que puede consultar son Few (2012)\[\^03-visualisation-2\] y Cairo (2016)\[\^03-visualisation-3\]. Claus Wilke también está elaborando un libro de texto disponible gratuitamente [en Internet](https://serialmentor.com/dataviz/). Estos autores suelen ofrecer recomendaciones sobre qué utilizar (y qué no utilizar) en determinados contextos.
-
-[^visualisation-1]: Tufte, Edward (2001) *The visual display of quantitative information.* 2.ª edición. Graphic Press.
+También hay una gran cantidad de investigaciones sobre lo que funciona a la hora de mostrar información cuantitativa. El libro clásico es [The Visual Display of Quantitative Information](https://www.edwardtufte.com/book/the-visual-display-of-quantitative-information/) de Edward Tufte, pero desde entonces hay muchos otros investigadores que se centran en los enfoques para mostrar datos. Dos libros útiles que puede consultar son [Show me the numbers](https://www.analyticspress.com/smtn.php) de Stephen Few y [The Truthful Art](https://www.pearson.com/en-us/subject-catalog/p/the-truthful-art-data-charts-and-maps-for-communication/P200000008947/9780133440539) de Alberto Cairo . Claus Wilke también está elaborando un libro de texto disponible gratuitamente [en Internet](https://clauswilke.com/dataviz/). Estos autores suelen ofrecer recomendaciones sobre qué utilizar (y qué no utilizar) en determinados contextos. Particularmente recomendable es las segunda edición de [Data Visualization](https://socviz.co) de Kieran Healey que profundiza en el uso de `ggplot2`.
 
 Por ejemplo, la mayoría de los expertos en visualización de datos coinciden en que no se deben utilizar gráficos en 3D a menos que la tercera dimensión tenga algún significado. Por lo tanto, utilizar gráficos 3D solo con fines decorativos, como en [este caso](https://mir-s3-cdn-cf.behance.net/project_modules/disp/2505dd10837923.56030acd2ef20.jpg), suele estar mal visto. Sin embargo, hay casos en los que incluir una tercera dimensión es fundamental para comunicar los resultados. Véase este [ejemplo](http://www.visualisingdata.com/2015/03/when-3d-works/).
 
-A menudo, también se menosprecian ciertos tipos de gráficos. Por ejemplo, el [*gráfico circular*](https://en.wikipedia.org/wiki/Pie_chart) es uno de ellos. A mucha gente (incluido el director de su curso) le disgustan los gráficos circulares, véase, por ejemplo, [aquí](http://www.storytellingwithdata.com/blog/2011/07/death-to-pie-charts) o [aquí](http://www.businessinsider.com/pie-charts-are-the-worst-2013-6?IR=T). Si quieres mostrar proporciones, las investigaciones indican que un gráfico circular cuadrado tiene más probabilidades de ser interpretado correctamente por los espectadores. Véase [aquí](https://eagereyes.org/blog/2016/a-reanalysis-of-a-study-about-square-pie-charts-from-2009).
+A menudo, también se menosprecian ciertos tipos de gráficos. Por ejemplo, el [*gráfico circular*](https://en.wikipedia.org/wiki/Pie_chart) es uno de ellos. A mucha gente (incluido el autor de esta monografía) le disgustan los gráficos circulares, véase, por ejemplo, [aquí](http://www.storytellingwithdata.com/blog/2011/07/death-to-pie-charts) o [aquí](http://www.businessinsider.com/pie-charts-are-the-worst-2013-6?IR=T). Si quieres mostrar proporciones, las investigaciones indican que un gráfico circular cuadrado tiene más probabilidades de ser interpretado correctamente por los espectadores. Véase [aquí](https://eagereyes.org/blog/2016/a-reanalysis-of-a-study-about-square-pie-charts-from-2009).
 
 Además, en algunos casos, los gráficos de barras (si se utilizan para visualizar variables cuantitativas) pueden ocultar características importantes de los datos y puede que no sean el medio más adecuado para realizar comparaciones:
 
@@ -182,11 +176,11 @@ Además, en algunos casos, los gráficos de barras (si se utilizan para visualiz
 
 Esto ha dado lugar a una [campaña en Kickstarter](https://www.kickstarter.com/projects/1474588473/barbarplots/description) para prohibir los gráficos de barras...
 
-Por lo tanto, elegir el gráfico adecuado y cómo diseñar los diferentes elementos de un gráfico es, en cierto modo, un arte que requiere práctica y un buen conocimiento de la literatura sobre visualización de datos. Aquí solo podemos ofrecerte una introducción a algunas de estas cuestiones. Al final del capítulo, también destacaremos recursos adicionales que quizá te interese explorar por tu cuenta.
+Por lo tanto, elegir el gráfico adecuado y cómo diseñar los diferentes elementos de un gráfico es, en cierto modo, un arte que requiere práctica y un buen conocimiento de la literatura sobre visualización de datos. Aquí solo podemos ofrecerte una introducción a algunas de estas cuestiones. Al final del capítulo, también destacaremos recursos adicionales que quizás te interese explorar por tu cuenta.
 
 Una consideración importante es que el gráfico que utilice depende de los datos que esté representando, así como del mensaje que desee transmitir con el gráfico, el público al que va dirigido e incluso el formato en el que se presentará (un sitio web, un informe impreso, una presentación de PowerPoint, etc.). Así, por ejemplo, volviendo de nuevo a la diferencia entre el número de órdenes de prohibición entre clubes de diferentes ligas, ¿cuáles son algunas formas de representar estos datos?
 
-Una sugerencia es crear un histograma para cada uno. Puede utilizar la opción `facet_wrap()` de ggplot para dividir los gráficos por una variable de agrupación. Por ejemplo, para crear un histograma de órdenes de prohibición, escriba:
+Una sugerencia es crear un histograma para cada uno. Puedes utilizar la opción `facet_wrap()` de ggplot para dividir los gráficos por una variable de agrupación. Por ejemplo, para crear un histograma de órdenes de prohibición, escribe:
 
 ```{r}
 #| message: false
@@ -233,14 +227,14 @@ Los histogramas son una forma útil de representar variables cuantitativas de fo
 
 Como se ha mencionado anteriormente, en este curso haremos hincapié en el uso de la función `ggplot()`. Con `ggplot()` se empieza con un lienzo en blanco y se van añadiendo capas específicas. La función `ggplot()` puede especificar el conjunto de datos y la estética (las características visuales que representan los datos).
 
-Para obtener los datos que vamos a utilizar aquí, cargue el paquete `MASS` y, a continuación, invoque los datos *Boston* en su entorno.
+Para obtener los datos que vamos a utilizar aquí, cargua el paquete `MASS` y, a continuación, invoca los datos *Boston* en su entorno.
 
 ```{r}
 library(MASS)
 data(Boston)
 ```
 
-Este paquete tiene un marco de datos llamado *Boston*. Contiene datos sobre el valor de las viviendas en los suburbios de Boston (EE. UU.). Para acceder al libro de códigos (donde se pueden consultar las variables), utilice «?», `?Boxton`.
+Este paquete tiene un conjunto de datos llamado *Boston*. Este contine datos sobre el valor de las viviendas en los suburbios de Boston (EE. UU.). Para acceder al libro de códigos (donde se pueden consultar las variables), utiliza la función `?`, `?Boxton`.
 
 Bien, vamos a crear un gráfico sobre la variable que representa la tasa de criminalidad per cápita por ciudad (*crim*).
 
@@ -254,16 +248,16 @@ geom_histogram()
 
 Como puedes ver, `ggplot` funciona de tal manera que puedes añadir una serie de especificaciones adicionales (capas, anotaciones). En este sencillo gráfico, la función `ggplot` simplemente asigna *crim* como la variable que se va a mostrar (como uno de los **elementos estéticos**) y el conjunto de datos. A continuación, se añade `geom_histogram` para indicar a R que se desea que esta variable se represente como un histograma. Más adelante veremos qué otras cosas se pueden añadir.
 
-Un histograma consiste simplemente en colocar los casos en «compartimentos» y luego crear una barra para cada compartimento. Se puede considerar como una *distribución de frecuencias agrupadas visualmente*. El código que hemos utilizado hasta ahora ha utilizado un ancho de compartimento de rango de tamaño/30, como R nos ha recordado amablemente en la salida. Pero puede modificar este parámetro si desea obtener una imagen más aproximada o más detallada. De hecho, siempre debe probar diferentes especificaciones del ancho de compartimento hasta encontrar uno que cuente toda la historia de forma concisa.
+Un histograma consiste simplemente en colocar los casos en "compartimentos" y luego crear una barra para cada compartimento. Se puede considerar como una *distribución de frecuencias agrupadas visualmente*. El código que hemos utilizado hasta ahora ha utilizado un ancho de compartimento de rango de tamaño/30, como R nos ha recordado amablemente en la salida. Pero puedes modificar este parámetro si deseas obtener una imagen más aproximada o más detallada. De hecho, siempre debes probar diferentes especificaciones del ancho de compartimento hasta encontrar uno que cuente toda la historia de forma concisa.
 
 ```{r}
 ggplot(Boston, aes(x = crim)) +
 geom_histogram(binwidth = 1) 
 ```
 
-Como puede ver, podemos pasar argumentos a los geoms. Aquí estamos cambiando el tamaño de los bins (para más detalles sobre otros argumentos, puede consultar los archivos de ayuda). Al utilizar un bin-width de 1, estamos creando esencialmente una barra por cada unidad de aumento en la tasa porcentual de delincuencia. Seguimos viendo que la mayoría de las ciudades tienen un nivel de delincuencia muy bajo.
+Como puedes ver, podemos pasar argumentos a los `geoms`. Aquí estamos cambiando el tamaño de los bins (para más detalles sobre otros argumentos, puede consultar los archivos de ayuda). Al utilizar un bin-width de 1, estamos creando esencialmente una barra por cada unidad de aumento en la tasa porcentual de delincuencia. Seguimos viendo que la mayoría de las ciudades tienen un nivel de delincuencia muy bajo.
 
-Sumemos el número de ciudades con un valor inferior a 1 en la tasa de criminalidad per cápita. Para ello, utilizamos la función sum, especificando que solo nos interesa sumar los casos en los que el valor de la variable *crim* es inferior a 1.
+Sumemos el número de ciudades con un valor inferior a 1 en la tasa de criminalidad per cápita. Para ello, utilizamos la función `sum`, especificando que solo nos interesa sumar los casos en los que el valor de la variable *crim* es inferior a 1.
 
 ```{r}
 sum(Boston$crim < 1)
@@ -288,7 +282,7 @@ Boston$lowval[Boston$medv <= 17.02] <- "Valor bajo"
 Boston$lowval[Boston$medv > 17.02] <- "Valor más alto"
 ```
 
-En primer lugar, le indicamos a R que cree un nuevo vector (*lowval*) en el marco de datos de Boston. A este vector se le asignará el valor de carácter «Valor bajo» cuando se cumpla la condición entre corchetes. Es decir, estamos diciendo que siempre que el valor de *medv* sea inferior a 17,02, la nueva variable *lowval* será igual a «Valor bajo». He elegido 17,02 porque es el primer cuartil de *medv* (prueba este código `summary(Boston$medv)` y busca 17,02). A continuación, le indicamos a R que, cuando el valor sea superior a 17,02, asignaremos esos casos a una nueva categoría textual llamada «Valor más alto».
+En primer lugar, le indicamos a R que cree un nuevo vector (*lowval*) en el conjunto de datos de Boston. A este vector se le asignará el valor de carácter "valor bajo" cuando se cumpla la condición entre corchetes. Es decir, estamos diciendo que siempre que el valor de *medv* sea inferior a 17,02, la nueva variable *lowval* será igual a "Valor bajo". He elegido 17,02 porque es el primer cuartil de *medv* (prueba este código `summary(Boston$medv)` y busca 17,02). A continuación, le indicamos a R que, cuando el valor sea superior a 17,02, asignaremos esos casos a una nueva categoría textual llamada "Valor más alto".
 
 La variable que hemos creado era un vector de caracteres (como podemos ver si ejecutamos la función `class`). Por lo tanto, vamos a transformarla en un factor utilizando la función `as.factor` (muchas funciones diseñadas para trabajar con variables categóricas esperan un factor como entrada, no solo un vector de caracteres). Si volvemos a ejecutar la función `class`, veremos que hemos cambiado la variable original.
 
@@ -327,7 +321,7 @@ ggplot(Boston, aes(x = crim, fill = lowval)) +
 geom_histogram(position = "identity", alpha = 0.4)
 ```
 
-En el código anterior, el argumento «fill» identifica de nuevo la variable factorial en el conjunto de datos que agrupa los casos. Además, «position = identity» indica a R que superponga las distribuciones y «alpha» solicita el grado de transparencia; un valor más bajo (por ejemplo, 0,2) será más transparente.
+En el código anterior, el argumento `fill` identifica de nuevo la variable factorial en el conjunto de datos que agrupa los casos. Además, `position = identity` indica a R que superponga las distribuciones y `alpha` solicita el grado de transparencia; un valor más bajo (por ejemplo, 0,2) será más transparente.
 
 En este caso, parte del problema que tenemos es que la asimetría puede dificultar la apreciación de las diferencias. Cuando se trata de distribuciones asimétricas como esta, a veces es conveniente utilizar una transformación [^visualisation-2]. Volveremos a esto más adelante en este semestre. Por ahora, basta con decir que tomar el logaritmo de una variable asimétrica ayuda a reducir la asimetría y a ver los patrones con mayor claridad. Para visualizar un poco mejor las diferencias, podríamos pedir el logaritmo de la tasa de criminalidad per cápita. Observe que también añado una constante de 1 a la variable *crim*, para evitar valores NA en la variable recién creada si el valor en *crim* es cero (no se puede tomar el logaritmo de 0).
 
@@ -343,21 +337,21 @@ Ahora el gráfico es un poco más claro. Parece bastante evidente que la distrib
 
 ## Visualización de variables numéricas: gráficos de densidad
 
-Para distribuciones más suaves, puede utilizar un gráfico de densidad. Debe disponer de una cantidad considerable de datos para utilizarlos, ya que, de lo contrario, podría acabar con mucho ruido no deseado. Veamos primero el gráfico de densidad única para todos los casos. Observe que lo único que hacemos es invocar un tipo diferente de geom:
+Para distribuciones más suaves, puedes utilizar un gráfico de densidad. Debes disponer de una cantidad considerable de datos para utilizarlos, ya que, de lo contrario, podrías acabar con mucho ruido no deseado. Veamos primero el gráfico de densidad única para todos los casos. Observa que lo único que hacemos es invocar un tipo diferente de `geom`:
 
 ```{r}
 ggplot(Boston, aes(x = crim)) +
 geom_density() 
 ```
 
-En un gráfico de densidad, intentamos visualizar la distribución de probabilidad subyacente de los datos dibujando una curva continua adecuada. Así, en un gráfico de densidad, el área bajo las líneas suma 1 y el eje Y, vertical, nos da ahora la probabilidad estimada (supuesta) para los diferentes valores del eje X, horizontal. Esta curva se supone a partir de los datos y el método que utilizamos para esta suposición o estimación se denomina estimación de densidad del núcleo. Puede obtener más información sobre los gráficos de densidad [aquí](https://serialmentor.com/dataviz/histograms-density-plots.html).
+En un gráfico de densidad, intentamos visualizar la distribución de probabilidad subyacente de los datos dibujando una curva continua adecuada. Así, en un gráfico de densidad, el área bajo las líneas suma 1 y el eje Y, vertical, nos da ahora la probabilidad estimada (supuesta) para los diferentes valores del eje X, horizontal. Esta curva se supone a partir de los datos y el método que utilizamos para esta suposición o estimación se denomina estimación de densidad del núcleo. Puedes obtener más información sobre los gráficos de densidad [aquí](https://serialmentor.com/dataviz/histograms-density-plots.html).
 
-En este gráfico, podemos ver que hay una alta probabilidad estimada de observar una ciudad con una tasa de criminalidad per cápita cercana a cero y una baja probabilidad estimada de ver ciudades con altas tasas de criminalidad per cápita. Como puede observar, proporciona una representación más suave de la distribución (en comparación con los histogramas).
+En este gráfico, podemos ver que hay una alta probabilidad estimada de observar una ciudad con una tasa de criminalidad per cápita cercana a cero y una baja probabilidad estimada de ver ciudades con altas tasas de criminalidad per cápita. Como puedes observar, proporciona una representación más suave de la distribución (en comparación con los histogramas).
 
-También puede utilizar esto para comparar la distribución de una variable cuantitativa entre los niveles de una variable categórica (factor) y, como antes, es posible que sea mejor tomar el logaritmo de variables sesgadas como la delincuencia:
+También puedes utilizar esto para comparar la distribución de una variable cuantitativa entre los niveles de una variable categórica (factor) y, como antes, es posible que sea mejor tomar el logaritmo de variables sesgadas como la delincuencia:
 
 ```{r}
-#Estamos mapeando «lowval» como la variable que colorea las líneas 
+#Estamos mapeando "lowval" como la variable que colorea las líneas 
 ggplot(Boston, aes(x = log10(crim + 1), colour = lowval)) + 
 geom_density() 
 ```
@@ -369,11 +363,13 @@ ggplot(Boston, aes(x = log10(crim + 1), fill = lowval)) +
 geom_density(alpha = .3)
 ```
 
-¿Ha notado la diferencia con los histogramas comparativos? Al utilizar gráficos de densidad, estamos reescalando para garantizar la misma área para cada uno de los niveles de nuestra variable de agrupación. Esto facilita la comparación de dos grupos que tienen frecuencias diferentes. Las áreas bajo la curva suman 1 para ambos grupos, mientras que en el histograma el área dentro de las barras representa el número de casos en cada uno de los grupos. Si tiene muchos más casos en un grupo que en el otro, puede resultar difícil hacer comparaciones o ver claramente la distribución del grupo con menos casos. Por lo tanto, esta es una de las razones por las que puede ser conveniente utilizar gráficos de densidad.
+¿Has notado la diferencia con los histogramas comparativos? Al utilizar gráficos de densidad, estamos reescalando para garantizar la misma área para cada uno de los niveles de nuestra variable de agrupación. Esto facilita la comparación de dos grupos que tienen frecuencias diferentes. Las áreas bajo la curva suman 1 para ambos grupos, mientras que en el histograma el área dentro de las barras representa el número de casos en cada uno de los grupos. Si tienes muchos más casos en un grupo que en el otro, puede resultar difícil hacer comparaciones o ver claramente la distribución del grupo con menos casos. Por lo tanto, esta es una de las razones por las que puede ser conveniente utilizar gráficos de densidad.
 
-Los gráficos de densidad son una buena opción cuando se desea comparar hasta tres grupos. Si tiene muchos más grupos, es posible que desee considerar otras alternativas. Una de ellas es el **gráfico de línea de cresta**, también conocido como gráfico de Joy Division (ya que quedó inmortalizado en la portada de uno de sus álbumes):
+Los gráficos de densidad son una buena opción cuando se desea comparar hasta tres grupos. Si tienes muchos más grupos, es posible que desees considerar otras alternativas. Una de ellas es el **gráfico de línea de cresta**, también conocido como gráfico de Joy Division (ya que quedó inmortalizado en la portada de uno de sus álbumes):
 
-![](imgs/joydivision.png) Se pueden generar con el paquete `ggridges`. Antes de dicotomizar la variable *medv* de forma manual, podemos utilizar métodos más directos para dividir las variables numéricas en varias categorías utilizando la información que ya contienen. Supongamos que queremos dividir *medv* en deciles. Para ello, podríamos utilizar la función `mutate` de `dplyr`.
+![](imgs/joydivision.png) 
+
+Este tipo de visualización se puede generar con el paquete `ggridges`. Antes de dicotomizar la variable *medv* de forma manual, podemos utilizar métodos más directos para dividir las variables numéricas en varias categorías utilizando la información que ya contienen. Supongamos que queremos dividir *medv* en deciles. Para ello, podríamos utilizar la función `mutate` de `dplyr`.
 
 ```{r}
 #| message: false
@@ -381,15 +377,15 @@ library(dplyr)
 Boston <- mutate(Boston, dec_medv = ntile(medv, 10))
 ```
 
-La función `mutate` añade una nueva variable a nuestro objeto de marco de datos existente. Vamos a llamar a esta variable *dec_medv* porque vamos a dividir *medv* en diez grupos de igual tamaño (este nombre es arbitrario, puedes llamarla como quieras). Para ello, utilizaremos la función `ntile` como argumento dentro de mutate. Definiremos la nueva variable *dec_medv* explicando a R que esta variable será el resultado de pasar la función `ntile` a *medv*. Para que `ntile` divida *medv* en 10, pasamos este valor como argumento a la función. Para que se almacene el resultado de ejecutar `mutate`, lo asignamos al objeto *Boston*.
+La función `mutate` añade una nueva variable a nuestro objeto de conjunto de datos existente. Vamos a llamar a esta variable *dec_medv* porque vamos a dividir *medv* en diez grupos de igual tamaño (este nombre es arbitrario, puedes llamarla como quieras). Para ello, utilizaremos la función `ntile` como argumento dentro de `mutate`. Definiremos la nueva variable *dec_medv* explicando a R que esta variable será el resultado de pasar la función `ntile` a *medv*. Para que `ntile` divida *medv* en 10, pasamos este valor como argumento a la función. Para que se almacene el resultado de ejecutar `mutate`, lo asignamos al objeto *Boston*.
 
-Compruebe los resultados:
+Comprueba los resultados:
 
 ```{r}
 table(Boston$dec_medv)
 ```
 
-Ahora podemos utilizar esta nueva variable para ilustrar el uso del paquete `ggridge`. En primer lugar, deberá instalar este paquete y, a continuación, cargarlo. Verá que lo único que hace este paquete es ampliar la funcionalidad de `ggplot2` añadiendo un nuevo tipo de geom. Aquí, la variable que define los grupos debe ser un factor, por lo que le indicaremos a `ggplot` que trate *dec_medv* como un factor utilizando `as.factor`. Usar `as.factor` de esta manera nos ahorra tener que crear otra variable más que vamos a almacenar como factor. Aquí no estamos creando una nueva variable, solo le estamos indicando a R que trate esta variable numérica *como si* fuera un factor. Asegúrate de comprender esta diferencia.
+Ahora podemos utilizar esta nueva variable para ilustrar el uso del paquete `ggridge`. En primer lugar, deberá instalar este paquete y, a continuación, cargarlo. Verás que lo único que hace este paquete es ampliar la funcionalidad de `ggplot2` añadiendo un nuevo tipo de `geom`. Aquí, la variable que define los grupos debe ser un factor, por lo que le indicaremos a `ggplot` que trate *dec_medv* como un factor utilizando `as.factor`. Usar `as.factor` de esta manera nos ahorra tener que crear otra variable más que vamos a almacenar como factor. Aquí no estamos creando una nueva variable, solo le estamos indicando a R que trate esta variable numérica *como si* fuera un factor. Asegúrate de comprender esta diferencia.
 
 ```{r}
 #| message: false
@@ -422,7 +418,7 @@ geom_boxplot()
 
 Con un diagrama de caja como este, se puede ver de inmediato que la mayor parte de las zonas más baratas son muy diferentes de la mayor parte de las zonas más caras. El primer cuartil de la distribución de las zonas bajas coincide aproximadamente con el punto en el que empezamos a ver **valores atípicos** para las zonas más caras.
 
-Esto puede ser aún más útil cuando se tienen varios grupos. Probemos con un ejemplo utilizando el marco de datos *BCS0708*. Se trata de un conjunto de datos de la Encuesta Británica sobre Delincuencia de 2007/08. Puede utilizar el código siguiente para descargarlo.
+Esto puede ser aún más útil cuando se tienen varios grupos. Probemos con un ejemplo utilizando el conjunto de datos *BCS0708*. Se trata de un conjunto de datos de la Encuesta Británica sobre Delincuencia de 2007/08. Puede utilizar el código siguiente para descargarlo.
 
 ```{r}
 #Creamos un objeto de marco de datos leyendo los datos del archivo webaddress.csv
@@ -448,7 +444,7 @@ aes(x = reorder(ethgrp2, tcviolent, FUN = median), y = tcviolent)) +
 geom_boxplot ()
 ```
 
-La función `filter` de `dplyr` utiliza un argumento lógico para indicar a R que solo utilice los casos que no tengan valores NA en las dos variables que estamos utilizando. El signo de exclamación seguido de `is.na` y luego el nombre de una variable es la forma en que R dice «lo contrario de NA para la variable especificada». Así que, en esencia, le estamos diciendo a R que solo mire los datos que no son NA en estas variables. La función `reorder`, por otro lado, le pide a R que reordene los niveles de etnia según el valor mediano de preocupación por los delitos violentos. Dado que estamos utilizando esas funciones *dentro* de la función `ggplot`, este subconjunto y este reordenamiento (al igual que con `as.factor` anteriormente) no introducen cambios permanentes en el conjunto de datos original. Si prefiere reordenar según la media, solo tiene que cambiar ese parámetro después de la opción `FUN` (por ejemplo, `FUN = mean`).
+La función `filter` de `dplyr` utiliza un argumento lógico para indicar a R que solo utilice los casos que no tengan valores NA en las dos variables que estamos utilizando. El signo de exclamación seguido de `is.na` y luego el nombre de una variable es la forma en que R dice "lo contrario de NA para la variable especificada". Así que, en esencia, le estamos diciendo a R que solo mire los datos que no son NA en estas variables. La función `reorder`, por otro lado, le pide a R que reordene los niveles de etnia según el valor mediano de preocupación por los delitos violentos. Dado que estamos utilizando esas funciones *dentro* de la función `ggplot`, este subconjunto y este reordenamiento (al igual que con `as.factor` anteriormente) no introducen cambios permanentes en el conjunto de datos original. Si prefieres reordenar según la media, solo tiene que cambiar ese parámetro después de la opción `FUN` (por ejemplo, `FUN = mean`).
 
 ## Exploración de las relaciones entre dos variables cuantitativas: diagramas de dispersión
 
@@ -472,7 +468,7 @@ Cada punto representa un caso de nuestro conjunto de datos y las coordenadas aso
 
 Sin embargo, parece que ocurre algo extraño cuando el valor medio de la propiedad ronda los 50 000 dólares. De repente, la variabilidad de la delincuencia aumenta. Parece que algunas de las zonas más caras también presentan un nivel de delincuencia bastante elevado. De hecho, hay una ruptura considerable en la distribución. ¿Qué está pasando? Sinceramente, no tengo ni idea. Pero el patrón en el nivel más alto de valor de las propiedades es realmente extraño, demasiado abrupto para ser natural.
 
-Esta es la segunda razón por la que conviene trazar los datos antes de hacer nada más. Ayuda a detectar anomalías aparentes. Digo que se trata de una anomalía porque la ruptura en el patrón es bastante notable y abrupta. Es difícil pensar en un proceso natural que genere este aumento radical y repentino de la delincuencia una vez que el valor medio de las propiedades alcanza la marca de los 50 000 dólares. Si estuvieras analizando esto en la realidad, querrías saber qué es lo que realmente impulsa este patrón (por ejemplo, averiguar sobre la recopilación de datos originales, el libro de códigos, etc.): ¿quizás el valor medio máximo se limitó a 50 000 dólares y estamos viendo esto como un aumento dramático cuando el panorama es más complejo? Por ahora, vamos a dejar esto así.
+Esta es la segunda razón por la que conviene visualizar los datos antes de hacer nada más. Ayuda a detectar anomalías aparentes. Digo que se trata de una anomalía porque la ruptura en el patrón es bastante notable y abrupta. Es difícil pensar en un proceso natural que genere este aumento radical y repentino de la delincuencia una vez que el valor medio de las propiedades alcanza la marca de los 50 000 dólares. Si estuvieras analizando esto en la realidad, querrías saber qué es lo que realmente impulsa este patrón (por ejemplo, averiguar sobre la recopilación de datos originales, el libro de códigos, etc.): ¿quizás el valor medio máximo se limitó a 50 000 dólares y estamos viendo esto como un aumento dramático cuando el panorama es más complejo? Por ahora, vamos a dejar esto así.
 
 Una de las cosas que se pueden observar en un diagrama de dispersión es que, incluso con un conjunto de datos pequeño como este, con solo unos 500 casos, el **sobreploteo** puede ser un problema. Cuando hay muchos casos con valores similares (o, lo que es peor, iguales), es difícil distinguirlos. Imagina que solo hay un caso con una combinación particular de valores X e Y. ¿Qué ves? Un único punto. Ahora imagina que tienes 500 casos con esa misma combinación de valores para X e Y. ¿Qué ves? Sigue siendo un único punto. Hay varias formas de lidiar con el sobreploteo. Una posibilidad es añadir algo de **transparencia** a los puntos:
 
@@ -541,7 +537,7 @@ geom_point(alpha=.4) +
 geom_line(stat="summary", fun.y=mean)
 ```
 
-Con solo unos 500 casos, hay muchos altibajos. Si tuviera muchos más casos para cada nivel de X, la línea se vería menos irregular. En cualquier caso, puedes producir una línea más suave utilizando `geom_smooth`. Más adelante en este semestre discutiremos cómo se calcula esta línea (aunque verás que la salida de R te dice que estás utilizando algo llamado método «loess»). Por ahora, solo tienes que saber que es una línea que intenta *estimar*, adivinar, el valor típico de Y para cada valor de X.
+Con solo unos 500 casos, hay muchos altibajos. Si tuviera muchos más casos para cada nivel de X, la línea se vería menos irregular. En cualquier caso, puedes producir una línea más suave utilizando `geom_smooth`. Más adelante en este semestre discutiremos cómo se calcula esta línea (aunque verás que la salida de R te dice que estás utilizando algo llamado método "loess"). Por ahora, solo tienes que saber que es una línea que intenta *estimar*, adivinar, el valor típico de Y para cada valor de X.
 
 ```{r}
 #| message: false
@@ -551,13 +547,13 @@ geom_point(alpha=.4) +
 geom_smooth(colour="red", size=1, se=FALSE) #Más adelante en este semestre explicaremos qué hace el argumento se; colour simplemente pide una línea roja en lugar de azul (que personalmente me resulta más difícil de ver. También estoy haciendo la línea un poco más gruesa con el tamaño 1)
 ```
 
-Como puede ver aquí, se obtiene una línea más suave que con las medias condicionales. La línea, al igual que el diagrama de dispersión, parece sugerir una relación curvilínea general que casi se aplana una vez que los valores de las propiedades alcanzan los 20 000 dólares.
+Como puedes ver aquí, se obtiene una línea más suave que con las medias condicionales. La línea, al igual que el diagrama de dispersión, parece sugerir una relación curvilínea general que casi se aplana una vez que los valores de las propiedades alcanzan los 20 000 dólares.
 
 ## Condicionamiento de diagramas de dispersión en una tercera variable
 
 Hay varias formas de trazar una tercera variable en un diagrama de dispersión. Se puede optar por el 3D, lo que puede ser adecuado en algunos contextos. Pero, en la mayoría de los casos, es preferible utilizar solo un gráfico bidimensional.
 
-Si tiene una variable de agrupación, puede asignarla al color de los puntos como uno de los argumentos estéticos. Aquí volvemos al diagrama de dispersión de *Boston*, pero añadiremos una tercera variable que indica si la ciudad está situada junto al río o no.
+Si tienes una variable de agrupación, puedes asignarla al color de los puntos como uno de los argumentos estéticos. Aquí volvemos al diagrama de dispersión de *Boston*, pero añadiremos una tercera variable que indica si la ciudad está situada junto al río o no.
 
 ```{r}
 #Diagrama de dispersión con dos variables cuantitativas y una variable de agrupación, le indicamos a R que trate «chas», un vector numérico, como un factor. 
@@ -595,7 +591,7 @@ ggplot(Boston, aes(x = medv, y = crim, size = lstat)) +
 geom_point() #Es posible que desee añadir alfa para obtener cierta transparencia aquí.
 ```
 
-Si tiene muestras más grandes y los patrones no son claros (como vimos al observar la relación entre la edad y la preocupación por los delitos violentos), el condicionamiento en una tercera variable puede producir diagramas de dispersión difíciles de leer (incluso si utiliza transparencias y jittering). Veamos la relación entre la preocupación por los delitos violentos y la edad condicionada por la victimización durante el año anterior:
+Si tienes muestras más grandes y los patrones no son claros (como vimos al observar la relación entre la edad y la preocupación por los delitos violentos), el condicionamiento en una tercera variable puede producir diagramas de dispersión difíciles de leer (incluso si utiliza transparencias y jittering). Veamos la relación entre la preocupación por los delitos violentos y la edad condicionada por la victimización durante el año anterior:
 
 ```{r}
 #| message: false
@@ -646,7 +642,7 @@ library(GGally)
 ggpairs(Boston_spm)
 ```
 
-El conjunto diagonal de cuadros que va desde la parte superior izquierda a la parte inferior derecha le ofrece el gráfico de densidad univariante para cada una de las variables. Así, por ejemplo, en la parte superior izquierda, tenemos el gráfico de densidad de la variable *crim*. Si miramos debajo de este, vemos un gráfico de dispersión entre *crim* y *medv*. En este caso, *crim* define el eje X y *medv* el eje Y, por lo que se ve un poco diferente al que vimos anteriormente. Las etiquetas de la parte superior e izquierda indican qué variables se representan en cada rectángulo facetado. En la parte superior derecha de esta matriz, verá que los rectángulos dicen «corr» y luego le dan un número. Estos números son **coeficientes de correlación**, que son una métrica que utilizamos para indicar la fuerza de una relación entre dos variables cuantitativas o numéricas. Cuanto más se acerque este valor a 1,000 (ya sea positivo o negativo), más fuerte será la relación. Cuanto más se acerque a cero, más débil será la relación. La relación más fuerte aquí es entre *medv* e *istat* (valor del coeficiente de correlación: -0,738). El hecho de que sea negativo indica que, a medida que aumentan los valores de uno, los valores del otro tienden a disminuir. Así, los valores altos de delincuencia se corresponden con valores bajos de los precios inmobiliarios, como hemos visto anteriormente. Este coeficiente es un número resumen de esta relación. Volveremos sobre él más adelante. Por ahora, ten en cuenta que esta métrica solo funciona bien si la relación que se muestra en el diagrama de dispersión está bien representada por una línea recta. Si la relación es curvilínea, será una métrica muy mala en la que no debes confiar.
+El conjunto diagonal de cuadros que va desde la parte superior izquierda a la parte inferior derecha le ofrece el gráfico de densidad univariante para cada una de las variables. Así, por ejemplo, en la parte superior izquierda, tenemos el gráfico de densidad de la variable *crim*. Si miramos debajo de este, vemos un gráfico de dispersión entre *crim* y *medv*. En este caso, *crim* define el eje X y *medv* el eje Y, por lo que se ve un poco diferente al que vimos anteriormente. Las etiquetas de la parte superior e izquierda indican qué variables se representan en cada rectángulo facetado. En la parte superior derecha de esta matriz, verá que los rectángulos dicen "corr" y luego le dan un número. Estos números son **coeficientes de correlación**, que son una métrica que utilizamos para indicar la fuerza de una relación entre dos variables cuantitativas o numéricas. Cuanto más se acerque este valor a 1000 (ya sea positivo o negativo), más fuerte será la relación. Cuanto más se acerque a cero, más débil será la relación. La relación más fuerte aquí es entre *medv* e *istat* (valor del coeficiente de correlación: -0,738). El hecho de que sea negativo indica que, a medida que aumentan los valores de uno, los valores del otro tienden a disminuir. Así, los valores altos de delincuencia se corresponden con valores bajos de los precios inmobiliarios, como hemos visto anteriormente. Este coeficiente es un número resumen de esta relación. Volveremos sobre él más adelante. Por ahora, ten en cuenta que esta métrica solo funciona bien si la relación que se muestra en el diagrama de dispersión está bien representada por una línea recta. Si la relación es curvilínea, será una métrica muy mala en la que no debes confiar.
 
 ![](imgs/ggpairs.png){width="80%"}
 
@@ -674,11 +670,11 @@ Boston_spm <- dplyr::select(Boston, crim, medv, lstat, chas)
 spm(~crim+medv+lstat, data=Boston_spm, groups=Boston_spm$chas, by.groups=TRUE, smooth=FALSE, regLine=FALSE)
 ```
 
-Una vez que se le coge el truco, obtener resultados es solo la mitad del camino. La otra mitad, y la más importante, es intentar dar sentido a los resultados. ¿Qué nos cuentan estos datos? R no puede hacerlo por usted. Para ello, necesitas utilizar una herramienta mejor: **tu cerebro** (escepticismo, curiosidad, creatividad, los conocimientos adquiridos a lo largo de toda una vida) y lo que Kaiser Fung denomina «sentido numérico» (http://www.amazon.co.uk/Numbersense-How-Data-Your-Advantage/dp/0071799664).
+Una vez que se le coge el truco, obtener resultados es solo la mitad del camino. La otra mitad, y la más importante, es intentar dar sentido a los resultados. ¿Qué nos cuentan estos datos? R no puede hacerlo por usted. Para ello, necesitas utilizar una herramienta mejor: **tu cerebro** (escepticismo, curiosidad, creatividad, los conocimientos adquiridos a lo largo de toda una vida) y lo que Kaiser Fung denomina "sentido numérico" (http://www.amazon.co.uk/Numbersense-How-Data-Your-Advantage/dp/0071799664).
 
 ## Títulos, leyendas y temas en ggplot2
 
-Hemos presentado varias herramientas gráficas, pero ¿qué pasa si quieres personalizar el aspecto del gráfico resultante? Aquí te voy a dar un código para modificar los títulos y leyendas que usas. Para añadir un título a un gráfico `ggplot`, usa `ggtitle()`.
+Hemos presentado varias herramientas gráficas, pero ¿qué pasa si quieres personalizar el aspecto del gráfico resultante? Aquí os vamos a dar un código para modificar los títulos y leyendas que usas. Para añadir un título a un gráfico `ggplot`, usa `ggtitle()`.
 
 ```{r}
 #Observe cómo aquí estamos utilizando una función adicional para pedir a R que trate la variable chas, que es numérica en nuestro conjunto de datos, como si fuera un factor (as.factor()). Debe hacer esto si su variable es categórica pero está codificada como numérica en su marco de datos.
@@ -687,7 +683,7 @@ geom_point() +
 ggtitle("Fig. 1. Delincuencia, valor de la propiedad y proximidad al río en Boston")
 ```
 
-Si no le gusta el tema de fondo predeterminado para `ggplot`, puede utilizar un tema como se ha comentado al principio, por ejemplo, creando un fondo en blanco y negro añadiendo `theme_bw()` como capa:
+Si no te gusta el tema de fondo predeterminado para `ggplot`, puedes utilizar un tema como se ha comentado al principio, por ejemplo, creando un fondo en blanco y negro añadiendo `theme_bw()` como capa:
 
 ```{r}
 ggplot(Boston, aes(x = medv, y = crim, colour = as.factor(chas))) +
@@ -729,7 +725,7 @@ color = "Bordea el río") +
 scale_colour_discrete(labels = c("No", "Sí"))
 ```
 
-A veces es posible que desee presentar varios gráficos juntos. Para ello, el paquete `gridExtra` es muy útil. Primero deberá instalarlo y luego cargarlo. A continuación, podrá crear varios gráficos y colocarlos todos en la misma imagen.
+A veces es posible que desees presentar varios gráficos juntos. Para ello, el paquete `gridExtra` es muy útil. Primero deberás instalarlo y luego cargarlo. A continuación, podrás crear varios gráficos y colocarlos todos en la misma imagen.
 
 ```{r}
 #| message: false
@@ -766,7 +762,7 @@ ggplot(BCS0708, aes(x = walkday)) +
 
 Como indica Kieran Helay (2018):
 
-*«El gráfico resultante sigue sin ser correcto. Ya no tenemos un recuento en el eje y, pero las proporciones de las barras tienen todas un valor de 1, por lo que todas las barras tienen la misma altura. Queremos que sumen 1, para obtener el número de observaciones por «nivel» como proporción del número total de observaciones. Se trata de nuevo de un problema de agrupación... tenemos que indicar a ggplot que ignore las categorías x al calcular el denominador de la proporción y que utilice en su lugar el número total de observaciones. Para ello, especificamos group = 1 dentro de la llamada `aes()`. El valor 1 es solo una especie de «grupo ficticio» que indica a ggplot que utilice todo el conjunto de datos al establecer el denominador para sus cálculos de proporción».*
+*"El gráfico resultante sigue sin ser correcto. Ya no tenemos un recuento en el eje y, pero las proporciones de las barras tienen todas un valor de 1, por lo que todas las barras tienen la misma altura. Queremos que sumen 1, para obtener el número de observaciones por «nivel» como proporción del número total de observaciones. Se trata de nuevo de un problema de agrupación... tenemos que indicar a ggplot que ignore las categorías x al calcular el denominador de la proporción y que utilice en su lugar el número total de observaciones. Para ello, especificamos group = 1 dentro de la llamada `aes()`. El valor 1 es solo una especie de «grupo ficticio» que indica a ggplot que utilice todo el conjunto de datos al establecer el denominador para sus cálculos de proporción".*
 
 ```{r}
 ggplot(BCS0708, aes(x=walkday)) +
@@ -799,7 +795,7 @@ geom_bar()
 
 Este tipo de gráficos de barras apiladas no son muy útiles si lo que te interesa es comprender la relación entre estas dos variables. Es difícil ver si algún grupo es proporcionalmente más propenso a sentirse seguro o no.
 
-En cambio, lo que quieres es un tipo diferente de gráfico de barras apiladas, que te dé la proporción de tu «variable explicativa» (etnia) dentro de cada uno de los niveles de tu «variable de respuesta» (en este caso, la sensación de seguridad).
+En cambio, lo que quieres es un tipo diferente de gráfico de barras apiladas, que te dé la proporción de tu "variable explicativa" (etnia) dentro de cada uno de los niveles de tu "variable de respuesta" (en este caso, la sensación de seguridad).
 
 ```{r}
 
@@ -816,7 +812,7 @@ mapping = aes(y = after_stat(prop), group = ethgrp2))
 p
 ```
 
-Ahora tenemos un gráfico de barras en el que los valores de origen étnico se desglosan por niveles de temor a la delincuencia, con una proporción que se muestra en el eje Y. Si observamos las barras, veremos que no suman uno dentro de cada nivel de temor. En cambio, las barras de cualquier origen étnico concreto suman uno en todos los niveles de temor. Se puede ver, por ejemplo, que casi el 75 % de los encuestados blancos se encuentran en el nivel «Muy seguro», mientras que, por ejemplo, menos del 60 % de los encuestados negros se sienten «Muy seguros».
+Ahora tenemos un gráfico de barras en el que los valores de origen étnico se desglosan por niveles de temor a la delincuencia, con una proporción que se muestra en el eje Y. Si observamos las barras, veremos que no suman uno dentro de cada nivel de temor. En cambio, las barras de cualquier origen étnico concreto suman uno en todos los niveles de temor. Se puede ver, por ejemplo, que casi el 75 % de los encuestados blancos se encuentran en el nivel "Muy seguro", mientras que, por ejemplo, menos del 60 % de los encuestados negros se sienten "Muy seguros".
 
 A veces, es posible que desee invertir el eje, de modo que las barras se muestren horizontalmente. Para ello, puede utilizar la función `coord_flip()`.
 
@@ -835,27 +831,10 @@ Existen otras herramientas que a veces se utilizan para visualizar datos categó
 
 ![bonito gráfico circular](imgs/piechart.jpg)
 
-Lo que yo utilizaría en su lugar son **gráficos waffle**. Son muy fáciles de crear con el paquete «waffle», pero no creo que haya tiempo para ello en este momento. No obstante, puedes echarles un vistazo [aquí](https://www.r-bloggers.com/making-waffle-charts-in-r-with-the-new-waffle-package/).
+Lo que yo utilizaría en su lugar son **gráficos waffle**. Son muy fáciles de crear con el paquete `waffle`, pero no creo que haya tiempo para ello en este momento. No obstante, puedes echarles un vistazo [aquí](https://www.r-bloggers.com/making-waffle-charts-in-r-with-the-new-waffle-package/).
 
-## Recursos adicionales
-
-A estas alturas ya deberías saber que el camino hacia el dominio del análisis de datos lleva tiempo. La buena noticia es que vivimos en una época en la que hay múltiples recursos (a menudo gratuitos) que te pueden ayudar en el proceso. Los tiempos en los que este conocimiento era privilegio de unos pocos han quedado muy lejos. Si eres una persona motivada y disciplinada, hay muchas cosas que puedes hacer para consolidar y ampliar tus habilidades de visualización de datos sin gastar dinero. Ya te he recomendado la excelente documentación en línea de `ggplot2`. Aquí solo queremos indicarte algunos recursos útiles que puedes consultar en el futuro.
-
-En primer lugar, los **MOOCS (cursos online masivos y abiertos)**. Hay muchos MOOCS útiles que ofrecen formación gratuita en visualización de datos (bueno, puedes pagar si quieres un certificado, pero también puedes utilizar los recursos y aprender de forma gratuita).
-
--   [Visualización de información](https://www.coursera.org/specializations/information-visualization). Este curso ofrece una introducción a algunos conceptos más avanzados que los presentados en nuestro tutorial. También cubre software más avanzado para visualizaciones en la web.
-
-En segundo lugar, **tutoriales en línea**. Una de las cosas que pronto descubrirás es que los usuarios de R están muy interesados en escribir guías prácticas en algunos de los [750 blogs dedicados a R](http://www.r-bloggers.com/) o como parte de [Rpubs](https://rpubs.com/). Utilizando Google o similares, a menudo encontrarás soluciones a casi cualquier problema que te encuentres al usar R. Por ejemplo, en este blog hay algunos tutoriales que quizá te interese consultar para complementar los míos:
-
--   [Hoja de referencia para visualizar diagramas de dispersión](http://rforpublichealth.blogspot.co.uk/2013/11/ggplot2-cheatsheet-for-scatterplots.html)\
--   [Hoja de referencia para visualizar distribuciones](http://rforpublichealth.blogspot.co.uk/2014/02/ggplot2-cheatsheet-for-visualizing.html)\
--   [Hoja de referencia para gráficos de barras](http://rforpublichealth.blogspot.co.uk/2014_01_01_archive.html)
-
-En tercer lugar, *blogs sobre visualización de datos*. Si utilizas [Feedly](https://feedly.com/index.html#discover) o un agregador de blogs similar, deberías añadir los siguientes blogs a tu lista de lectura. Están escritos por personas destacadas en este campo y están llenos de consejos útiles: + [Flowing Data](http://flowingdata.com/) + [The Functional Art](http://www.thefunctionalart.com/) + [Visual Business Intelligence](http://www.perceptualedge.com/blog/) + [chartsnthings](https://kpq.github.io/chartsnthings/) + [Data Revelations](http://www.datarevelations.com/category/blog)
-
-En cuarto lugar, **recursos para visualizaciones que no tenemos tiempo de cubrir**. R está muy por delante de algunos de los programas de análisis de datos más populares con los que quizá estés más familiarizado (por ejemplo, SPSS o Excel). Hay muchas cosas que puedes hacer.
-
-**Tarea:**
+::: {.callout-note appearance="\"simple"}
+**TAREA:**
 
 *Descargue el conjunto de datos NCOVR de Blackboard. Puede consultar el archivo PDF que se proporciona allí para comprender mejor las variables del conjunto de datos. A continuación, lea los datos en R. Para ello, puede utilizar la función read.csv. Por lo tanto, siempre que tenga el conjunto de datos en su directorio de trabajo, puede utilizar el siguiente código para leer los datos en R:*
 
@@ -895,3 +874,4 @@ geom_point(alpha=.1) +
 geom_smooth(size=1, se=FALSE)
 
 ```
+:::
